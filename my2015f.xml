@@ -63,14 +63,6 @@
 	<Course Section="CS 146B" Title="Intro to Web Prgming and Web Dev" CallNumber="10482">
 		<Meeting Day="MTR" StartTime="10:00:00Z" EndTime="10:50:00Z">
 <!--########################################################################################-->
-	<Course Section="CS 284A" Title="Data Structures" CallNumber="10486">
-		<Meeting Day="MWF" StartTime="8:00:00Z" EndTime="8:50:00Z">
-
-	<Course Section="CS 284RA" Title="Data Structures" CallNumber="10487">
-		<Meeting Day="M" StartTime="11:00:00Z" EndTime="11:50:00Z">
-	<Course Section="CS 284RB" Title="recitation" CallNumber="12166">
-		<Meeting Day="M" StartTime="11:00:00Z" EndTime="11:50:00Z">
-<!--########################################################################################-->
 	<Course Section="D 110A" Title="Freshman Quiz" CallNumber="10583">
 		<Meeting Day="T" StartTime="13:00:00Z" EndTime="14:05:00Z">
 <!--########################################################################################-->
