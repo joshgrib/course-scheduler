@@ -1,9 +1,9 @@
 '''
-Maybe an easier format?
 http://web.stevens.edu/scheduler/cor  2015F/sched_plus_crsemtg.txt
 Got there by going back to the "core" part of the url then going to that text file (plus course meeting?)
 '''
 
+#heres the courses as on big dictionary
 courses = {\
 'BT  353A' : ["M","1300","1350"] , \
 'BT  353A' : ["W","1100","1240"] , \
@@ -28,10 +28,12 @@ courses = {\
 'CS  146A' : ["TWF","0900","0950"] , \
 'CS  146B' : ["MTR","1400","1450"] , \
 'D   110A' : ["T","1700","1805"] , \
-'HHS 468EV' : ["M","1815","2045"] }
+'HHS 468EV' : ["M","1815","2045"]\
+}
 
 uniqueCourses = []
 
+print "Accessing different parts of dictionary and keys testing:"
 for x in courses:
     #print x + " String length:" + str(len(x))
     #print "Course number: " + x[4:9]
@@ -71,5 +73,68 @@ def isAllowed(classList1, classList2):
     else:
         print 'Conflict!'
 
+print ""
+print "isAllowed() testing:"
 isAllowed(courses['CS  115A'], courses['BT  353D'])     #no conflict
 isAllowed(courses['CS  115A'], courses['BT  353A'])     #conflict
+
+
+
+
+#heres the courses as a big nested dictionary thing
+coursesNested = {\
+    "BT  353":{\
+        "A":[\
+            ["M","1300","1350"],\
+            ["W","1100","1240"]\
+            ],\
+        "B":[\
+            ["M","1500","1640"],\
+            ["W","0900","0950"]\
+            ],\
+        "C":[\
+            ["T","1500","1640"],\
+            ["R","1100","1150"]\
+            ],\
+        "D":[\
+            ["T","1500","1640"],\
+            ["R","1100","1150"]\
+            ],\
+        "E":["M","1815","2045"]\
+        },\
+    "CS  115":{\
+        "A":["MWF","1200","1250"],\
+        "B":["MRF","1300","1350"]\
+        },\
+    "CS  115L":{\
+        "A":["R","0900","1040"],\
+        "B":["R","1100","1240"],\
+        "C":["R","1500","1640"],\
+        "D":["R","1500","1640"],\
+        "E":["F","1000","1140"],\
+        "F":["F","1600","1740"]\
+        },\
+    "CS  135":{\
+        "A":["MWF","1000","1050"]\
+        },\
+    "CS  135L":{\
+        "A":["F","1100","1240"],\
+        "B":["F","1300","1440"]\
+        },\
+    "CS  146":{\
+        "A":["TWF","0900","0950"],\
+        "B":["MTR","1400","1450"]\
+        },\
+    "D   110":{\
+        "A":["T","1700","1805"]\
+        },\
+    "HHS 468":{\
+        "EV":["M","1815","2045"]\
+        }\
+    }
+
+print ""
+print "Nested dictionaries testing:"
+print coursesNested
+print coursesNested["CS  146"]
+print coursesNested["CS  146"]["A"]
