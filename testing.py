@@ -3,7 +3,7 @@ http://web.stevens.edu/scheduler/cor  2015F/sched_plus_crsemtg.txt
 Got there by going back to the "core" part of the url then going to that text file (plus course meeting?)
 '''
 
-#heres the courses as on big dictionary
+#heres the courses as one big dictionary
 courses = {\
     'BT  353A' : ["M","1300","1350"] , \
     'BT  353A' : ["W","1100","1240"] , \
@@ -31,22 +31,22 @@ courses = {\
     'HHS 468EV' : ["M","1815","2045"]\
     }
 
-uniqueCourses = []
-
-print "Accessing different parts of dictionary and keys testing:"
-for x in courses:
-    #print x + " String length:" + str(len(x))
-    #print "Course number: " + x[4:9]
-    #print ""
-    y = x[4:7]
-    if (uniqueCourses.count(y) == 0):
-        uniqueCourses.append(y)
-    print uniqueCourses
+def keyTesting():
+    uniqueCourses = []
+    print "Accessing different parts of dictionary and keys testing:"
+    for x in courses:
+        #print x + " String length:" + str(len(x))
+        #print "Course number: " + x[4:9]
+        #print ""
+        y = x[4:7]
+        if (uniqueCourses.count(y) == 0):
+            uniqueCourses.append(y)
+        print uniqueCourses
 
 collapsable_comments = [
     '''
     String idexes 4-6 have the course numbers
-    20 sections total
+    20 sections for 6 courses
     432 possibilities, low enough that blunt-force should work fine
     Start with classes where there's only one section, if theres a conflict there, stop and say the schedule isn't possibilities
     Then go to the next ones with 2 sections, then 3, etc
@@ -61,7 +61,7 @@ collapsable_comments = [
     First get all the coursed ordered from most to least sections
     Anything with one section can be put right in
     Then starting with the least sections see what doesn't have conflicts and make a new schedule for every one that can be put it.
-    For the next class all sections will need to be checked against all other schedules 
+    For the next class all sections will need to be checked against all other schedules
     '''
 
     '''
@@ -89,10 +89,10 @@ def isAllowed(classList1, classList2):
     else:
         print 'Conflict!'
 
-print ""
-print "isAllowed() testing:"
-isAllowed(courses['CS  115A'], courses['BT  353D'])     #no conflict
-isAllowed(courses['CS  115A'], courses['BT  353A'])     #conflict
+def isAllowedTesting():
+    print "isAllowed() testing:"
+    isAllowed(courses['CS  115A'], courses['BT  353D'])     #no conflict
+    isAllowed(courses['CS  115A'], courses['BT  353A'])     #conflict
 
 #heres the courses as a big nested dictionary thing
 coursesNested = {\
@@ -146,17 +146,17 @@ coursesNested = {\
         }\
     }
 
-print ""
-print "Nested dictionaries testing:"
-print coursesNested
-print coursesNested["CS  146"]
-print coursesNested["CS  146"]["A"]
-#len(coursesNested["CS  146"]["A"][0]) could be a good way to figure out how many days each thing fits in then get the index of that string, then sort to that day
-print coursesNested["CS  146"]["A"][0] + "are the days of the week this course is at this same time"
-print str(len(coursesNested["CS  146"]["A"][0])) + " days of the week at the same time"
+def nestedDictionaryTesting():
+    print "Nested dictionaries testing:"
+    print coursesNested
+    print coursesNested["CS  146"]
+    print coursesNested["CS  146"]["A"]
+    #len(coursesNested["CS  146"]["A"][0]) could be a good way to figure out how many days each thing fits in then get the index of that string, then sort to that day
+    print coursesNested["CS  146"]["A"][0] + "are the days of the week this course is at this same time"
+    print str(len(coursesNested["CS  146"]["A"][0])) + " days of the week at the same time"
 
 #possible schedule format
-schedules = {\
+ex_schedules = {\
     "sched1":{\
         "M":["course1","course2","course3"],\
         "T":["course1","course2","course3"],\
@@ -172,3 +172,26 @@ schedules = {\
         "F":["course1","course2","course3"]\
         }\
     }
+
+schedules = {}
+
+def classLoopingTesting():
+    '''This goes through all the stuff and gets down to the important info for each section'''
+    #go through each course and print it
+    for course in coursesNested:
+        print course
+        #go through each section in each course and print it
+        for section in coursesNested[course]:
+            print "    " + section
+            #go through the info for each section
+            for class_time in coursesNested[course][section]:
+                #if it's just the days and times, print them
+                if str(class_time) == class_time:
+                    print "        " + str(class_time)
+                #if its not (so its a list of 2 or more lists), then break it down again and then print the days and times
+                else:
+                    for other_day in class_time:
+                        print "        " + str(other_day)
+
+
+classLoopingTesting()
