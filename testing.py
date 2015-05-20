@@ -1,3 +1,4 @@
+import copy
 '''
 http://web.stevens.edu/scheduler/cor  2015F/sched_plus_crsemtg.txt
 Got there by going back to the "core" part of the url then going to that text file (plus course meeting?)
@@ -193,5 +194,19 @@ def classLoopingTesting():
                     for other_day in class_time:
                         print "        " + str(other_day)
 
+def scheduleMakerTesting():
+    new_sched = {}
+    base_schedule = {"M":[],"T":[],"W":[],"R":[],"F":[]}
+    print "base: " + str(base_schedule)
+    print "new: " + str(new_sched)
+    new_sched = copy.deepcopy(base_schedule) #this has to be used to make a new dictionary, otherwise they just point to the same obejct, deepcopy goes to nested dictionaries
+    new_sched.update({"new":"true"})
+    print "base: " + str(base_schedule)
+    print "new: " + str(new_sched)
 
-classLoopingTesting()
+scheduleMakerTesting()
+
+'''
+TODO:
+Make a function to go through and put a few courses into the schedule dictionary to get a feel for it. Then maybe start doing some stuff to check for time conflicts
+'''
