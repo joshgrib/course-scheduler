@@ -31,7 +31,6 @@ courses = {\
     'D   110A' : ["T","1700","1805"] , \
     'HHS 468EV' : ["M","1815","2045"]\
     }
-
 def keyTesting():
     uniqueCourses = []
     print "Accessing different parts of dictionary and keys testing:"
@@ -89,7 +88,6 @@ def isAllowed(classList1, classList2):
         print 'No conflict!'
     else:
         print 'Conflict!'
-
 def isAllowedTesting():
     print "isAllowed() testing:"
     isAllowed(courses['CS  115A'], courses['BT  353D'])     #no conflict
@@ -146,7 +144,6 @@ coursesNested = {\
         "EV":["M","1815","2045"]\
         }\
     }
-
 def nestedDictionaryTesting():
     print "Nested dictionaries testing:"
     print coursesNested
@@ -173,10 +170,9 @@ ex_schedules = {\
         "F":["course1","course2","course3"]\
         }\
     }
-
 schedules = {}
 
-def classLoopingTesting():
+def courseLoopingTesting():
     '''This goes through all the stuff and gets down to the important info for each section'''
     #go through each course and print it
     for course in coursesNested:
