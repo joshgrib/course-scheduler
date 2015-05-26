@@ -4,6 +4,7 @@ http://web.stevens.edu/scheduler/cor  2015F/sched_plus_crsemtg.txt
 Got there by going back to the "core" part of the url then going to that text file (plus course meeting?)
 '''
 
+'''Deprecated
 #heres the courses as one big dictionary
 courses = {\
     'BT  353A' : ["M","1300","1350"] , \
@@ -42,6 +43,7 @@ def keyTesting():
         if (uniqueCourses.count(y) == 0):
             uniqueCourses.append(y)
         print uniqueCourses
+'''
 
 collapsable_comments = [
     '''
@@ -191,16 +193,126 @@ def courseLoopingTesting():
                         print "        " + str(other_day)
 
 def scheduleMakerTesting():
-    new_sched = {}
-    base_schedule = {"M":[],"T":[],"W":[],"R":[],"F":[]}
-    print "base: " + str(base_schedule)
-    print "new: " + str(new_sched)
-    new_sched = copy.deepcopy(base_schedule) #this has to be used to make a new dictionary, otherwise they just point to the same obejct, deepcopy goes to nested dictionaries
-    new_sched.update({"new":"true"})
+    '''This is used to make a new "branch" of schedules. When theres a few possibilities, a new branch will be made for each one, then from there each addition will be checked with each branch.'''
+    base_schedule = {"M":[],"T":[],"W":[],"R":[],"F":[]} #time to branch
+    new_sched = {}#new empty dictionary
+
     print "base: " + str(base_schedule)
     print "new: " + str(new_sched)
 
-scheduleMakerTesting()
+    new_sched = copy.deepcopy(base_schedule)#fill the new one with a copy of the old one
+    #this has to be used to make a new dictionary, otherwise they just point to the same obejct, deepcopy goes to nested dictionaries
+    new_sched.update({"new":"true"})#add a new key-value to the new dictionary
+
+    print "base: " + str(base_schedule)
+    print "new: " + str(new_sched)
+
+#courseLoopingTesting()
+#scheduleMakerTesting()
+
+def proveTheConspiracy(name,event):
+    jetFuelCantMeltSteelBeams = True
+    if jetFuelCantMeltSteelBeams:
+        print name + " did " + event
+#proveTheConspiracy("Bush","9/11")
+
+
+coursesNestedBetter = {\
+    "BT  353":{\
+        "A":[\
+            ["M","1300","1350"],\
+            ["W","1100","1240"]\
+            ],\
+        "B":[\
+            ["M","1500","1640"],\
+            ["W","0900","0950"]\
+            ],\
+        "C":[\
+            ["T","1500","1640"],\
+            ["R","1100","1150"]\
+            ],\
+        "D":[\
+            ["T","1500","1640"],\
+            ["R","1100","1150"]\
+            ],\
+        "E":[["M","1815","2045"]]\
+        },\
+    "CS  115":{\
+        "A":[\
+            ["M","1200","1250"],\
+            ["W","1200","1250"],\
+            ["F","1200","1250"]\
+            ],\
+        "B":[\
+            ["M","1300","1350"],\
+            ["R","1300","1350"],\
+            ["F","1300","1350"]\
+            ]\
+        },\
+    "CS  115L":{\
+        "A":[["R","0900","1040"]],\
+        "B":[["R","1100","1240"]],\
+        "C":[["R","1500","1640"]],\
+        "D":[["R","1500","1640"]],\
+        "E":[["F","1000","1140"]],\
+        "F":[["F","1600","1740"]]\
+        },\
+    "CS  135":{\
+        "A":[\
+            ["F","1000","1050"],\
+            ["W","1000","1050"],\
+            ["F","1000","1050"]\
+            ]\
+        },\
+    "CS  135L":{\
+        "A":[["F","1100","1240"]],\
+        "B":[["F","1300","1440"]]\
+        },\
+    "CS  146":{\
+        "A":[\
+            ["T","0900","0950"],\
+            ["W","0900","0950"],\
+            ["F","0900","0950"]\
+            ],\
+        "B":[\
+            ["M","1400","1450"],\
+            ["T","1400","1450"],\
+            ["R","1400","1450"]\
+            ]\
+        },\
+    "D   110":{\
+        "A":[["T","1700","1805"]]\
+        #double brackets used to maintain consistent schema
+        },\
+    "HHS 468":{\
+        "EV":[["M","1815","2045"]]\
+        }\
+    }
+
+
+def theyChoseThatSchemaBecauseTheyHateMe():
+    '''New nested makes schema more consistent because all sections have an list of lists regardless of how many meetings there are or if they all meet at the same time each day. From here I should be able to go through and get the values of class_time[1] and class_time[2] as the start and end times, then I can put them into the conflict-checker function and make some schedules!!!'''
+    count = 0
+    for course in coursesNestedBetter:
+        print course
+        #go through each section in each course and print it
+        for section in coursesNestedBetter[course]:
+            print "    " + section
+            #go through the info for each section
+            for class_time in coursesNestedBetter[course][section]:
+                #break it down again and then print the days and times
+                print "        " + class_time[0]
+                #for other_day in class_time:
+                    #print "        " + str(other_day)
+            #print "Done with sections"
+        #print "Done with courses"
+    #print "Done with dictionary"
+
+
+theyChoseThatSchemaBecauseTheyHateMe()
+
+
+
 
 '''
 TODO:

@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)https://www.thegreatco.com/projects/scheduler-api/ -->
+<html lang="en-US" class=" js flexbox no-touch csstransforms inlinesvg"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://www.thegreatco.com/xmlrpc.php">
+
+<title>Scheduler API | TheGreatCO.com</title>
+<!-- Jetpack Site Verification Tags -->
+<meta name="google-site-verification" content="qLfrp4gaYYuySsE8aao2_GWC3YlZYfQOna3nzu88uF4">
+
+<!-- All in One SEO Pack 2.2.5.1 by Michael Torbert of Semper Fi Web Design[327,364] -->
+<meta name="description" itemprop="description" content="The Stevens Schedule Data can be accessed by any software capable of handling XML data. I attempted to keep it as simple as possible, yet allowing for as much">
+
+<link rel="canonical" href="./Stevens Scheduler API_files/Stevens Scheduler API.html">
+		<script id="twitter-wjs" src="./Stevens Scheduler API_files/widgets.js"></script><script type="text/javascript" async="" src="./Stevens Scheduler API_files/ga.js"></script><script type="text/javascript">
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', 'UA-1214998-2']);
+		  _gaq.push(['_trackPageview']);
+		  (function() {
+		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+		</script>
+<!-- /all in one seo pack -->
+<link rel="alternate" type="application/rss+xml" title="TheGreatCO.com » Feed" href="https://www.thegreatco.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="TheGreatCO.com » Comments Feed" href="https://www.thegreatco.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="TheGreatCO.com » Scheduler API Comments Feed" href="https://www.thegreatco.com/projects/scheduler-api/feed/">
+<link rel="stylesheet" id="decode-style-css" href="./Stevens Scheduler API_files/style.css" type="text/css" media="all">
+<link rel="stylesheet" id="decode-font-stylesheet-css" href="./Stevens Scheduler API_files/css" type="text/css" media="all">
+<link rel="stylesheet" id="jetpack_css-css" href="./Stevens Scheduler API_files/jetpack.css" type="text/css" media="all">
+<script type="text/javascript" src="./Stevens Scheduler API_files/jquery.js"></script>
+<script type="text/javascript" src="./Stevens Scheduler API_files/jquery-migrate.min.js"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.thegreatco.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.thegreatco.com/wp-includes/wlwmanifest.xml"> 
+<meta name="generator" content="WordPress 4.1.5">
+<link rel="shortlink" href="https://wp.me/PeJ8o-b">
+<style type="text/css">img#wpstats{display:none}</style>		<!-- Decode Custom Colors CSS -->
+		<style type="text/css">
+			body, .sidebar, .sidebar-top, .menu ul ul, .header-style-ghost .site { background-color: #E3E5E7; }body, button, input, select, textarea, .site-title a, .menu a, .entry-title, .search-entry, .search-entry .entry-title, .entry-title a, .format-link .entry-title h2 a, .read-more, .author-name a, .explore-page .widget h1, .decode-reply-tool-plugin .replylink, .decode-reply-tool-plugin .replytrigger { color: #444444; }.menu ul > .menu-item-has-children > a::after, .menu ul > .page_item_has_children > a::after { border-top-color: #444444; }.footer-menu ul > .menu-item-has-children > a::after, .footer-menu ul > .page_item_has_children > a::after { border-bottom-color: #444444; }.menu-icon, .close-icon, .social-icon-fill { fill: #444444; }a, .no-touch a:hover, button, input[type=button], input[type=reset], input[type=submit], .no-touch .site-title a:hover, .no-touch .menu a:hover, .menu ul li.open > a, .sidebar-menu a, .menu .current-menu-item > a, .menu .current_page_item > a, .no-touch .search-entry:hover, .no-touch .search-entry:hover .entry-title, .no-touch article .date a:hover, .no-touch .format-link .entry-title a:hover, .no-touch .comment-metadata a:hover, .no-touch .decode-reply-tool-plugin .replylink:hover { color: #009BCD; }.no-touch button:hover, .no-touch input[type=button]:hover, .no-touch input[type=reset]:hover, .no-touch input[type=submit]:hover, .no-touch input[type=text]:focus, .touch input[type=text]:focus, .no-touch input[type=email]:focus, .touch input[type=email]:focus, .no-touch input[type=password]:focus, .touch input[type=password]:focus, .no-touch input[type=search]:focus, .touch input[type=search]:focus, .no-touch input[type=tel]:focus, .touch input[type=tel]:focus, .no-touch input[type=url]:focus, .touch input[type=url]:focus, .no-touch textarea:focus, .touch textarea:focus, .no-touch .site-description a:hover, .no-touch .entry-content a:hover, .no-touch .categories a:hover, .no-touch .tags a:hover, .no-touch .comments-link a:hover, .no-touch .edit-link a:hover, .no-touch .author-site a:hover, .no-touch .theme-info a:hover, .no-touch .site-colophon a:hover, .site-header, .menu ul ul, .menu a:focus, .site-breadcrumbs, .page-title, .post blockquote, .page blockquote, .entry-footer, .entry-header .entry-meta, .search .entry-footer, .sidebar-top, .sidebar-style-constant .sidebar.left, .sidebar-style-constant .sidebar.right, .explore-page .widget h1 { border-color: #009BCD; }.no-touch .menu ul > .menu-item-has-children > a:hover::after, .no-touch .menu ul > .page_item_has_children > a:hover::after, .menu ul li.open > a::after, .sidebar-menu ul .menu-item-has-children > a::after, .sidebar-menu ul .page_item_has_children > a::after, .menu ul > .current_page_item.menu-item-has-children > a::after, .menu ul > .current_page_item.page_item_has_children > a::after { border-top-color: #009BCD; }.no-touch .footer-menu ul > .menu-item-has-children > a:hover::after, .no-touch .footer-menu ul > .page_item_has_children > a:hover::after, .footer-menu ul > li.open > a::after, .footer-menu ul > .current_page_item.menu-item-has-children > a::after, .footer-menu ul > .current_page_item.page_item_has_children > a::after { border-bottom-color: #009BCD; }.no-touch a:active, .no-touch button:focus, .touch button:focus, .no-touch button:active, .touch button:active, .no-touch input[type=button]:focus, .touch input[type=button]:focus, .no-touch input[type=button]:active, .touch input[type=button]:active, .no-touch input[type=reset]:focus, .touch input[type=reset]:focus, .no-touch input[type=reset]:active, .touch input[type=reset]:active, .no-touch input[type=submit]:focus, .touch input[type=submit]:focus, .no-touch input[type=submit]:active, .touch input[type=submit]:active, .no-touch .site-title a:active, .no-touch .menu a:active, .no-touch .sidebar-menu a:hover, .sidebar-menu ul li.open > a, .menu .current-menu-item > a:hover, .menu .current_page_item > a:hover, .sidebar-menu ul .current-menu-item > a, .sidebar-menu ul .current_page_item > a, .no-touch .sidebar-content a:hover, .no-touch .search-entry:active, .no-touch .search-entry:active .entry-title, .no-touch article .date a:active, .no-touch .format-link .entry-title a:active, .no-touch .comment-metadata a:active, .no-touch .site-description a:active, .decode-reply-tool-plugin .replylink:active, .no-touch .decode-reply-tool-plugin .replylink:active { color: #007EA6; }.no-touch button:focus, .touch button:focus, .no-touch button:active, .touch button:active, .no-touch input[type=button]:focus, .touch input[type=button]:focus, .no-touch input[type=button]:active, .touch input[type=button]:active, .no-touch input[type=reset]:focus, .touch input[type=reset]:focus, .no-touch input[type=reset]:active, .touch input[type=reset]:active, .no-touch input[type=submit]:focus, .touch input[type=submit]:focus, .no-touch input[type=submit]:active, .touch input[type=submit]:active, .no-touch .site-description a:active, .no-touch .entry-content a:active, .no-touch .categories a:active, .no-touch .tags a:active, .no-touch .comments-link a:active, .no-touch .edit-link a:active, .no-touch .author-site a:active, .no-touch .theme-info a:active, .no-touch .site-colophon a:active { border-color: #007EA6; }.no-touch .menu ul > .menu-item-has-children > a:active::after, .no-touch .menu ul > .page_item_has_children > a:active::after, .no-touch .sidebar-menu ul .menu-item-has-children > a:hover::after, .no-touch .sidebar-menu ul .page_item_has_children > a:hover::after, .sidebar-menu ul li.open > a::after, .sidebar-menu ul .current_page_item.menu-item-has-children > a::after, .sidebar-menu ul .current_page_item.page_item_has_children > a::after { border-top-color: #007EA6; }.no-touch .footer-menu ul > .menu-item-has-children > a:active::after, .no-touch .footer-menu ul > .page_item_has_children > a:active::after { border-bottom-color: #007EA6; }.no-touch input[type=text]:hover, .no-touch input[type=email]:hover, .no-touch input[type=password]:hover, .no-touch input[type=search]:hover, .no-touch input[type=tel]:hover, .no-touch input[type=url]:hover, .no-touch textarea:hover, article .tags, article .categories, article .date, article .date a, .comment-metadata a, .search .page-header input[type=search] { color: #808080; }.no-touch input[type=text]:hover, .no-touch input[type=email]:hover, .no-touch input[type=password]:hover, .no-touch input[type=search]:hover, .no-touch input[type=tel]:hover, .no-touch input[type=url]:hover, .no-touch textarea:hover, .no-touch .search .page-header input[type=search]:hover { border-color: #808080; }.no-touch input[type=text]:focus, .touch input[type=text]:focus, .no-touch input[type=email]:focus, .touch input[type=email]:focus, .no-touch input[type=password]:focus, .touch input[type=password]:focus, .no-touch input[type=search]:focus, .touch input[type=search]:focus, .no-touch input[type=tel]:focus, .touch input[type=tel]:focus, .no-touch input[type=url]:focus, .touch input[type=url]:focus, .no-touch textarea:focus, .touch textarea:focus { color: #444444; }.no-touch input[type=text]:focus, .touch input[type=text]:focus, .no-touch input[type=email]:focus, .touch input[type=email]:focus, .no-touch input[type=password]:focus, .touch input[type=password]:focus, .no-touch input[type=search]:focus, .touch input[type=search]:focus, .no-touch input[type=tel]:focus, .touch input[type=tel]:focus, .no-touch input[type=url]:focus, .touch input[type=url]:focus, .no-touch textarea:focus, .touch textarea:focus, .no-touch .search .page-header input[type=search]:focus, .touch .search .page-header input[type=search]:focus { border-color: #009BCD; }		</style>
+		<style type="text/css" id="custom-background-css">
+body.custom-background { background-color: #E3E5E7; }
+</style>
+<link rel="stylesheet" type="text/css" id="gravatar-card-css" href="./Stevens Scheduler API_files/hovercard.css"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="./Stevens Scheduler API_files/services.css"></head>
+
+<body class="page page-id-11 page-child parent-pageid-6 page-template-default custom-background sidebar-style-constant sidebar-style-left" data-twttr-rendered="true">
+	
+<div id="page" class="hfeed site">
+	
+	<a class="skip-link screen-reader-text" href="https://www.thegreatco.com/projects/scheduler-api/#content">Skip to content</a>
+	
+			
+			<button id="sidebar-link" class="sidebar-link SidebarLink left" title="Show sidebar">
+			<svg width="100%" height="100%" viewBox="0 0 240 200" version="1.1" xmlns="http://www.w3.org/2000/svg">
+				<g class="menu-icon" fill-rule="evenodd">
+					<path d="M0,160 L0,200 L240,200 L240,160 L0,160 Z M0,160"></path>
+					<path d="M0,80 L0,120 L240,120 L240,80 L0,80 Z M0,80"></path>
+					<path d="M0,0 L0,40 L240,40 L240,0 L0,0 Z M0,0"></path>
+				</g>
+			</svg>
+		</button>
+			<div class="site-scroll">	<header id="masthead" class="site-header" role="banner">
+				
+		<div class="site-branding">
+			
+										
+						
+				<h1 class="site-title">
+				<a href="https://www.thegreatco.com/" title="TheGreatCO.com" rel="home">TheGreatCO.com</a>
+				</h1>
+						
+											<h2 class="site-description">C# Developer, MongoDB Support Engineer</h2>
+										
+		</div><!-- .site-branding -->
+		
+		
+		<div class="menu horizontal-menu header-menu"><ul><li class="page_item page-item-6 page_item_has_children current_page_ancestor current_page_parent"><a href="https://www.thegreatco.com/">TheGreatCO’s Projects</a><ul class="children"><li class="page_item page-item-11 current_page_item"><a href="./Stevens Scheduler API_files/Stevens Scheduler API.html">Scheduler API</a></li><li class="page_item page-item-19"><a href="https://www.thegreatco.com/projects/sharpextensions/">SharpExtensions</a></li></ul></li></ul></div>
+		
+				
+	</header><!-- #masthead -->
+	
+			
+		
+	<div id="content" class="site-content">
+		
+<div id="primary" class="content-area">
+	<main id="main" class="site-main" role="main">
+
+		
+			
+	<article id="post-11" class="post-11 page type-page status-publish hentry">
+		
+	<header class="entry-header">
+				<h1 class="entry-title">Scheduler API</h1>		
+	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+	
+		<p>The Stevens Schedule Data can be accessed by any software capable of handling XML data. &nbsp;I attempted to keep it as simple as possible, yet allowing for as much functionality as possible. &nbsp;All features are accessed through a simple manipulation of the URL.</p>
+<ul>
+<li>Base URL: http://www.stevens.edu/scheduler/core/core.php?</li>
+<li>Available parameters: cmd, term, and debug</li>
+<li>Available commands: getxml, getdesignators, termlist, terms, help.</li>
+</ul>
+<table style="height: 119px;" border="1" width="550">
+<tbody>
+<tr>
+<td>Command</td>
+<td>Requirements</td>
+<td>Results</td>
+</tr>
+<tr>
+<td>getxml</td>
+<td>term</td>
+<td>Serves up an XML file containing all class data for the term specified.</td>
+</tr>
+<tr>
+<td>getdesignators</td>
+<td>N/A</td>
+<td>Serves up an XML file containing the designators information, such as activites, building names, sites, requirements, etc.</td>
+</tr>
+<tr>
+<td>termlist</td>
+<td>N/A</td>
+<td>Serves up an HTML file of available terms, used mainly for human use.</td>
+</tr>
+<tr>
+<td>terms</td>
+<td>N/A</td>
+<td>Serves up an XML file of available terms.</td>
+</tr>
+<tr>
+<td>help</td>
+<td>N/A</td>
+<td>Serves up an HTML help file, not very well written.</td>
+</tr>
+<tr>
+<td>term</td>
+<td>N/A</td>
+<td>The format is 4 digit year, 1 character term. F – Fall, S – Spring, W – Intersession, A – Summer I, B – Summer II.</td>
+</tr>
+</tbody>
+</table>
+<p>Here are a few examples.</p>
+<ul>
+<li>http://www.stevens.edu/scheduler/core/core.php?cmd=terms – this will serve up the available terms</li>
+<li>http://www.stevens.edu/scheduler/core/core.php?cmd=getxml&amp;term=2008F – this will get you the classes available in XML format.</li>
+<li>http://www.stevens.edu/scheduler/core/core.php?cmd=help – this will give you the HTML help file built into the script (not so well organized but shows extensive information on the designators).</li>
+</ul>
+<p>The XML file format is important, it contains A LOT of data but its gzip’d before its sent to make sure it goes fast enough. The root document is &lt;Semester&gt; which contains 4 attributes:</p>
+<table border="1" width="550">
+<tbody>
+<tr>
+<td>Semester</td>
+<td>The term served up, should be the same as what was passed in the url with term=XXXXX</td>
+</tr>
+<tr>
+<td>Courses</td>
+<td>The number of courses present in the file.</td>
+</tr>
+<tr>
+<td>Meetings</td>
+<td>The number of course meetings found.</td>
+</tr>
+<tr>
+<td>Requirements</td>
+<td>The number of course requirements found.</td>
+</tr>
+</tbody>
+</table>
+<p>Each course is then its own element (&lt;Course&gt;) with 12 attributes:</p>
+<table style="height: 210px;" border="1" width="550" cellspacing="0">
+<tbody>
+<tr>
+<td>Section</td>
+<td>The Course section ex. “ME 522″</td>
+</tr>
+<tr>
+<td>Title</td>
+<td>The full name of the course</td>
+</tr>
+<tr>
+<td>CallNumber</td>
+<td>The call number of the course, 5 digits.</td>
+</tr>
+<tr>
+<td>MinCredit</td>
+<td>The minimum credit of the course.</td>
+</tr>
+<tr>
+<td>MaxCredit</td>
+<td>The maximum credit of the course, usually the same as MinCredit.</td>
+</tr>
+<tr>
+<td>MaxEnrollment</td>
+<td>The maximum number of seats available in the section.</td>
+</tr>
+<tr>
+<td>CurrentEnrollment</td>
+<td>The current number of seats filled in the section.</td>
+</tr>
+<tr>
+<td>Status</td>
+<td>The status of the section, ex. Open, Closed, Canceled. The codes are found using getdesignators command.</td>
+</tr>
+<tr>
+<td>StartDate</td>
+<td>The starting date of the class, not always the start of the semester. Uses XML date format with trailing ‘Z’.</td>
+</tr>
+<tr>
+<td>EndDate</td>
+<td>The ending date of the class, not always the end of the semester. Uses XML date format with trailing ‘Z’.</td>
+</tr>
+<tr>
+<td>Instructor1</td>
+<td>The name of the primary instructor, can be “STAFF” or the name of the professor.</td>
+</tr>
+<tr>
+<td>Instructor2</td>
+<td>This only appears if a second instructor is present, it usually isn’t so it is usually suppressed.</td>
+</tr>
+<tr>
+<td>Term</td>
+<td>The term of the class, same as what was passed in the URL with term=XXXXX.</td>
+</tr>
+</tbody>
+</table>
+<p>Within &lt;Course&gt; there are 2 possible types of sub-elements, &lt;Meeting&gt; and &lt;Requirement&gt;, though there may (and usually are) more then one of each within each &lt;Course&gt;.</p>
+<table border="1" width="550">
+<tbody>
+<tr>
+<td>Day</td>
+<td>The day of the week of the meeting, it can be 1 letter or multiple. M – Monday, T – Tuesday, W – Wednesday, R – Thursday, F – Friday, S – Saturday</td>
+</tr>
+<tr>
+<td>StartTime</td>
+<td>Start Time in UTC.</td>
+</tr>
+<tr>
+<td>EndTime</td>
+<td>End Time in UTC.</td>
+</tr>
+<tr>
+<td>Site</td>
+<td>This is usually “Castle Point”, for others see http://www.stevens.edu/scheduler/core/core.php?cmd=getdesignators</td>
+</tr>
+<tr>
+<td>Building</td>
+<td>The building code, can be found using cmd=getdesignators</td>
+</tr>
+<tr>
+<td>Room</td>
+<td>The room number the section meets in.</td>
+</tr>
+<tr>
+<td>Activity</td>
+<td>This is the type of class, ex. Lab, Lecture, Recitations. This can be found using the getdesignators command.</td>
+</tr>
+</tbody>
+</table>
+<table border="1" width="550">
+<tbody>
+<tr>
+<td>Control</td>
+<td>This value specifies if it contains a prerequisite, co-requisite, etc. More can be found using the getdesignators command.</td>
+</tr>
+<tr>
+<td>Argument</td>
+<td>More can be found using the getdesignators command.</td>
+</tr>
+<tr>
+<td>Value1</td>
+<td>This is the class that is whatever the control value says it is, ex prerequisite, co-requisite, etc. More can be found using the getdesignators command.</td>
+</tr>
+<tr>
+<td>Operator</td>
+<td>Usually blank.</td>
+</tr>
+<tr>
+<td>Value2</td>
+<td>Usually blank.</td>
+</tr>
+</tbody>
+</table>
+<p>As I said before, there can be multiple &lt;Meeting&gt; and &lt;Requirement&gt; elements per &lt;Course&gt;, if a section meets at the same time in the same location on multiple days, the “Day” attribute will contain multiple letters. If the “Day” attribute contains “TBA”, it will lack the “StartTime” and “EndTime” attributes.</p>
+<p>The “terms” command will generate an XML list of the available terms. The root of the file is &lt;Terms&gt; with an element (&lt;Term&gt;) for each available term. Each element contains 2 attributes.</p>
+<table border="1" width="550">
+<tbody>
+<tr>
+<td>Code</td>
+<td>The term code in the format of XXXXX, it will be what you put in the term parameter of the URL. They are served up in order: Intersession, Spring, Summer A, Summer B, and Fall.</td>
+</tr>
+<tr>
+<td>Name</td>
+<td>The Full name of the term as set by the registrar: YYYY (term) Catalog. Ex. 2004 Fall Catalog.</td>
+</tr>
+</tbody>
+</table>
+<p>There are a few other features such as calendar export of a schedule. This feature will not be documented as of yet to access it you must use the scheduler at <a title="Stevens Scheduler" href="http://www.stevens.edu/scheduler" target="_blank">http://www.stevens.edu/scheduler/</a>. &nbsp;At this time only the scheduler software located at <a title="Stevens Scheduler" href="http://www.stevens.edu/scheduler" target="_blank">http://www.stevens.edu/scheduler/</a> makes use of this XML data derived from exports of the course database by Stevens IT. Please let me know if you have any questions, I’ll be happy to help if I can.</p>
+<p>Thanks,<br>
+TheGreatCO</p>
+		
+			
+	
+	</div><!-- .entry-content -->
+	
+		
+	</article><!-- #post-11 -->
+	
+			 
+		
+	</main><!-- #main -->
+</div><!-- #primary -->
+
+
+	</div><!-- #content -->
+	
+	<footer id="colophon" class="site-footer" role="contentinfo">
+	
+	
+<div class="social-links">
+<div class="social-links-container">
+		<a class="social-link TwitterLink" href="https://twitter.com/TheGreatCO" target="_blank" rel="me">
+	<svg width="200px" height="200px" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg">
+		<g fill-rule="evenodd">
+		<path class="social-icon-fill SocialIconFill" d="M100,0 C44.772,0 0,44.772 0,100 C0,155.228 44.772,200 100,200 C155.228,200 200,155.228 200,100 C200,44.772 155.228,0 100,0 Z M131.085844,49.1820697 C135.882815,50.1099098 141.754127,52.7769806 144.349825,55.2862809 L146.460943,57.2809493 L150.570486,56.2253903 C152.865669,55.6318732 156.377938,54.4335696 158.436466,53.5245117 C160.494994,52.6154537 162.373213,51.9430514 162.546009,52.1158475 C163.263489,52.8333271 159.112625,58.6745877 155.502689,61.9764964 L151.629801,65.5000349 L155.033134,65.0304802 C156.937648,64.7787989 160.247069,63.9786777 162.31311,63.268711 C164.551947,62.4986412 166.069548,62.2619857 166.069548,62.6827067 C166.069548,63.0696198 163.34613,66.0296927 160.081786,69.2564726 L154.21423,75.1240283 L153.744676,81.8142438 C152.294691,102.455869 144.781815,119.371108 130.852945,133.465262 C119.910442,144.53924 107.288811,151.270776 92.2330088,154.125669 C85.3925358,155.425396 72.9775093,155.85363 67.1099537,155.064778 C59.920132,154.099374 50.9873232,151.402252 43.6322182,147.905008 L37.0584523,144.734575 L43.9853234,144.26502 C52.2419734,143.746632 57.9404893,142.375532 64.529281,139.336574 C69.3976242,137.090224 75.832402,133.149721 75.3290393,132.646358 C75.1787818,132.496101 73.2855372,131.988982 71.1030469,131.590799 C63.2896566,130.159597 56.0021675,124.953174 52.3208586,117.973713 L50.5590893,114.57038 L55.9608467,114.217275 C61.3776298,113.879196 63.3309774,113.270653 61.0094989,112.571955 C53.9924733,110.46835 46.9341269,104.642115 43.7524242,98.3688646 C42.471479,95.840782 40.5819908,89.0153348 40.5819908,86.8666524 C40.5819908,86.7389335 41.2318546,87.0469614 41.990655,87.4526567 C43.4594221,88.2377522 52.1856268,90.1685611 52.5575141,89.8004302 C52.6777201,89.6802242 51.0436698,87.8658648 49.0339756,85.8110934 C47.0280379,83.756322 44.5675712,80.322938 43.5157687,78.1817685 C41.7878073,74.6544736 41.6413063,73.6402354 41.6375498,67.2655607 C41.6337934,61.852534 41.9230391,59.4709525 42.9297644,56.9353571 L44.221979,53.6484741 L46.9228576,56.6987015 C59.2477296,70.5186357 77.2523354,79.5265732 96.9285559,81.7015506 L100.684994,82.0546558 L100.452094,76.7731044 C100.189144,70.3383267 101.402473,65.7442034 104.678087,60.8082443 C109.681662,53.2578046 118.787267,48.5134238 127.445856,48.712515 C128.681724,48.7425665 129.880027,48.9491706 131.085844,49.1820697 Z" fill="#444444"></path>
+		</g>
+	</svg>
+	</a>
+	
+	
+	
+		
+		
+		
+		
+						
+		
+		
+		
+						
+		
+		
+		
+		
+		
+		<a class="social-link InstagramLink" href="http://instagram.com/thegreatco" target="_blank" rel="me">
+	<svg width="200px" height="200px" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg">
+		<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+		<path class="social-icon-fill SocialIconFill" d="M100,0 C44.7714,0 0,44.7714 0,100 C0,155.2286 44.7714,200 100,200 C155.2286,200 200,155.2286 200,100 C200,44.7714 155.2286,0 100,0 Z M150.003136,165 L49.9968638,165 C41.7151679,165 35,158.282476 35,149.994964 L35,49.9969963 C35,41.7140787 41.7151679,35 49.9968638,35 L150.003136,35 C158.285981,35 165,41.7140787 165,49.9969963 L165,149.994964 C165,158.282476 158.285981,165 150.003136,165 Z M155,88 L142.438773,88 C143.354031,91.5742396 143.894519,95.3087878 143.894519,99.1703003 C143.894519,123.842429 124.018868,143.837394 99.4993626,143.837394 C74.9811316,143.837394 55.1042066,123.842429 55.1042066,99.1703003 C55.1042066,95.3087878 55.6472432,91.5742396 56.5625022,88 L44,88 L44,149.421262 C44,152.500469 46.485731,155 49.5552901,155 L149.44471,155 C152.514269,155 155,152.500469 155,149.421262 L155,88 Z M156,48.9990813 C156,46.239423 153.760577,44 150.995177,44 L135.999081,44 C133.237126,44 131,46.239423 131,48.9990813 L131,64.0009187 C131,66.760577 133.237126,69 135.999081,69 L150.995177,69 C153.760577,69 156,66.760577 156,64.0009187 L156,48.9990813 Z M100.498369,65 C80.8917497,65 65,80.890484 65,100.497554 C65,120.101362 80.8917497,136 100.498369,136 C120.104989,136 136,120.101362 136,100.497554 C136,80.890484 120.104989,65 100.498369,65 Z" fill="#444444"></path>
+		</g>
+	</svg>
+	</a>
+		
+		
+		
+		<a class="social-link FlickrLink" href="http://flickr.com/photos/thegreatco" target="_blank" rel="me">
+	<svg width="200px" height="200px" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg">
+		<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+		<path class="social-icon-fill SocialIconFill" d="M100,0 C44.771526,3.03201907e-14 0,44.771526 0,100 C1.5158245e-14,155.228474 44.771526,200 100,200 C155.228474,200 200,155.228474 200,100 C200,44.771526 155.228474,-3.03201909e-14 100,0 L100,0 L100,0 Z M59.2,64.4 C78.851056,64.4 94.78125,80.330194 94.78125,99.98125 C94.78125,119.632306 78.851056,135.5625 59.2,135.5625 C39.548944,135.5625 23.61875,119.632306 23.61875,99.98125 C23.61875,80.330194 39.548944,64.4 59.2,64.4 L59.2,64.4 L59.2,64.4 Z M141.0375,64.4 C160.688556,64.4 176.61875,80.330194 176.61875,99.98125 C176.61875,119.632306 160.688556,135.5625 141.0375,135.5625 C121.386444,135.5625 105.45625,119.632306 105.45625,99.98125 C105.45625,80.330194 121.386444,64.4 141.0375,64.4 L141.0375,64.4 L141.0375,64.4 Z M141.0375,64.4" fill="#444444"></path>
+		</g>
+	</svg>
+	</a>
+		
+	
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="social-link GithubLink" href="http://github.com/thegreatco" target="_blank" rel="me">
+	<svg width="200px" height="200px" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg">
+		<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+		<path class="social-icon-fill SocialIconFill" d="M0,100 C0,155.2286 44.7714,200 100,200 C155.2286,200 200,155.2286 200,100 C200,44.7714 155.2286,0 100,0 C44.7714,0 0,44.7714 0,100 Z M150.6562,25.4 C152.7698,28.626 153.9846,37.9372 153.1562,44.5938 L152.625,48.8562 L155.2062,51.9874 C160.3374,58.2082 163.155,65.7298 163.7186,74.725 C164.034,79.7584 163.3252,91.5746 162.4686,95.5688 C162.1878,96.8788 162.0424,98.0364 162.1498,98.1438 C162.2572,98.2512 166.8388,98.1216 172.331,97.8562 C178.1866,97.5734 183.088,97.5428 184.181,97.7812 C185.5178,98.0728 182.883,98.2622 174.8622,98.45 C168.6674,98.595 163.112,98.9354 162.4122,99.2124 C161.564,99.5484 161.0194,100.2144 160.7498,101.2436 C160.2702,103.0744 159.043,102.8318 172.0686,103.4686 C177.4508,103.7316 182.584,104.134 183.481,104.3624 C185.6578,104.9166 184.4476,104.941 180.456,104.4186 C178.6618,104.1838 173.3102,103.9562 168.5684,103.9186 L159.9496,103.8562 L158.362,106.575 C156.0142,110.5964 149.9218,116.4444 145.9182,118.5188 C141.0736,121.029 133.606,123.3814 127.037,124.4688 C123.8662,124.9936 120.9826,125.524 120.6308,125.6438 C120.1902,125.7938 120.6514,126.5576 122.1058,128.1126 C124.5016,130.674 125.7218,132.867 126.8246,136.5626 C127.4282,138.5848 127.6564,142.1844 127.887,153.6314 C128.1692,167.6364 128.1454,168.1478 127.287,168.4064 C124.4818,169.2516 119.346,170.5814 118.8808,170.5814 C118.4844,170.5814 118.2874,167.082 118.1496,157.6502 C117.9526,144.1822 117.7022,142.432 115.7496,140.8126 C115.0346,140.2196 114.9808,141.315 114.9808,155.8064 L114.9808,171.4376 L111.837,171.7814 C110.107,171.9716 107.8496,172.1466 106.8246,172.169 L104.9622,172.2128 L104.6684,163.8252 C104.5082,159.212 104.3504,151.712 104.3184,147.1628 L104.2622,138.894 L102.8684,138.894 L101.4684,138.894 L101.4684,155.669 L101.4684,172.444 L97.6246,172.369 C95.5102,172.328 93.0952,172.2098 92.2622,172.1066 L90.7498,171.919 L90.7498,155.8128 C90.7498,141.2492 90.6786,139.7714 90.0186,140.319 C87.8628,142.1082 87.7304,143.0656 87.5748,157.6628 L87.4248,171.544 L85.706,171.2316 C84.762,171.0588 82.6282,170.575 80.9622,170.1628 L77.9372,169.4128 L77.806,160.4004 L77.681,151.388 L75.3748,151.7068 C71.1312,152.2904 63.6152,152.0834 61.0248,151.313 C54.8256,149.4696 51.088,146.0926 47.831,139.3818 C45.0914,133.737 42.6232,130.4148 38.9622,127.4568 C35.1348,124.3644 34.4232,123.297 35.7246,122.6006 C36.2236,122.3336 37.7496,122.1218 39.1122,122.1256 C41.4146,122.132 45.6202,124.0678 48.212,126.4568 C49.3702,127.5244 51.2484,129.6986 52.387,131.2944 C57.1718,137.9996 62.2318,140.692 69.0246,140.1506 C72.9632,139.8368 77.6932,138.4634 78.1996,137.4882 C78.3978,137.1062 79.0304,135.5618 79.6058,134.057 C80.2762,132.3034 81.56,130.3448 83.1746,128.6008 C85.553,126.0318 85.6276,125.8664 84.6058,125.6632 C84.0104,125.5448 81.0126,125.0038 77.937,124.457 C66.5278,122.4286 58.1082,118.6336 51.7932,112.6694 C49.683,110.6764 47.272,107.974 46.4308,106.6632 L44.8996,104.2756 L34.8558,104.5632 C29.2726,104.7216 23.162,105.154 21.0996,105.5382 C17.7304,106.1658 16.5926,106.1826 17.1808,105.5944 C17.5474,105.2278 31.0384,103.96 37.7432,103.6632 C41.2674,103.5072 44.1494,103.181 44.1494,102.9382 C44.1494,102.6954 43.8384,101.891 43.4556,101.1506 C42.5108,99.3238 41.229,99.1882 27.2556,99.3694 C20.912,99.4518 15.7242,99.3752 15.7244,99.207 C15.7254,98.5884 25.0512,98.224 33.5932,98.507 C41.7982,98.7788 42.3604,98.7478 42.0682,97.9946 C41.8962,97.551 41.3,95.4044 40.7432,93.2258 C39.8556,89.7522 39.727,88.004 39.7244,79.0134 C39.7216,69.4458 39.7984,68.5452 40.8306,65.501 C42.279,61.2302 44.7806,56.4408 47.1994,53.326 L49.1432,50.826 L48.2308,46.976 C47.089,42.1816 47.2926,34.6312 48.7058,29.4948 C50.0216,24.7126 50.2068,24.5514 54.1558,24.8572 C59.2318,25.2504 65.6766,27.8206 73.7434,32.6634 L77.4746,34.901 L81.1996,34.001 C92.476,31.2752 108.7204,31.018 120.7496,33.376 L124.4184,34.0948 L128.2622,31.7386 C133.5286,28.509 138.6762,26.2346 143.1434,25.1636 C145.3898,24.624 146.9306,24.3292 148.0312,24.2876 C149.4462,24.234 150.1326,24.601 150.6562,25.4 Z M44.8113392,125.5 C43.8279276,125.5 43.5,125.686465 43.5,126.256901 C43.5,127.558949 44.7160805,128.004007 46.0532305,127.191897 C47.0542826,126.583882 46.2569319,125.5 44.8113392,125.5 L44.8113392,125.5 L44.8113392,125.5 Z M41.3302053,123.6 C40.4451349,123.6 40.15,123.786465 40.15,124.356901 C40.15,125.658949 41.2444724,126.104007 42.4479075,125.291897 C43.3488544,124.683882 42.6312387,123.6 41.3302053,123.6 L41.3302053,123.6 L41.3302053,123.6 Z M48.3,128.7376 C47.3198,128.7494 46.7682,129.372 47.1124,130.2688 C47.505,131.2918 49.9122,131.027 50.1186,129.9376 C50.2206,129.3996 49.8658,129.0394 49.0374,128.8314 C48.7708,128.7642 48.5262,128.7348 48.3,128.7376 L48.3,128.7376 L48.3,128.7376 Z M51.1688,132.8312 C49.4992,132.8312 48.8476,133.6996 49.925,134.4874 C50.986,135.2632 52.5374,134.8028 52.5374,133.7124 C52.5376,133.052 52.2002,132.8312 51.1688,132.8312 L51.1688,132.8312 L51.1688,132.8312 Z M53.95,136.175 C53.8814,136.175 53.8118,136.1778 53.7438,136.1874 C53.1452,136.273 52.7166,136.7296 52.625,137.375 C52.4988,138.263 52.6868,138.425 53.875,138.425 C54.6466,138.425 55.416,138.205 55.5812,137.9374 C56.016,137.234 54.9778,136.1766 53.95,136.175 L53.95,136.175 L53.95,136.175 Z M57.7124,139.4062 C56.6628,139.4298 56.0858,140.0874 56.4312,140.9874 C56.871,142.1332 59.2936,141.7424 59.2936,140.525 C59.2936,139.8996 58.9332,139.5422 58.1936,139.4374 C58.0258,139.4138 57.8624,139.403 57.7124,139.4062 L57.7124,139.4062 L57.7124,139.4062 Z M74.4376,140.2876 C73.9878,140.2876 73.363,140.6032 73.0438,140.9876 C72.3314,141.8458 73.1532,143.0876 74.4376,143.0876 C74.8874,143.0876 75.5184,142.772 75.8376,142.3876 C76.5498,141.5294 75.7218,140.2876 74.4376,140.2876 L74.4376,140.2876 L74.4376,140.2876 Z M68.7624,141.2438 C67.7892,141.3118 67.1762,142.1646 67.6312,143.35 C67.9936,144.294 69.7554,144.0466 70.4312,142.9562 C70.8276,142.3162 70.7836,142.0254 70.2436,141.6812 C69.718,141.3462 69.2048,141.213 68.7624,141.2438 L68.7624,141.2438 L68.7624,141.2438 Z M63.275,141.3188 C62.6408,141.3448 62.0504,141.7068 61.9312,142.3312 C61.6416,143.8496 63.6208,144.5664 64.6562,143.3188 C65.1198,142.7602 65.116,142.4766 64.6374,141.9 C64.2926,141.4844 63.7684,141.2986 63.275,141.3188 L63.275,141.3188 L63.275,141.3188 Z M63.275,141.3188" fill="#444444"></path>
+		</g>
+	</svg>
+	</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+			
+		
+		
+		
+		
+		
+		<a class="social-link WebsiteLink" href="http://www.thegreatco.com/" target="_blank">
+	<svg width="200px" height="200px" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg">
+		<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+		<path class="social-icon-fill SocialIconFill" d="M100.201055,0 C155.540432,0 200.402109,44.8616775 200.402109,100.201055 C200.402109,155.540432 155.540432,200.402109 100.201055,200.402109 C44.8616775,200.402109 0,155.540432 0,100.201055 C0,44.8616775 44.8616775,0 100.201055,0 Z M10.3298172,100.210406 C10.3298172,126.647308 21.764832,150.41805 39.9673927,166.864419 L32.8424879,152.640954 C25.3384223,152.640954 21.5861525,135.7887 21.5861525,128.298284 C21.5861525,122.287597 19.1694766,117.482736 22.093754,111.947946 C11.5061635,101.334394 17.8338828,107.088684 17.8338828,100.210406 C17.8338828,96.6449605 14.4328107,93.0790417 10.8686995,90.3215808 C10.5122883,93.5691309 10.3298172,96.8682443 10.3298172,100.210406 Z M100.3805,10.3291965 C95.8253571,10.3291965 91.3488903,10.6669606 86.9752708,11.3183629 C86.0392177,13.3529896 85.3718947,15.5863011 85.3718947,17.8191396 C85.3718947,25.3095558 77.8678292,10.3291965 70.3637636,25.3095558 C62.8592241,40.289442 70.3637636,25.3095558 70.3637636,40.289442 C70.3637636,47.7798582 59.5031773,42.3600213 62.8592241,44.0346501 C70.3637636,47.7798582 70.3637636,47.7798582 62.8592241,55.2698013 C62.8592241,55.2698013 47.8510929,47.7798582 47.8510929,55.2698013 C47.8510929,62.7597444 40.3465534,62.7597444 32.8424879,62.7597444 C25.3384223,62.7597444 32.8424879,77.7401037 25.3384223,77.7401037 C19.5685433,77.7401037 22.6710263,68.8839662 17.5916938,64.7905867 C15.6608176,69.2808627 14.0858786,73.9594162 12.902423,78.7912408 C17.9599537,83.3141579 18.8069041,101.181596 25.3384223,107.700822 C32.8424879,100.210406 32.8424879,107.700822 40.3465534,107.700822 C47.8510929,107.700822 47.8510929,107.700822 51.6028888,115.190765 C59.1074283,115.190765 62.8592241,122.680709 70.3637636,130.170652 C77.8678292,137.661068 92.8759603,137.661068 92.8759603,145.151011 C92.8759603,152.640954 85.3718947,145.151011 85.3718947,160.13137 C85.3718947,167.621313 85.3718947,167.621313 77.8678292,167.621313 C73.143012,167.621313 68.417721,176.529487 65.565958,183.128187 C76.2763018,187.61326 88.0383428,190.091616 100.3805,190.091616 C125.584738,190.091616 148.370404,179.756696 164.715551,163.100762 L160.413972,154.513795 C160.413972,154.513795 169.79441,139.533435 162.290344,132.043492 C154.785805,124.553549 154.785805,117.063133 154.785805,117.063133 C154.785805,117.063133 139.777673,132.043492 132.273134,124.553076 C124.769068,117.063133 124.769068,124.553076 117.265003,109.57319 C109.760463,94.5928305 124.769068,87.1028874 124.769068,87.1028874 C124.769068,87.1028874 124.769068,72.1225281 132.273134,72.1225281 C139.777673,72.1225281 147.281739,57.1426419 162.290344,72.1225281 C162.290344,72.1225281 170.963173,66.3516814 183.233763,64.9410195 C179.384807,55.9453296 174.108785,47.7036957 167.68912,40.4994802 C166.341203,41.4668859 164.577158,42.1622826 162.290344,42.1622826 C154.785805,42.1622826 169.79441,57.1426419 162.290344,57.1426419 C154.785805,57.1426419 154.785805,49.6522257 147.281739,49.6522257 C139.777673,49.6522257 139.777673,57.1426419 132.273134,64.632585 C124.769068,72.1225281 132.273134,64.632585 124.769068,57.1426419 C117.265003,49.6522257 139.777673,57.1426419 132.273134,49.6522257 C124.769068,42.1622826 139.777673,42.1622826 139.777673,34.6723395 C139.777673,28.7974198 149.010238,27.5305678 152.992848,27.2571397 C148.661884,24.1401539 144.042758,21.3978309 139.777673,19.6919802 C147.281739,27.1819233 132.273134,34.6723395 124.769068,34.6723395 C117.719996,34.6723395 123.913587,21.454598 124.69134,13.6429748 C116.957883,11.4839335 108.80403,10.3291965 100.3805,10.3291965 Z" fill="#444444"></path>
+		</g>
+	</svg>
+	</a>
+	</div>
+</div><!-- .social-links -->
+		
+		<div class="theme-info">
+		<p><a href="http://scotthsmith.com/projects/decode/" rel="designer">Decode</a> by Scott Smith</p>
+	</div><!-- .theme-info -->
+		
+	</footer><!-- #colophon -->
+</div><!-- .site-scroll -->	</div><!-- #page -->
+
+
+	
+<div id="sidebar" class="sidebar left">
+	<div id="sidebar-top" class="sidebar-top SidebarTop">
+		<button id="sidebar-close" class="sidebar-close SidebarClose" title="Hide sidebar">
+			<svg width="100%" height="100%" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg">
+			<path class="close-icon" d="M0,172.881356 L72.8813559,100 L1.0658141e-14,27.1186441 L27.1186441,-2.84217094e-14 L100,72.8813559 L172.881356,0 L200,27.1186441 L127.118644,100 L200,172.881356 L172.881356,200 L100,127.118644 L27.1186441,200 Z M0,172.881356" fill="#444444"></path>
+			</svg>
+		</button>
+	</div>
+	<div class="sidebar-content">
+
+		
+		<div class="widget-area" role="complementary">
+	
+				<aside id="search-2" class="widget widget_search"><form role="search" method="get" class="search-form" action="https://www.thegreatco.com/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search …" value="" name="s" title="Search for:">
+				</label>
+				<input type="submit" class="search-submit" value="Search">
+			</form></aside><aside id="twitter_timeline-3" class="widget widget_twitter_timeline"><iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" class="twitter-timeline twitter-timeline-rendered" allowfullscreen="" style="border: none; max-width: 100%; min-width: 180px; margin: 0px; padding: 0px; display: inline-block; position: static; visibility: visible; width: 225px;" title="Twitter Timeline" height="325"></iframe></aside><aside id="meta-4" class="widget widget_meta"><h2 class="widgettitle">Meta</h2>
+			<ul>
+			<li><a href="https://www.thegreatco.com/wp-login.php?action=register">Register</a></li>			<li><a href="https://www.thegreatco.com/wp-login.php">Log in</a></li>
+			<li><a href="https://www.thegreatco.com/feed/">Entries <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="https://www.thegreatco.com/comments/feed/">Comments <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+<li><a href="https://wordpress.org/" title="Powered by WordPress, state-of-the-art semantic personal publishing platform.">WordPress.org</a></li>			</ul>
+</aside>				
+	</div><!-- .widget-area -->
+		
+	</div>
+</div><!-- #sidebar -->
+
+	<div style="display:none">
+	</div>
+		<script type="text/javascript">
+			!function(d,s,id){
+				var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
+				if(!d.getElementById(id)){
+					js=d.createElement(s);
+					js.id=id;js.src=p+"://platform.twitter.com/widgets.js";
+					fjs.parentNode.insertBefore(js,fjs);
+				}
+			}(document,"script","twitter-wjs");
+		</script>
+		<script type="text/javascript" src="./Stevens Scheduler API_files/devicepx-jetpack.js"></script>
+<script type="text/javascript" src="./Stevens Scheduler API_files/gprofiles.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Stevens Scheduler API_files/wpgroho.js"></script>
+<script type="text/javascript" src="./Stevens Scheduler API_files/decode.js"></script>
+<script type="text/javascript" src="./Stevens Scheduler API_files/e-201520.js" async="" defer=""></script>
+<script type="text/javascript">
+	_stq = window._stq || [];
+	_stq.push([ 'view', {v:'ext',j:'1:3.4.3',blog:'3510092',post:'11',tz:'-4'} ]);
+	_stq.push([ 'clickTrackerInit', '3510092', '11' ]);
+</script>
+
+
+<iframe id="rufous-sandbox" scrolling="no" frameborder="0" allowtransparency="true" style="display: none;"></iframe><img src="./Stevens Scheduler API_files/g.gif" id="wpstats"></body></html>
