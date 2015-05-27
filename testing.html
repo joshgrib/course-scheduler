@@ -1045,25 +1045,7 @@ figure out regex to go from xml, delete all classes that aren't needed, then for
 '''
 </code></pre>
 <p>]</p>
-<h1 id="simple-comparison-for-two-classes-in-the-format-above-only-compares-for-one-day-right-now"><a name="user-content-simple-comparison-for-two-classes-in-the-format-above-only-compares-for-one-day-right-now" href="#simple-comparison-for-two-classes-in-the-format-above-only-compares-for-one-day-right-now" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>simple comparison for two classes in the format above - only compares for one day right now</h1>
-<p>def isAllowed(classList1, classList2):<br />
-    &lsquo;&rsquo;&lsquo;<br />
-    isAllowed():<br />
-                    |----------------|                      interval 1<br />
-    |----------|                                            end2&lt;start1         True<br />
-                                            |-------|        end1&lt;start2         True<br />
-    |------------------|                                  end2 !&lt; start1      False<br />
-                                |---------------|          end1 !&lt; start2      False<br />
-                |-------------------------|             end2 !&lt; start1      False<br />
-                                                         &amp;  end1 !&lt; start2       False<br />
-                        |--------|                          end2 !&lt; start1<br />
-                                                         &amp;  end1 !&lt; start2       False<br />
-    &lsquo;&rsquo;&lsquo;<br />
-    if (classList2[2] &lt; classList1[1]) or (classList1[2] &lt; classList2[1]):<br />
-        print &lsquo;No conflict!&rsquo;<br />
-    else:<br />
-        print &lsquo;Conflict!&rsquo;<br />
-def isAllowedTesting():<br />
+<p>def isAllowedTesting():<br />
     print &ldquo;isAllowed() testing:&rdquo;<br />
     isAllowed(courses[&lsquo;CS  115A&rsquo;], courses[&lsquo;BT  353D&rsquo;])     #no conflict<br />
     isAllowed(courses[&lsquo;CS  115A&rsquo;], courses[&lsquo;BT  353A&rsquo;])     #conflict</p>
@@ -1175,13 +1157,6 @@ new_sched.update({"new":"true"})#add a new key-value to the new dictionary
 print "base: " + str(base_schedule)
 print "new: " + str(new_sched)
 </code></pre>
-<h1 id="courseloopingtesting"><a name="user-content-courseloopingtesting" href="#courseloopingtesting" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>courseLoopingTesting()</h1>
-<h1 id="schedulemakertesting"><a name="user-content-schedulemakertesting" href="#schedulemakertesting" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>scheduleMakerTesting()</h1>
-<p>def proveTheConspiracy(name,event):<br />
-    jetFuelCantMeltSteelBeams = True<br />
-    if jetFuelCantMeltSteelBeams:<br />
-        print name + &rdquo; did &rdquo; + event</p>
-<h1 id="provetheconspiracybush911"><a name="user-content-provetheconspiracybush911" href="#provetheconspiracybush911" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>proveTheConspiracy(&ldquo;Bush&rdquo;,&rdquo;9/11&rdquo;)</h1>
 <p>&rsquo;&lsquo;&rsquo;=====================================================================================================&rsquo;&lsquo;&rsquo;</p>
 <p>coursesNestedBetter = {\<br />
     &ldquo;BT  353&rdquo;:{\<br />
@@ -1255,7 +1230,7 @@ print "new: " + str(new_sched)
         }\<br />
     }</p>
 <p>def theyChoseThatSchemaBecauseTheyHateMe():<br />
-    &lsquo;&rsquo;&lsquo;New nested makes schema more consistent because all sections have an list of lists regardless of how many meetings there are or if they all meet at the same time each day. From here I should be able to go through and get the values of class_time[1] and class_time[2] as the start and end times, then I can put them into the conflict-checker function and make some schedules!!!&rsquo;&lsquo;&rsquo;<br />
+    &lsquo;&rsquo;&lsquo;New nested course list makes schema more consistent because all sections have a list of lists regardless of how many meetings there are or if they all meet at the same time each day. From here I should be able to go through and get the values of class_time[1] and class_time[2] as the start and end times, then I can put them into the conflict-checker function and make some schedules!!!&rsquo;&lsquo;&rsquo;<br />
     count = 0<br />
     for course in coursesNestedBetter:<br />
         print course<br />
@@ -1283,30 +1258,84 @@ print "new: " + str(new_sched)
         print section<br />
     section1 = raw_input()<br />
     #get the meeting times<br />
-    check1 = coursesNestedBetter[course1][section1]<br />
-    #choose the second course and section<br />
-    print &ldquo;Choose course 2&rdquo;<br />
-    for course in coursesNestedBetter:<br />
-        print course<br />
-    course2 = raw_input()<br />
-    print &ldquo;Choose section of &rdquo; + course2<br />
-    for section in coursesNestedBetter[course2]:<br />
-        print section<br />
-    section2 = raw_input()<br />
-    #get the meeting times<br />
-    check2 = coursesNestedBetter[course1][section1]<br />
-    #pritn it nicely<br />
-    print course1 + section1 + &ldquo;: &rdquo; + str(check1)<br />
-    print course2 + section2 + &ldquo;: &rdquo; + str(check2)</p>
-<pre><code>for meeting1 in check1:#loop through the first sections meeting times
+    check1 = coursesNestedBetter[course1][section1]</p>
+<pre><code>#choose the second course and section
+print "Choose course 2"
+for course in coursesNestedBetter:
+    print course
+course2 = raw_input()
+print "Choose section of " + course2
+for section in coursesNestedBetter[course2]:
+    print section
+section2 = raw_input()
+#get the meeting times
+check2 = coursesNestedBetter[course2][section2]
+
+#pritn it nicely
+print course1 + section1 + ": " + str(check1)
+print course2 + section2 + ": " + str(check2)
+
+for meeting1 in check1:#loop through the first sections meeting times
     for meeting2 in check2:#loop through the second sections meeting times
         if meeting1[0] == meeting2[0]: #if meeting on the same day
             isAllowed(meeting1,meeting2)
         else:
             print "Different days, not a problem!"
 </code></pre>
-<p>checkTheseCoursesForConflicts()</p>
+<h1 id="checkthesecoursesforconflicts"><a name="user-content-checkthesecoursesforconflicts" href="#checkthesecoursesforconflicts" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>checkTheseCoursesForConflicts()</h1>
+<p>&rsquo;&lsquo;&rsquo;=====================================================================================================&rsquo;&lsquo;&rsquo;</p>
+<h1 id="comparison-for-two-meeting-times-to-check-for-conflicts"><a name="user-content-comparison-for-two-meeting-times-to-check-for-conflicts" href="#comparison-for-two-meeting-times-to-check-for-conflicts" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>comparison for two meeting times to check for conflicts</h1>
+<p>def isAllowed(classList1, classList2):<br />
+    &lsquo;&rsquo;&lsquo;<br />
+    isAllowed():<br />
+                    |----------------|                      interval 1<br />
+    |----------|                                            end2&lt;start1         True - No conflict<br />
+                                            |-------|        end1&lt;start2         True - No conflict<br />
+    |------------------|                                  end2 !&lt; start1      False - Conflict<br />
+                                |---------------|          end1 !&lt; start2      False - Conflict<br />
+                |-------------------------|             end2 !&lt; start1      False - Conflict<br />
+                                                         &amp;  end1 !&lt; start2       False - Conflict<br />
+                        |--------|                          end2 !&lt; start1<br />
+                                                         &amp;  end1 !&lt; start2       False - Conflict<br />
+    &lsquo;&rsquo;&lsquo;<br />
+    if (classList2[2] &lt; classList1[1]) or (classList1[2] &lt; classList2[1]):<br />
+        #print &lsquo;No conflict!&rsquo;<br />
+        return True<br />
+    else:<br />
+        #print &lsquo;Conflict!&rsquo;<br />
+        return False</p>
+<p>def findAllConflicts():<br />
+    &lsquo;&rsquo;&lsquo;This will loop through each section and find all conflicts with all other sections. Basically a combination of the function to print all courses sections and meeting times, and the one to check for conflicts between 2 meeting times. This will have to check 1122 meeting times so seeing the speed will be interesting too.&rsquo;&lsquo;&rsquo;<br />
+    count = 0<br />
+    conflicts = 0<br />
+    for course1 in coursesNestedBetter:<br />
+        for section1 in coursesNestedBetter[course1]:<br />
+            for class_time1 in coursesNestedBetter[course1][section1]:<br />
+                for course2 in coursesNestedBetter:<br />
+                    for section2 in coursesNestedBetter[course2]:<br />
+                        for class_time2 in coursesNestedBetter[course2][section2]:<br />
+                            check1 = coursesNestedBetter[course1][section1]<br />
+                            check2 = coursesNestedBetter[course2][section2]<br />
+                            print &ldquo;&mdash;&ldquo;<br />
+                            print &ldquo;Comparing &rdquo; + course1 + section1 + &rdquo; to &rdquo; + course2 + section2<br />
+                            for meeting1 in check1:<br />
+                                for meeting2 in check2:<br />
+                                    if meeting1[0] == meeting2[0]:<br />
+                                        print &ldquo;<em> Meeting 1: &rdquo; + str(meeting1)<br />
+                                        print &ldquo;</em> Meeting 2: &rdquo; + str(meeting2)<br />
+                                        if (isAllowed(meeting1,meeting2) == True):<br />
+                                            print &rdquo;  * No conflict&rdquo;<br />
+                                        else:<br />
+                                            print &rdquo;  * Conflict&rdquo;<br />
+                                            conflicts = conflicts + 1<br />
+                                        count = count + 1<br />
+                                    else:<br />
+                                        print &ldquo;* Different days&rdquo;<br />
+    print &ldquo;checked for &rdquo; + str(count) + &rdquo; conflicts&rdquo;<br />
+    print &ldquo;found &rdquo; + str(conflicts) + &rdquo; conflicts&rdquo;</p>
+<p>findAllConflicts()</p>
 <p>&rsquo;&lsquo;&rsquo;<br />
-TODO:<br />
-Make a function to go through and put a few courses into the schedule dictionary to get a feel for it. Then maybe start doing some stuff to check for time conflicts<br />
+Adding new schedules:<br />
+Use a list of dictionaries, or maybe a dictionary of dictionaries. The big one will hold all the schedules, each schedule with be a dictionary of 5 keys, one for each day, then the value will be a list of course numbers/sections on that day. Adding a new course is just appending to the list for that day, adding a new schedule is making deep copy of the previous dictionary then appending it to the list of dictionaries. A for loop can go through the list of schedules and some more for loops will check everything for conflicts.<br />
+Scaling, even on this small level, is a puzzle.<br />
 &lsquo;&rsquo;&lsquo;</p></article></body></html>
