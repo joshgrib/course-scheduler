@@ -31,24 +31,6 @@ collapsable_comments = [
     '''
 ]
 
-#comparison for two meeting times to check for conflicts
-def isAllowed(classList1, classList2):
-    '''
-    isAllowed():
-                    |----------------|                      interval 1
-    |----------|                                            end2<start1         True - No conflict
-                                            |-------|        end1<start2         True - No conflict
-    |------------------|                                  end2 !< start1      False - Conflict
-                                |---------------|          end1 !< start2      False - Conflict
-                |-------------------------|             end2 !< start1      False - Conflict
-                                                         &  end1 !< start2       False - Conflict
-                        |--------|                          end2 !< start1
-                                                         &  end1 !< start2       False - Conflict
-    '''
-    if (classList2[2] < classList1[1]) or (classList1[2] < classList2[1]):
-        print 'No conflict!'
-    else:
-        print 'Conflict!'
 def isAllowedTesting():
     print "isAllowed() testing:"
     isAllowed(courses['CS  115A'], courses['BT  353D'])     #no conflict
@@ -242,7 +224,7 @@ coursesNestedBetter = {\
     }
 
 def theyChoseThatSchemaBecauseTheyHateMe():
-    '''New nested makes schema more consistent because all sections have an list of lists regardless of how many meetings there are or if they all meet at the same time each day. From here I should be able to go through and get the values of class_time[1] and class_time[2] as the start and end times, then I can put them into the conflict-checker function and make some schedules!!!'''
+    '''New nested course list makes schema more consistent because all sections have a list of lists regardless of how many meetings there are or if they all meet at the same time each day. From here I should be able to go through and get the values of class_time[1] and class_time[2] as the start and end times, then I can put them into the conflict-checker function and make some schedules!!!'''
     count = 0
     for course in coursesNestedBetter:
         print course
@@ -272,6 +254,7 @@ def checkTheseCoursesForConflicts():
     section1 = raw_input()
     #get the meeting times
     check1 = coursesNestedBetter[course1][section1]
+
     #choose the second course and section
     print "Choose course 2"
     for course in coursesNestedBetter:
@@ -282,7 +265,8 @@ def checkTheseCoursesForConflicts():
         print section
     section2 = raw_input()
     #get the meeting times
-    check2 = coursesNestedBetter[course1][section1]
+    check2 = coursesNestedBetter[course2][section2]
+
     #pritn it nicely
     print course1 + section1 + ": " + str(check1)
     print course2 + section2 + ": " + str(check2)
@@ -294,10 +278,66 @@ def checkTheseCoursesForConflicts():
             else:
                 print "Different days, not a problem!"
 
-checkTheseCoursesForConflicts()
+#checkTheseCoursesForConflicts()
+
+'''====================================================================================================='''
+
+#comparison for two meeting times to check for conflicts
+def isAllowed(classList1, classList2):
+    '''
+    isAllowed():
+                    |----------------|                      interval 1
+    |----------|                                            end2<start1         True - No conflict
+                                            |-------|        end1<start2         True - No conflict
+    |------------------|                                  end2 !< start1      False - Conflict
+                                |---------------|          end1 !< start2      False - Conflict
+                |-------------------------|             end2 !< start1      False - Conflict
+                                                         &  end1 !< start2       False - Conflict
+                        |--------|                          end2 !< start1
+                                                         &  end1 !< start2       False - Conflict
+    '''
+    if (classList2[2] < classList1[1]) or (classList1[2] < classList2[1]):
+        #print 'No conflict!'
+        return True
+    else:
+        #print 'Conflict!'
+        return False
+
+def findAllConflicts():
+    '''This will loop through each section and find all conflicts with all other sections. Basically a combination of the function to print all courses sections and meeting times, and the one to check for conflicts between 2 meeting times. This will have to check 1122 meeting times so seeing the speed will be interesting too.'''
+    count = 0
+    conflicts = 0
+    for course1 in coursesNestedBetter:
+        for section1 in coursesNestedBetter[course1]:
+            for class_time1 in coursesNestedBetter[course1][section1]:
+                for course2 in coursesNestedBetter:
+                    for section2 in coursesNestedBetter[course2]:
+                        for class_time2 in coursesNestedBetter[course2][section2]:
+                            check1 = coursesNestedBetter[course1][section1]
+                            check2 = coursesNestedBetter[course2][section2]
+                            print "---"
+                            print "Comparing " + course1 + section1 + " to " + course2 + section2
+                            for meeting1 in check1:
+                                for meeting2 in check2:
+                                    if meeting1[0] == meeting2[0]:
+                                        print "* Meeting 1: " + str(meeting1)
+                                        print "* Meeting 2: " + str(meeting2)
+                                        if (isAllowed(meeting1,meeting2) == True):
+                                            print "  * No conflict"
+                                        else:
+                                            print "  * Conflict"
+                                            conflicts = conflicts + 1
+                                        count = count + 1
+                                    else:
+                                        print "* Different days"
+    print "checked for " + str(count) + " conflicts"
+    print "found " + str(conflicts) + " conflicts"
+
+findAllConflicts()
+
 
 '''
 Adding new schedules:
 Use a list of dictionaries, or maybe a dictionary of dictionaries. The big one will hold all the schedules, each schedule with be a dictionary of 5 keys, one for each day, then the value will be a list of course numbers/sections on that day. Adding a new course is just appending to the list for that day, adding a new schedule is making deep copy of the previous dictionary then appending it to the list of dictionaries. A for loop can go through the list of schedules and some more for loops will check everything for conflicts.
-Scaling, even on this small level, is difficult.
+Scaling, even on this small level, is a puzzle.
 '''
