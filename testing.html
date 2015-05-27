@@ -1019,95 +1019,6 @@ body .markdown-body
 <a href="http://web.stevens.edu/scheduler/cor">http://web.stevens.edu/scheduler/cor</a>  2015F/sched_plus_crsemtg.txt<br />
 Got there by going back to the &ldquo;core&rdquo; part of the url then going to that text file (plus course meeting?)<br />
 &lsquo;&rsquo;&lsquo;</p>
-<p>collapsable_comments = [<br />
-    &lsquo;&rsquo;&lsquo;<br />
-    String idexes 4-6 have the course numbers<br />
-    20 sections for 6 courses<br />
-    432 possibilities, low enough that blunt-force should work fine<br />
-    Start with classes where there&rsquo;s only one section, if theres a conflict there, stop and say the schedule isn&rsquo;t possibilities<br />
-    Then go to the next ones with 2 sections, then 3, etc<br />
-    If Any of those conflict with something with 1 section, remove it as a possibility and continue</p>
-<pre><code>5 lists, on for every day of the week.
-There isn't a conflict as long as end1&lt;start2 or end2&lt;start1
-'''
-
-'''
-Talking through the code for scheduling:
-First get all the coursed ordered from most to least sections
-Anything with one section can be put right in
-Then starting with the least sections see what doesn't have conflicts and make a new schedule for every one that can be put it.
-For the next class all sections will need to be checked against all other schedules
-'''
-
-'''
-TODO eventually:
-figure out regex to go from xml, delete all classes that aren't needed, then format nice
-'''
-</code></pre>
-<p>]</p>
-<p>def isAllowedTesting():<br />
-    print &ldquo;isAllowed() testing:&rdquo;<br />
-    isAllowed(courses[&lsquo;CS  115A&rsquo;], courses[&lsquo;BT  353D&rsquo;])     #no conflict<br />
-    isAllowed(courses[&lsquo;CS  115A&rsquo;], courses[&lsquo;BT  353A&rsquo;])     #conflict</p>
-<h1 id="heres-the-courses-as-a-big-nested-dictionary-thing"><a name="user-content-heres-the-courses-as-a-big-nested-dictionary-thing" href="#heres-the-courses-as-a-big-nested-dictionary-thing" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>heres the courses as a big nested dictionary thing</h1>
-<p>coursesNested = {\<br />
-    &ldquo;BT  353&rdquo;:{\<br />
-        &ldquo;A&rdquo;:[\<br />
-            [&ldquo;M&rdquo;,&rdquo;1300&rdquo;,&rdquo;1350&rdquo;],\<br />
-            [&ldquo;W&rdquo;,&rdquo;1100&rdquo;,&rdquo;1240&rdquo;]\<br />
-            ],\<br />
-        &ldquo;B&rdquo;:[\<br />
-            [&ldquo;M&rdquo;,&rdquo;1500&rdquo;,&rdquo;1640&rdquo;],\<br />
-            [&ldquo;W&rdquo;,&rdquo;0900&rdquo;,&rdquo;0950&rdquo;]\<br />
-            ],\<br />
-        &ldquo;C&rdquo;:[\<br />
-            [&ldquo;T&rdquo;,&rdquo;1500&rdquo;,&rdquo;1640&rdquo;],\<br />
-            [&ldquo;R&rdquo;,&rdquo;1100&rdquo;,&rdquo;1150&rdquo;]\<br />
-            ],\<br />
-        &ldquo;D&rdquo;:[\<br />
-            [&ldquo;T&rdquo;,&rdquo;1500&rdquo;,&rdquo;1640&rdquo;],\<br />
-            [&ldquo;R&rdquo;,&rdquo;1100&rdquo;,&rdquo;1150&rdquo;]\<br />
-            ],\<br />
-        &ldquo;E&rdquo;:[&ldquo;M&rdquo;,&rdquo;1815&rdquo;,&rdquo;2045&rdquo;]\<br />
-        },\<br />
-    &ldquo;CS  115&rdquo;:{\<br />
-        &ldquo;A&rdquo;:[&ldquo;MWF&rdquo;,&rdquo;1200&rdquo;,&rdquo;1250&rdquo;],\<br />
-        &ldquo;B&rdquo;:[&ldquo;MRF&rdquo;,&rdquo;1300&rdquo;,&rdquo;1350&rdquo;]\<br />
-        },\<br />
-    &ldquo;CS  115L&rdquo;:{\<br />
-        &ldquo;A&rdquo;:[&ldquo;R&rdquo;,&rdquo;0900&rdquo;,&rdquo;1040&rdquo;],\<br />
-        &ldquo;B&rdquo;:[&ldquo;R&rdquo;,&rdquo;1100&rdquo;,&rdquo;1240&rdquo;],\<br />
-        &ldquo;C&rdquo;:[&ldquo;R&rdquo;,&rdquo;1500&rdquo;,&rdquo;1640&rdquo;],\<br />
-        &ldquo;D&rdquo;:[&ldquo;R&rdquo;,&rdquo;1500&rdquo;,&rdquo;1640&rdquo;],\<br />
-        &ldquo;E&rdquo;:[&ldquo;F&rdquo;,&rdquo;1000&rdquo;,&rdquo;1140&rdquo;],\<br />
-        &ldquo;F&rdquo;:[&ldquo;F&rdquo;,&rdquo;1600&rdquo;,&rdquo;1740&rdquo;]\<br />
-        },\<br />
-    &ldquo;CS  135&rdquo;:{\<br />
-        &ldquo;A&rdquo;:[&ldquo;MWF&rdquo;,&rdquo;1000&rdquo;,&rdquo;1050&rdquo;]\<br />
-        },\<br />
-    &ldquo;CS  135L&rdquo;:{\<br />
-        &ldquo;A&rdquo;:[&ldquo;F&rdquo;,&rdquo;1100&rdquo;,&rdquo;1240&rdquo;],\<br />
-        &ldquo;B&rdquo;:[&ldquo;F&rdquo;,&rdquo;1300&rdquo;,&rdquo;1440&rdquo;]\<br />
-        },\<br />
-    &ldquo;CS  146&rdquo;:{\<br />
-        &ldquo;A&rdquo;:[&ldquo;TWF&rdquo;,&rdquo;0900&rdquo;,&rdquo;0950&rdquo;],\<br />
-        &ldquo;B&rdquo;:[&ldquo;MTR&rdquo;,&rdquo;1400&rdquo;,&rdquo;1450&rdquo;]\<br />
-        },\<br />
-    &ldquo;D   110&rdquo;:{\<br />
-        &ldquo;A&rdquo;:[&ldquo;T&rdquo;,&rdquo;1700&rdquo;,&rdquo;1805&rdquo;]\<br />
-        },\<br />
-    &ldquo;HHS 468&rdquo;:{\<br />
-        &ldquo;EV&rdquo;:[&ldquo;M&rdquo;,&rdquo;1815&rdquo;,&rdquo;2045&rdquo;]\<br />
-        }\<br />
-    }<br />
-def nestedDictionaryTesting():<br />
-    print &ldquo;Nested dictionaries testing:&rdquo;<br />
-    print coursesNested<br />
-    print coursesNested[&ldquo;CS  146&rdquo;]<br />
-    print coursesNested[&ldquo;CS  146&rdquo;][&ldquo;A&rdquo;]<br />
-    #len(coursesNested[&ldquo;CS  146&rdquo;][&ldquo;A&rdquo;][0]) could be a good way to figure out how many days each thing fits in then get the index of that string, then sort to that day<br />
-    print coursesNested[&ldquo;CS  146&rdquo;][&ldquo;A&rdquo;][0] + &ldquo;are the days of the week this course is at this same time&rdquo;<br />
-    print str(len(coursesNested[&ldquo;CS  146&rdquo;][&ldquo;A&rdquo;][0])) + &rdquo; days of the week at the same time&rdquo;</p>
 <h1 id="possible-schedule-format"><a name="user-content-possible-schedule-format" href="#possible-schedule-format" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>possible schedule format</h1>
 <p>ex_schedules = {\<br />
     &ldquo;sched1&rdquo;:{\<br />
@@ -1125,25 +1036,8 @@ def nestedDictionaryTesting():<br />
         &ldquo;F&rdquo;:[&ldquo;course1&rdquo;,&rdquo;course2&rdquo;,&rdquo;course3&rdquo;]\<br />
         }\<br />
     }<br />
-schedules = {}</p>
-<p>def courseLoopingTesting():<br />
-    &lsquo;&rsquo;&lsquo;This goes through all the stuff and gets down to the important info for each section&rsquo;&lsquo;&rsquo;<br />
-    #go through each course and print it<br />
-    for course in coursesNested:<br />
-        print course<br />
-        #go through each section in each course and print it<br />
-        for section in coursesNested[course]:<br />
-            print &rdquo;    &rdquo; + section<br />
-            #go through the info for each section<br />
-            for class_time in coursesNested[course][section]:<br />
-                #if it&rsquo;s just the days and times, print them<br />
-                if str(class_time) == class_time:<br />
-                    print &rdquo;        &rdquo; + str(class_time)<br />
-                #if its not (so its a list of 2 or more lists), then break it down again and then print the days and times<br />
-                else:<br />
-                    for other_day in class_time:<br />
-                        print &rdquo;        &rdquo; + str(other_day)</p>
-<p>def scheduleMakerTesting():<br />
+schedules = {}<br />
+def scheduleMakerTesting():<br />
     &lsquo;&rsquo;&lsquo;This is used to make a new &ldquo;branch&rdquo; of schedules. When theres a few possibilities, a new branch will be made for each one, then from there each addition will be checked with each branch.&rsquo;&lsquo;&rsquo;<br />
     base_schedule = {&ldquo;M&rdquo;:[],&rdquo;T&rdquo;:[],&rdquo;W&rdquo;:[],&rdquo;R&rdquo;:[],&rdquo;F&rdquo;:[]} #time to branch<br />
     new_sched = {}#new empty dictionary</p>
@@ -1157,7 +1051,6 @@ new_sched.update({"new":"true"})#add a new key-value to the new dictionary
 print "base: " + str(base_schedule)
 print "new: " + str(new_sched)
 </code></pre>
-<p>&rsquo;&lsquo;&rsquo;=====================================================================================================&rsquo;&lsquo;&rsquo;</p>
 <p>coursesNestedBetter = {\<br />
     &ldquo;BT  353&rdquo;:{\<br />
         &ldquo;A&rdquo;:[\<br />
@@ -1229,61 +1122,6 @@ print "new: " + str(new_sched)
         &ldquo;EV&rdquo;:[[&ldquo;M&rdquo;,&rdquo;1815&rdquo;,&rdquo;2045&rdquo;]]\<br />
         }\<br />
     }</p>
-<p>def theyChoseThatSchemaBecauseTheyHateMe():<br />
-    &lsquo;&rsquo;&lsquo;New nested course list makes schema more consistent because all sections have a list of lists regardless of how many meetings there are or if they all meet at the same time each day. From here I should be able to go through and get the values of class_time[1] and class_time[2] as the start and end times, then I can put them into the conflict-checker function and make some schedules!!!&rsquo;&lsquo;&rsquo;<br />
-    count = 0<br />
-    for course in coursesNestedBetter:<br />
-        print course<br />
-        #go through each section in each course and print it<br />
-        for section in coursesNestedBetter[course]:<br />
-            print &rdquo;    &rdquo; + section<br />
-            #go through the info for each section<br />
-            for class_time in coursesNestedBetter[course][section]:<br />
-                #break it down again and then print the days and times<br />
-                print &rdquo;        Day: &rdquo; + class_time[0]<br />
-                print &rdquo;        Start: &rdquo; + class_time[1]<br />
-                print &rdquo;        End: &rdquo; + class_time[2]<br />
-            #print &ldquo;Done with sections&rdquo;<br />
-        #print &ldquo;Done with courses&rdquo;<br />
-    #print &ldquo;Done with dictionary&rdquo;</p>
-<p>def checkTheseCoursesForConflicts():<br />
-    &lsquo;&rsquo;&lsquo;Given two course sections in the format of coursesNestedBetter[course][section], check for conflicts through all meetings for that section.&rsquo;&lsquo;&rsquo;<br />
-    #choose first course and section<br />
-    print &ldquo;Choose course 1&rdquo;<br />
-    for course in coursesNestedBetter:<br />
-        print course<br />
-    course1 = raw_input()<br />
-    print &ldquo;Choose section of &rdquo; + course1<br />
-    for section in coursesNestedBetter[course1]:<br />
-        print section<br />
-    section1 = raw_input()<br />
-    #get the meeting times<br />
-    check1 = coursesNestedBetter[course1][section1]</p>
-<pre><code>#choose the second course and section
-print "Choose course 2"
-for course in coursesNestedBetter:
-    print course
-course2 = raw_input()
-print "Choose section of " + course2
-for section in coursesNestedBetter[course2]:
-    print section
-section2 = raw_input()
-#get the meeting times
-check2 = coursesNestedBetter[course2][section2]
-
-#pritn it nicely
-print course1 + section1 + ": " + str(check1)
-print course2 + section2 + ": " + str(check2)
-
-for meeting1 in check1:#loop through the first sections meeting times
-    for meeting2 in check2:#loop through the second sections meeting times
-        if meeting1[0] == meeting2[0]: #if meeting on the same day
-            isAllowed(meeting1,meeting2)
-        else:
-            print "Different days, not a problem!"
-</code></pre>
-<h1 id="checkthesecoursesforconflicts"><a name="user-content-checkthesecoursesforconflicts" href="#checkthesecoursesforconflicts" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>checkTheseCoursesForConflicts()</h1>
-<p>&rsquo;&lsquo;&rsquo;=====================================================================================================&rsquo;&lsquo;&rsquo;</p>
 <h1 id="comparison-for-two-meeting-times-to-check-for-conflicts"><a name="user-content-comparison-for-two-meeting-times-to-check-for-conflicts" href="#comparison-for-two-meeting-times-to-check-for-conflicts" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>comparison for two meeting times to check for conflicts</h1>
 <p>def isAllowed(classList1, classList2):<br />
     &lsquo;&rsquo;&lsquo;<br />
@@ -1313,26 +1151,33 @@ for meeting1 in check1:#loop through the first sections meeting times
             for class_time1 in coursesNestedBetter[course1][section1]:<br />
                 for course2 in coursesNestedBetter:<br />
                     for section2 in coursesNestedBetter[course2]:<br />
-                        for class_time2 in coursesNestedBetter[course2][section2]:<br />
-                            check1 = coursesNestedBetter[course1][section1]<br />
-                            check2 = coursesNestedBetter[course2][section2]<br />
+                        if (coursesNestedBetter[course1][section1] == coursesNestedBetter[course2][section2]):<br />
                             print &ldquo;&mdash;&ldquo;<br />
-                            print &ldquo;Comparing &rdquo; + course1 + section1 + &rdquo; to &rdquo; + course2 + section2<br />
-                            for meeting1 in check1:<br />
-                                for meeting2 in check2:<br />
-                                    if meeting1[0] == meeting2[0]:<br />
-                                        print &ldquo;<em> Meeting 1: &rdquo; + str(meeting1)<br />
-                                        print &ldquo;</em> Meeting 2: &rdquo; + str(meeting2)<br />
-                                        if (isAllowed(meeting1,meeting2) == True):<br />
-                                            print &rdquo;  * No conflict&rdquo;<br />
+                            print &ldquo;Same section: &rdquo; + str(course1) + str(section1) + &rdquo; and &rdquo; + str(course2) + str(section2)<br />
+                        else:<br />
+                            for class_time2 in coursesNestedBetter[course2][section2]:<br />
+                                check1 = coursesNestedBetter[course1][section1]<br />
+                                check2 = coursesNestedBetter[course2][section2]<br />
+                                print &ldquo;&mdash;&ldquo;<br />
+                                print &ldquo;Comparing &rdquo; + course1 + section1 + &rdquo; to &rdquo; + course2 + section2<br />
+                                for meeting1 in check1:<br />
+                                    for meeting2 in check2:<br />
+                                        if meeting1[0] == meeting2[0]:<br />
+                                            print &ldquo;<em> Meeting 1: &rdquo; + str(meeting1)<br />
+                                            print &ldquo;</em> Meeting 2: &rdquo; + str(meeting2)<br />
+                                            if (isAllowed(meeting1,meeting2) == True):<br />
+                                                print &rdquo;  * No conflict&rdquo;<br />
+                                            else:<br />
+                                                print &rdquo;  * Conflict&rdquo;<br />
+                                                conflicts = conflicts + 1<br />
+                                            count = count + 1<br />
                                         else:<br />
-                                            print &rdquo;  * Conflict&rdquo;<br />
-                                            conflicts = conflicts + 1<br />
-                                        count = count + 1<br />
-                                    else:<br />
-                                        print &ldquo;* Different days&rdquo;<br />
+                                            print &ldquo;<em> Different days&rdquo;<br />
+    print &ldquo;&rdquo;<br />
+    print &ldquo;-----SUMMARY-----&ldquo;<br />
     print &ldquo;checked for &rdquo; + str(count) + &rdquo; conflicts&rdquo;<br />
-    print &ldquo;found &rdquo; + str(conflicts) + &rdquo; conflicts&rdquo;</p>
+    print &ldquo;found &rdquo; + str(conflicts) + &rdquo; conflicts&rdquo;<br />
+    print &ldquo;</em>Did not &lsquo;compare&rsquo; same sections to each other&rdquo;</p>
 <p>findAllConflicts()</p>
 <p>&rsquo;&lsquo;&rsquo;<br />
 Adding new schedules:<br />
