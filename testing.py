@@ -138,29 +138,33 @@ def findAllConflicts():
         for section1 in coursesNestedBetter[course1]:
             for class_time1 in coursesNestedBetter[course1][section1]:
                 for course2 in coursesNestedBetter:
-                    for section2 in coursesNestedBetter[course2]:
-                        if (coursesNestedBetter[course1][section1] == coursesNestedBetter[course2][section2]):
-                            print "---"
-                            print "Same section: " + str(course1) + str(section1) + " and " + str(course2) + str(section2)
-                        else:
-                            for class_time2 in coursesNestedBetter[course2][section2]:
-                                check1 = coursesNestedBetter[course1][section1]
-                                check2 = coursesNestedBetter[course2][section2]
+                    if (course1 == course2):
+                        print "---"
+                        print "Same course(" + str(course1) + "), only need one of those you fool!"
+                    else:
+                        for section2 in coursesNestedBetter[course2]:
+                            if (coursesNestedBetter[course1][section1] == coursesNestedBetter[course2][section2]):
                                 print "---"
-                                print "Comparing " + course1 + section1 + " to " + course2 + section2
-                                for meeting1 in check1:
-                                    for meeting2 in check2:
-                                        if meeting1[0] == meeting2[0]:
-                                            print "* Meeting 1: " + str(meeting1)
-                                            print "* Meeting 2: " + str(meeting2)
-                                            if (isAllowed(meeting1,meeting2) == True):
-                                                print "  * No conflict"
+                                print "Same section: " + str(course1) + str(section1) + " and " + str(course2) + str(section2)
+                            else:
+                                for class_time2 in coursesNestedBetter[course2][section2]:
+                                    check1 = coursesNestedBetter[course1][section1]
+                                    check2 = coursesNestedBetter[course2][section2]
+                                    print "---"
+                                    print "Comparing " + course1 + section1 + " to " + course2 + section2
+                                    for meeting1 in check1:
+                                        for meeting2 in check2:
+                                            if meeting1[0] == meeting2[0]:
+                                                print "* Meeting 1: " + str(meeting1)
+                                                print "* Meeting 2: " + str(meeting2)
+                                                if (isAllowed(meeting1,meeting2) == True):
+                                                    print "  * No conflict"
+                                                else:
+                                                    print "  * Conflict"
+                                                    conflicts = conflicts + 1
+                                                count = count + 1
                                             else:
-                                                print "  * Conflict"
-                                                conflicts = conflicts + 1
-                                            count = count + 1
-                                        else:
-                                            print "* Different days"
+                                                print "* Different days"
     print ""
     print "-----SUMMARY-----"
     print "checked for " + str(count) + " conflicts"
