@@ -1150,29 +1150,33 @@ print "new: " + str(new_sched)
         for section1 in coursesNestedBetter[course1]:<br />
             for class_time1 in coursesNestedBetter[course1][section1]:<br />
                 for course2 in coursesNestedBetter:<br />
-                    for section2 in coursesNestedBetter[course2]:<br />
-                        if (coursesNestedBetter[course1][section1] == coursesNestedBetter[course2][section2]):<br />
-                            print &ldquo;&mdash;&ldquo;<br />
-                            print &ldquo;Same section: &rdquo; + str(course1) + str(section1) + &rdquo; and &rdquo; + str(course2) + str(section2)<br />
-                        else:<br />
-                            for class_time2 in coursesNestedBetter[course2][section2]:<br />
-                                check1 = coursesNestedBetter[course1][section1]<br />
-                                check2 = coursesNestedBetter[course2][section2]<br />
+                    if (course1 == course2):<br />
+                        print &ldquo;&mdash;&ldquo;<br />
+                        print &ldquo;Same course(&rdquo; + str(course1) + &ldquo;), only need one of those you fool!&rdquo;<br />
+                    else:<br />
+                        for section2 in coursesNestedBetter[course2]:<br />
+                            if (coursesNestedBetter[course1][section1] == coursesNestedBetter[course2][section2]):<br />
                                 print &ldquo;&mdash;&ldquo;<br />
-                                print &ldquo;Comparing &rdquo; + course1 + section1 + &rdquo; to &rdquo; + course2 + section2<br />
-                                for meeting1 in check1:<br />
-                                    for meeting2 in check2:<br />
-                                        if meeting1[0] == meeting2[0]:<br />
-                                            print &ldquo;<em> Meeting 1: &rdquo; + str(meeting1)<br />
-                                            print &ldquo;</em> Meeting 2: &rdquo; + str(meeting2)<br />
-                                            if (isAllowed(meeting1,meeting2) == True):<br />
-                                                print &rdquo;  * No conflict&rdquo;<br />
+                                print &ldquo;Same section: &rdquo; + str(course1) + str(section1) + &rdquo; and &rdquo; + str(course2) + str(section2)<br />
+                            else:<br />
+                                for class_time2 in coursesNestedBetter[course2][section2]:<br />
+                                    check1 = coursesNestedBetter[course1][section1]<br />
+                                    check2 = coursesNestedBetter[course2][section2]<br />
+                                    print &ldquo;&mdash;&ldquo;<br />
+                                    print &ldquo;Comparing &rdquo; + course1 + section1 + &rdquo; to &rdquo; + course2 + section2<br />
+                                    for meeting1 in check1:<br />
+                                        for meeting2 in check2:<br />
+                                            if meeting1[0] == meeting2[0]:<br />
+                                                print &ldquo;<em> Meeting 1: &rdquo; + str(meeting1)<br />
+                                                print &ldquo;</em> Meeting 2: &rdquo; + str(meeting2)<br />
+                                                if (isAllowed(meeting1,meeting2) == True):<br />
+                                                    print &rdquo;  * No conflict&rdquo;<br />
+                                                else:<br />
+                                                    print &rdquo;  * Conflict&rdquo;<br />
+                                                    conflicts = conflicts + 1<br />
+                                                count = count + 1<br />
                                             else:<br />
-                                                print &rdquo;  * Conflict&rdquo;<br />
-                                                conflicts = conflicts + 1<br />
-                                            count = count + 1<br />
-                                        else:<br />
-                                            print &ldquo;<em> Different days&rdquo;<br />
+                                                print &ldquo;<em> Different days&rdquo;<br />
     print &ldquo;&rdquo;<br />
     print &ldquo;-----SUMMARY-----&ldquo;<br />
     print &ldquo;checked for &rdquo; + str(count) + &rdquo; conflicts&rdquo;<br />
