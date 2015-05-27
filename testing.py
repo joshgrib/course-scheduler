@@ -4,47 +4,6 @@ http://web.stevens.edu/scheduler/cor  2015F/sched_plus_crsemtg.txt
 Got there by going back to the "core" part of the url then going to that text file (plus course meeting?)
 '''
 
-'''Deprecated
-#heres the courses as one big dictionary
-courses = {\
-    'BT  353A' : ["M","1300","1350"] , \
-    'BT  353A' : ["W","1100","1240"] , \
-    'BT  353B' : ["M","1500","1640"] , \
-    'BT  353B' : ["W","0900","0950"] , \
-    'BT  353C' : ["T","1500","1640"] , \
-    'BT  353C' : ["R","1100","1150"] , \
-    'BT  353D' : ["T","1500","1640"] , \
-    'BT  353D' : ["R","1100","1150"] , \
-    'BT  353E' : ["M","1815","2045"] , \
-    'CS  115A' : ["MWF","1200","1250"] , \
-    'CS  115B' : ["MRF","1300","1350"] , \
-    'CS  115LA' : ["R","0900","1040"] , \
-    'CS  115LB' : ["R","1100","1240"] , \
-    'CS  115LC' : ["R","1500","1640"] , \
-    'CS  115LD' : ["R","1500","1640"] , \
-    'CS  115LE' : ["F","1000","1140"] , \
-    'CS  115LF' : ["F","1600","1740"] , \
-    'CS  135A' : ["MWF","1000","1050"] , \
-    'CS  135LA' : ["F","1100","1240"] , \
-    'CS  135LB' : ["F","1300","1440"] , \
-    'CS  146A' : ["TWF","0900","0950"] , \
-    'CS  146B' : ["MTR","1400","1450"] , \
-    'D   110A' : ["T","1700","1805"] , \
-    'HHS 468EV' : ["M","1815","2045"]\
-    }
-def keyTesting():
-    uniqueCourses = []
-    print "Accessing different parts of dictionary and keys testing:"
-    for x in courses:
-        #print x + " String length:" + str(len(x))
-        #print "Course number: " + x[4:9]
-        #print ""
-        y = x[4:7]
-        if (uniqueCourses.count(y) == 0):
-            uniqueCourses.append(y)
-        print uniqueCourses
-'''
-
 collapsable_comments = [
     '''
     String idexes 4-6 have the course numbers
@@ -72,19 +31,19 @@ collapsable_comments = [
     '''
 ]
 
-#simple comparison for two classes in the format above - only compares for one day right now
+#comparison for two meeting times to check for conflicts
 def isAllowed(classList1, classList2):
     '''
     isAllowed():
                     |----------------|                      interval 1
-    |----------|                                            end2<start1         True
-                                            |-------|        end1<start2         True
-    |------------------|                                  end2 !< start1      False
-                                |---------------|          end1 !< start2      False
-                |-------------------------|             end2 !< start1      False
-                                                         &  end1 !< start2       False
+    |----------|                                            end2<start1         True - No conflict
+                                            |-------|        end1<start2         True - No conflict
+    |------------------|                                  end2 !< start1      False - Conflict
+                                |---------------|          end1 !< start2      False - Conflict
+                |-------------------------|             end2 !< start1      False - Conflict
+                                                         &  end1 !< start2       False - Conflict
                         |--------|                          end2 !< start1
-                                                         &  end1 !< start2       False
+                                                         &  end1 !< start2       False - Conflict
     '''
     if (classList2[2] < classList1[1]) or (classList1[2] < classList2[1]):
         print 'No conflict!'
@@ -207,15 +166,8 @@ def scheduleMakerTesting():
     print "base: " + str(base_schedule)
     print "new: " + str(new_sched)
 
-#courseLoopingTesting()
-#scheduleMakerTesting()
 
-def proveTheConspiracy(name,event):
-    jetFuelCantMeltSteelBeams = True
-    if jetFuelCantMeltSteelBeams:
-        print name + " did " + event
-#proveTheConspiracy("Bush","9/11")
-
+'''====================================================================================================='''
 
 coursesNestedBetter = {\
     "BT  353":{\
@@ -289,7 +241,6 @@ coursesNestedBetter = {\
         }\
     }
 
-
 def theyChoseThatSchemaBecauseTheyHateMe():
     '''New nested makes schema more consistent because all sections have an list of lists regardless of how many meetings there are or if they all meet at the same time each day. From here I should be able to go through and get the values of class_time[1] and class_time[2] as the start and end times, then I can put them into the conflict-checker function and make some schedules!!!'''
     count = 0
@@ -301,20 +252,52 @@ def theyChoseThatSchemaBecauseTheyHateMe():
             #go through the info for each section
             for class_time in coursesNestedBetter[course][section]:
                 #break it down again and then print the days and times
-                print "        " + class_time[0]
-                #for other_day in class_time:
-                    #print "        " + str(other_day)
+                print "        Day: " + class_time[0]
+                print "        Start: " + class_time[1]
+                print "        End: " + class_time[2]
             #print "Done with sections"
         #print "Done with courses"
     #print "Done with dictionary"
 
+def checkTheseCoursesForConflicts():
+    '''Given two course sections in the format of coursesNestedBetter[course][section], check for conflicts through all meetings for that section.'''
+    #choose first course and section
+    print "Choose course 1"
+    for course in coursesNestedBetter:
+        print course
+    course1 = raw_input()
+    print "Choose section of " + course1
+    for section in coursesNestedBetter[course1]:
+        print section
+    section1 = raw_input()
+    #get the meeting times
+    check1 = coursesNestedBetter[course1][section1]
+    #choose the second course and section
+    print "Choose course 2"
+    for course in coursesNestedBetter:
+        print course
+    course2 = raw_input()
+    print "Choose section of " + course2
+    for section in coursesNestedBetter[course2]:
+        print section
+    section2 = raw_input()
+    #get the meeting times
+    check2 = coursesNestedBetter[course1][section1]
+    #pritn it nicely
+    print course1 + section1 + ": " + str(check1)
+    print course2 + section2 + ": " + str(check2)
 
-theyChoseThatSchemaBecauseTheyHateMe()
+    for meeting1 in check1:#loop through the first sections meeting times
+        for meeting2 in check2:#loop through the second sections meeting times
+            if meeting1[0] == meeting2[0]: #if meeting on the same day
+                isAllowed(meeting1,meeting2)
+            else:
+                print "Different days, not a problem!"
 
-
-
+checkTheseCoursesForConflicts()
 
 '''
-TODO:
-Make a function to go through and put a few courses into the schedule dictionary to get a feel for it. Then maybe start doing some stuff to check for time conflicts
+Adding new schedules:
+Use a list of dictionaries, or maybe a dictionary of dictionaries. The big one will hold all the schedules, each schedule with be a dictionary of 5 keys, one for each day, then the value will be a list of course numbers/sections on that day. Adding a new course is just appending to the list for that day, adding a new schedule is making deep copy of the previous dictionary then appending it to the list of dictionaries. A for loop can go through the list of schedules and some more for loops will check everything for conflicts.
+Scaling, even on this small level, is difficult.
 '''

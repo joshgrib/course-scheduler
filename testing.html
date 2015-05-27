@@ -1019,46 +1019,6 @@ body .markdown-body
 <a href="http://web.stevens.edu/scheduler/cor">http://web.stevens.edu/scheduler/cor</a>  2015F/sched_plus_crsemtg.txt<br />
 Got there by going back to the &ldquo;core&rdquo; part of the url then going to that text file (plus course meeting?)<br />
 &lsquo;&rsquo;&lsquo;</p>
-<p>&rsquo;&lsquo;&rsquo;Deprecated</p>
-<h1 id="heres-the-courses-as-one-big-dictionary"><a name="user-content-heres-the-courses-as-one-big-dictionary" href="#heres-the-courses-as-one-big-dictionary" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>heres the courses as one big dictionary</h1>
-<p>courses = {\<br />
-    &lsquo;BT  353A&rsquo; : [&ldquo;M&rdquo;,&rdquo;1300&rdquo;,&rdquo;1350&rdquo;] , \<br />
-    &lsquo;BT  353A&rsquo; : [&ldquo;W&rdquo;,&rdquo;1100&rdquo;,&rdquo;1240&rdquo;] , \<br />
-    &lsquo;BT  353B&rsquo; : [&ldquo;M&rdquo;,&rdquo;1500&rdquo;,&rdquo;1640&rdquo;] , \<br />
-    &lsquo;BT  353B&rsquo; : [&ldquo;W&rdquo;,&rdquo;0900&rdquo;,&rdquo;0950&rdquo;] , \<br />
-    &lsquo;BT  353C&rsquo; : [&ldquo;T&rdquo;,&rdquo;1500&rdquo;,&rdquo;1640&rdquo;] , \<br />
-    &lsquo;BT  353C&rsquo; : [&ldquo;R&rdquo;,&rdquo;1100&rdquo;,&rdquo;1150&rdquo;] , \<br />
-    &lsquo;BT  353D&rsquo; : [&ldquo;T&rdquo;,&rdquo;1500&rdquo;,&rdquo;1640&rdquo;] , \<br />
-    &lsquo;BT  353D&rsquo; : [&ldquo;R&rdquo;,&rdquo;1100&rdquo;,&rdquo;1150&rdquo;] , \<br />
-    &lsquo;BT  353E&rsquo; : [&ldquo;M&rdquo;,&rdquo;1815&rdquo;,&rdquo;2045&rdquo;] , \<br />
-    &lsquo;CS  115A&rsquo; : [&ldquo;MWF&rdquo;,&rdquo;1200&rdquo;,&rdquo;1250&rdquo;] , \<br />
-    &lsquo;CS  115B&rsquo; : [&ldquo;MRF&rdquo;,&rdquo;1300&rdquo;,&rdquo;1350&rdquo;] , \<br />
-    &lsquo;CS  115LA&rsquo; : [&ldquo;R&rdquo;,&rdquo;0900&rdquo;,&rdquo;1040&rdquo;] , \<br />
-    &lsquo;CS  115LB&rsquo; : [&ldquo;R&rdquo;,&rdquo;1100&rdquo;,&rdquo;1240&rdquo;] , \<br />
-    &lsquo;CS  115LC&rsquo; : [&ldquo;R&rdquo;,&rdquo;1500&rdquo;,&rdquo;1640&rdquo;] , \<br />
-    &lsquo;CS  115LD&rsquo; : [&ldquo;R&rdquo;,&rdquo;1500&rdquo;,&rdquo;1640&rdquo;] , \<br />
-    &lsquo;CS  115LE&rsquo; : [&ldquo;F&rdquo;,&rdquo;1000&rdquo;,&rdquo;1140&rdquo;] , \<br />
-    &lsquo;CS  115LF&rsquo; : [&ldquo;F&rdquo;,&rdquo;1600&rdquo;,&rdquo;1740&rdquo;] , \<br />
-    &lsquo;CS  135A&rsquo; : [&ldquo;MWF&rdquo;,&rdquo;1000&rdquo;,&rdquo;1050&rdquo;] , \<br />
-    &lsquo;CS  135LA&rsquo; : [&ldquo;F&rdquo;,&rdquo;1100&rdquo;,&rdquo;1240&rdquo;] , \<br />
-    &lsquo;CS  135LB&rsquo; : [&ldquo;F&rdquo;,&rdquo;1300&rdquo;,&rdquo;1440&rdquo;] , \<br />
-    &lsquo;CS  146A&rsquo; : [&ldquo;TWF&rdquo;,&rdquo;0900&rdquo;,&rdquo;0950&rdquo;] , \<br />
-    &lsquo;CS  146B&rsquo; : [&ldquo;MTR&rdquo;,&rdquo;1400&rdquo;,&rdquo;1450&rdquo;] , \<br />
-    &lsquo;D   110A&rsquo; : [&ldquo;T&rdquo;,&rdquo;1700&rdquo;,&rdquo;1805&rdquo;] , \<br />
-    &lsquo;HHS 468EV&rsquo; : [&ldquo;M&rdquo;,&rdquo;1815&rdquo;,&rdquo;2045&rdquo;]\<br />
-    }<br />
-def keyTesting():<br />
-    uniqueCourses = []<br />
-    print &ldquo;Accessing different parts of dictionary and keys testing:&rdquo;<br />
-    for x in courses:<br />
-        #print x + &rdquo; String length:&rdquo; + str(len(x))<br />
-        #print &ldquo;Course number: &rdquo; + x[4:9]<br />
-        #print &ldquo;&rdquo;<br />
-        y = x[4:7]<br />
-        if (uniqueCourses.count(y) == 0):<br />
-            uniqueCourses.append(y)<br />
-        print uniqueCourses<br />
-&lsquo;&rsquo;&lsquo;</p>
 <p>collapsable_comments = [<br />
     &lsquo;&rsquo;&lsquo;<br />
     String idexes 4-6 have the course numbers<br />
@@ -1222,6 +1182,7 @@ print "new: " + str(new_sched)
     if jetFuelCantMeltSteelBeams:<br />
         print name + &rdquo; did &rdquo; + event</p>
 <h1 id="provetheconspiracybush911"><a name="user-content-provetheconspiracybush911" href="#provetheconspiracybush911" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>proveTheConspiracy(&ldquo;Bush&rdquo;,&rdquo;9/11&rdquo;)</h1>
+<p>&rsquo;&lsquo;&rsquo;=====================================================================================================&rsquo;&lsquo;&rsquo;</p>
 <p>coursesNestedBetter = {\<br />
     &ldquo;BT  353&rdquo;:{\<br />
         &ldquo;A&rdquo;:[\<br />
@@ -1294,6 +1255,7 @@ print "new: " + str(new_sched)
         }\<br />
     }</p>
 <p>def theyChoseThatSchemaBecauseTheyHateMe():<br />
+    &lsquo;&rsquo;&lsquo;New nested makes schema more consistent because all sections have an list of lists regardless of how many meetings there are or if they all meet at the same time each day. From here I should be able to go through and get the values of class_time[1] and class_time[2] as the start and end times, then I can put them into the conflict-checker function and make some schedules!!!&rsquo;&lsquo;&rsquo;<br />
     count = 0<br />
     for course in coursesNestedBetter:<br />
         print course<br />
@@ -1303,15 +1265,47 @@ print "new: " + str(new_sched)
             #go through the info for each section<br />
             for class_time in coursesNestedBetter[course][section]:<br />
                 #break it down again and then print the days and times<br />
-                print &rdquo;        &rdquo; + class_time[0]<br />
-                #for other_day in class_time:<br />
-                    #print &rdquo;        &rdquo; + str(other_day)<br />
-                    #print &ldquo;Count: &rdquo; + str(count)<br />
-                    #count = count + 1<br />
+                print &rdquo;        Day: &rdquo; + class_time[0]<br />
+                print &rdquo;        Start: &rdquo; + class_time[1]<br />
+                print &rdquo;        End: &rdquo; + class_time[2]<br />
             #print &ldquo;Done with sections&rdquo;<br />
         #print &ldquo;Done with courses&rdquo;<br />
     #print &ldquo;Done with dictionary&rdquo;</p>
-<p>theyChoseThatSchemaBecauseTheyHateMe()</p>
+<p>def checkTheseCoursesForConflicts():<br />
+    &lsquo;&rsquo;&lsquo;Given two course sections in the format of coursesNestedBetter[course][section], check for conflicts through all meetings for that section.&rsquo;&lsquo;&rsquo;<br />
+    #choose first course and section<br />
+    print &ldquo;Choose course 1&rdquo;<br />
+    for course in coursesNestedBetter:<br />
+        print course<br />
+    course1 = raw_input()<br />
+    print &ldquo;Choose section of &rdquo; + course1<br />
+    for section in coursesNestedBetter[course1]:<br />
+        print section<br />
+    section1 = raw_input()<br />
+    #get the meeting times<br />
+    check1 = coursesNestedBetter[course1][section1]<br />
+    #choose the second course and section<br />
+    print &ldquo;Choose course 2&rdquo;<br />
+    for course in coursesNestedBetter:<br />
+        print course<br />
+    course2 = raw_input()<br />
+    print &ldquo;Choose section of &rdquo; + course2<br />
+    for section in coursesNestedBetter[course2]:<br />
+        print section<br />
+    section2 = raw_input()<br />
+    #get the meeting times<br />
+    check2 = coursesNestedBetter[course1][section1]<br />
+    #pritn it nicely<br />
+    print course1 + section1 + &ldquo;: &rdquo; + str(check1)<br />
+    print course2 + section2 + &ldquo;: &rdquo; + str(check2)</p>
+<pre><code>for meeting1 in check1:#loop through the first sections meeting times
+    for meeting2 in check2:#loop through the second sections meeting times
+        if meeting1[0] == meeting2[0]: #if meeting on the same day
+            isAllowed(meeting1,meeting2)
+        else:
+            print "Different days, not a problem!"
+</code></pre>
+<p>checkTheseCoursesForConflicts()</p>
 <p>&rsquo;&lsquo;&rsquo;<br />
 TODO:<br />
 Make a function to go through and put a few courses into the schedule dictionary to get a feel for it. Then maybe start doing some stuff to check for time conflicts<br />
