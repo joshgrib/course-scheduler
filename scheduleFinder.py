@@ -1,4 +1,4 @@
-import copy
+#import copy
 import itertools
 '''
 http://web.stevens.edu/scheduler/core/2015F/sched_plus_crsemtg.txt
@@ -77,6 +77,8 @@ coursesNestedBetter = {\
         }\
     }
 
+courseCodes = {'BT  353A':10085,'BT  353B':12010,'BT  353C':12011,'BT  353D':12012,'BT  353E':12009,'CS  115A':10472,'CS  115B':10473,'CS  115LA':10474,'CS  115LB':10475,'CS  115LC':10476,'CS  115LD':10477,'CS  115LE':10478,'CS  115LF':11839,'CS  135A':10479,'CS  135LA':10480,'CS  135LB':11840,'CS  146A':10481,'CS  146B':10482,'D   110A':10583,'HHS 468EV':11995}
+
 #comparison for two meeting times to check for conflicts
 def isAllowed(classList1, classList2):
     '''
@@ -132,6 +134,10 @@ def findAllCombinations():
     print "Good combinations:"
     for x in goodCombos:
         print x
+        urlPart = []
+        for course in x:
+            urlPart.append(courseCodes[str(course)])
+        print urlPart
 
 def checkCombination(inputList):
     '''This will go through a combination list and see if it all works'''
@@ -200,3 +206,9 @@ findAllCombinations()
 "D   110A",T,0500PM,0605PM
 "HHS 468EV",M,0615PM,0845PM
 '''
+
+'''
+http://web.stevens.edu/scheduler/#2015F=#####,#####,#####,#####
+'''
+
+#Python xml parsing: https://docs.python.org/2/library/xml.etree.elementtree.html
