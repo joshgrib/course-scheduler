@@ -1015,8 +1015,9 @@ body .markdown-body
   }
 }
 </style><title>testing</title></head><body><article class="markdown-body"><p>import copy<br />
+import itertools<br />
 &lsquo;&rsquo;&lsquo;<br />
-<a href="http://web.stevens.edu/scheduler/cor">http://web.stevens.edu/scheduler/cor</a>  2015F/sched_plus_crsemtg.txt<br />
+<a href="http://web.stevens.edu/scheduler/cor">http://web.stevens.edu/scheduler/cor</a>  sched_plus_crsemtg.txt<br />
 Got there by going back to the &ldquo;core&rdquo; part of the url then going to that text file (plus course meeting?)<br />
 &lsquo;&rsquo;&lsquo;</p>
 <p>coursesNestedBetter = {\<br />
@@ -1146,6 +1147,7 @@ print "new: " + str(new_sched)
     &lsquo;&rsquo;&lsquo;This will loop through each section and find all conflicts with all other sections. Basically a combination of the function to print all courses sections and meeting times, and the one to check for conflicts between 2 meeting times. This will have to check 1122 meeting times so seeing the speed will be interesting too.&rsquo;&lsquo;&rsquo;<br />
     count = 0<br />
     conflicts = 0<br />
+    diffDays=0<br />
     for course1 in coursesNestedBetter:<br />
         for section1 in coursesNestedBetter[course1]:<br />
             for class_time1 in coursesNestedBetter[course1][section1]:#go through all meeting times in all sections in all courses<br />
@@ -1173,10 +1175,13 @@ print "new: " + str(new_sched)
                                             count = count + 1<br />
                                         else:<br />
                                             print &ldquo;* Different days&rdquo;<br />
+                                            diffDays=diffDays + 1<br />
     print &ldquo;&rdquo;<br />
     print &ldquo;-----SUMMARY-----&ldquo;<br />
-    print &ldquo;checked for &rdquo; + str(count) + &rdquo; conflicts&rdquo;<br />
-    print &ldquo;found &rdquo; + str(conflicts) + &rdquo; conflicts&rdquo;</p>
+    print &ldquo;Checked for &rdquo; + str(count) + &rdquo; conflicts&rdquo;<br />
+    print &ldquo;Found &rdquo; + str(conflicts) + &rdquo; conflicts&rdquo;<br />
+    print &ldquo;Avoided &rdquo; +str(diffDays) + &rdquo; comparisons because theyre on different days&rdquo;<br />
+    print str(count + diffDays) + &ldquo; &lsquo;things&rsquo; checked in the time this ran&rdquo;</p>
 <h1 id="findallconflicts"><a name="user-content-findallconflicts" href="#findallconflicts" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>findAllConflicts()</h1>
 <p>def findAllGoodSchedules():<br />
     &lsquo;&rsquo;&lsquo;This will loop through each section and compare each to a section of another course. If there is no conflict then it will continue into a section of the next course. If there is a conflict then the loop ends, and a comparison with the next section starts. Recursion could probably be used within the list of sections, I don&rsquo;t really know what memoization is yet but that could probably help stop a lot of repetition.&rsquo;&lsquo;&rsquo;<br />
@@ -1185,8 +1190,109 @@ print "new: " + str(new_sched)
     for course1 in coursesNestedBetter:<br />
         for section1 in coursesNestedBetter[course1]:<br />
             for class_time1 in coursesNestedBetter[course1][section1]:#go through all meeting times in all sections in all courses<br />
-                print &ldquo;&rdquo;<br />
-    print &ldquo;&rdquo;</p>
+                print &ldquo;I think I need recursion&rdquo;<br />
+    print &ldquo;But I might be able to figure it out&rdquo;</p>
+<p>def findAllCombinations():<br />
+    &lsquo;&rsquo;&lsquo;This function goes through the nested courses, stores lists of all possible combinations of courses, and prints them&rsquo;&lsquo;&rsquo;<br />
+    bigList=[]<br />
+    goodCombos=[]<br />
+    badCombos=[]<br />
+    for course in coursesNestedBetter:<br />
+        courseList=[]<br />
+        for section in coursesNestedBetter[course]:<br />
+            courseList.append(str(course+section))<br />
+            #print courseList<br />
+        bigList.append(courseList)<br />
+    print &ldquo;The big list of lists: &rdquo; + str(bigList)</p>
+<pre><code>combos=0
+allCombos = list(itertools.product(*bigList))
+for combo in allCombos:
+    print combo
+    combos=combos+1
+    checkCombination(combo)
+    if checkCombination(combo) == True:
+        print "NO CONFLICT HERE!!!"
+        goodCombos.append(combo)
+    else:
+        print "WOAH FOUND A CONFLICT!!!"
+        badCombos.append(combo)
+print "=========="
+print "SUMMARY"
+print "There are " + str(combos) + " possible combinations"
+print str(len(goodCombos)) + " of them work fine"
+print "The other " + str(len(badCombos)) + " had a conflict"
+print ""
+print "Good combinations:"
+for x in goodCombos:
+    print x
+</code></pre>
+<p>exCombo=(&lsquo;CS  115A&rsquo;, &lsquo;CS  115LA&rsquo;, &lsquo;CS  135A&rsquo;, &lsquo;CS  135LA&rsquo;, &lsquo;BT  353A&rsquo;, &lsquo;CS  146A&rsquo;, &lsquo;HHS 468EV&rsquo;, &lsquo;D   110A&rsquo;)</p>
+<p>def checkCombination(inputList):<br />
+    &lsquo;&rsquo;&lsquo;This will go through a combination list and see if it all works&rsquo;&lsquo;&rsquo;<br />
+    conflicts = 0<br />
+    diffDays = 0<br />
+    for i in range(len(inputList)-1):<br />
+        comp1 = inputList[i]<br />
+        if comp1[7] == &lsquo;L&rsquo;:<br />
+            course1 = comp1[0:8]<br />
+            section1 = comp1[8:]<br />
+        else:<br />
+            course1 = comp1[0:7]<br />
+            section1 = comp1[7:]<br />
+        comp2 = inputList[i+1]<br />
+        if comp2[7] == &lsquo;L&rsquo;:<br />
+            course2 = comp2[0:8]<br />
+            section2 = comp2[8:]<br />
+        else:<br />
+            course2 = comp2[0:7]<br />
+            section2 = comp2[7:]<br />
+        print &ldquo;Comparing &rdquo; + course1 + &lsquo; &lsquo; + section1 + &rdquo; to &rdquo; + course2 + &lsquo; &lsquo; + section2<br />
+        check1 = coursesNestedBetter[course1][section1]<br />
+        check2 = coursesNestedBetter[course2][section2]<br />
+        for meeting1 in check1:<br />
+            for meeting2 in check2:<br />
+                if meeting1[0] == meeting2[0]:<br />
+                    print &ldquo;<em> Meeting 1: &rdquo; + str(meeting1)<br />
+                    print &ldquo;</em> Meeting 2: &rdquo; + str(meeting2)<br />
+                    if (isAllowed(meeting1,meeting2) == True):<br />
+                        print &rdquo;  * No conflict&rdquo;<br />
+                    else:<br />
+                        print &rdquo;  * Conflict&rdquo;<br />
+                        conflicts = conflicts + 1<br />
+    print &ldquo;There were &rdquo; + str(conflicts) + &rdquo; conflicts&rdquo;<br />
+    if conflicts == 0:<br />
+        return True</p>
+<p>findAllCombinations()</p>
+<h1 id="checkcombinationexcombo"><a name="user-content-checkcombinationexcombo" href="#checkcombinationexcombo" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>checkCombination(exCombo)</h1>
+<p>&rsquo;&lsquo;&rsquo;<br />
+&ldquo;BT  353A&rdquo;,M,0100PM,0150PM<br />
+&ldquo;BT  353A&rdquo;,W,1100AM,1240PM<br />
+&ldquo;BT  353B&rdquo;,M,0300PM,0440PM<br />
+&ldquo;BT  353B&rdquo;,W,0900AM,0950AM<br />
+&ldquo;BT  353C&rdquo;,T,0300PM,0440PM<br />
+&ldquo;BT  353C&rdquo;,R,1100AM,1150AM<br />
+&ldquo;BT  353D&rdquo;,T,0300PM,0440PM<br />
+&ldquo;BT  353D&rdquo;,R,1100AM,1150AM<br />
+&ldquo;BT  353E&rdquo;,M,0615PM,0845PM<br />
+&ldquo;CS  115A&rdquo;,MWF,1200PM,1250PM<br />
+&ldquo;CS  115B&rdquo;,MRF,0100PM,0150PM<br />
+&ldquo;CS  115LA&rdquo;,R,0900AM,1040AM<br />
+&ldquo;CS  115LB&rdquo;,R,1100AM,1240PM<br />
+&ldquo;CS  115LC&rdquo;,R,0300PM,0440PM<br />
+&ldquo;CS  115LD&rdquo;,R,0300PM,0440PM<br />
+&ldquo;CS  115LE&rdquo;,F,1000AM,1140AM<br />
+&ldquo;CS  115LF&rdquo;,F,0400PM,0540PM<br />
+&ldquo;CS  135A&rdquo;,MWF,1000AM,1050AM<br />
+&ldquo;CS  135LA&rdquo;,F,1100AM,1240PM<br />
+&ldquo;CS  135LB&rdquo;,F,0100PM,0240PM<br />
+&ldquo;CS  146A&rdquo;,TWF,0900AM,0950AM<br />
+&ldquo;CS  146B&rdquo;,MTR,0200PM,0250PM<br />
+&ldquo;CS  284A&rdquo;,MWF,1200PM,1250PM<br />
+&ldquo;CS  284RA&rdquo;,M,0300PM,0350PM<br />
+&ldquo;CS  284RB&rdquo;,M,0300PM,0350PM<br />
+&ldquo;D   110A&rdquo;,T,0500PM,0605PM<br />
+&ldquo;HHS 468EV&rdquo;,M,0615PM,0845PM<br />
+&lsquo;&rsquo;&lsquo;</p>
 <p>&rsquo;&lsquo;&rsquo;<br />
 Adding new schedules:<br />
 Use a list of dictionaries, or maybe a dictionary of dictionaries. The big one will hold all the schedules, each schedule with be a dictionary of 5 keys, one for each day, then the value will be a list of course numbers/sections on that day. Adding a new course is just appending to the list for that day, adding a new schedule is making deep copy of the previous dictionary then appending it to the list of dictionaries. A for loop can go through the list of schedules and some more for loops will check everything for conflicts.<br />
@@ -1213,4 +1319,7 @@ What if I loop through one at  time until I find a conflict, probably recursivel
 <p>&rsquo;&lsquo;&rsquo;<br />
 Read this too:<br />
 <a href="http://stackoverflow.com/questions/464864/python-code-to-pick-out-all-possible-combinations-from-a-list">http://stackoverflow.com/questions/464864/python-code-to-pick-out-all-possible-combinations-from-a-list</a><br />
+&lsquo;&rsquo;&lsquo;</p>
+<p>&rsquo;&lsquo;&rsquo; Python docs on looping through stuff<br />
+<a href="https://docs.python.org/2/tutorial/datastructures.html#looping-techniques">https://docs.python.org/2/tutorial/datastructures.html#looping-techniques</a><br />
 &lsquo;&rsquo;&lsquo;</p></article></body></html>

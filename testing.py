@@ -1,6 +1,7 @@
 import copy
+import itertools
 '''
-http://web.stevens.edu/scheduler/cor  2015F/sched_plus_crsemtg.txt
+http://web.stevens.edu/scheduler/cor  sched_plus_crsemtg.txt
 Got there by going back to the "core" part of the url then going to that text file (plus course meeting?)
 '''
 
@@ -134,6 +135,7 @@ def findAllConflicts():
     '''This will loop through each section and find all conflicts with all other sections. Basically a combination of the function to print all courses sections and meeting times, and the one to check for conflicts between 2 meeting times. This will have to check 1122 meeting times so seeing the speed will be interesting too.'''
     count = 0
     conflicts = 0
+    diffDays=0
     for course1 in coursesNestedBetter:
         for section1 in coursesNestedBetter[course1]:
             for class_time1 in coursesNestedBetter[course1][section1]:#go through all meeting times in all sections in all courses
@@ -161,10 +163,13 @@ def findAllConflicts():
                                             count = count + 1
                                         else:
                                             print "* Different days"
+                                            diffDays=diffDays + 1
     print ""
     print "-----SUMMARY-----"
-    print "checked for " + str(count) + " conflicts"
-    print "found " + str(conflicts) + " conflicts"
+    print "Checked for " + str(count) + " conflicts"
+    print "Found " + str(conflicts) + " conflicts"
+    print "Avoided " +str(diffDays) + " comparisons because theyre on different days"
+    print str(count + diffDays) + " 'things' checked in the time this ran"
 
 #findAllConflicts()
 
@@ -177,6 +182,117 @@ def findAllGoodSchedules():
             for class_time1 in coursesNestedBetter[course1][section1]:#go through all meeting times in all sections in all courses
                 print "I think I need recursion"
     print "But I might be able to figure it out"
+
+
+
+def findAllCombinations():
+    '''This function goes through the nested courses, stores lists of all possible combinations of courses, and prints them'''
+    bigList=[]
+    goodCombos=[]
+    badCombos=[]
+    for course in coursesNestedBetter:
+        courseList=[]
+        for section in coursesNestedBetter[course]:
+            courseList.append(str(course+section))
+            #print courseList
+        bigList.append(courseList)
+    print "The big list of lists: " + str(bigList)
+
+    combos=0
+    allCombos = list(itertools.product(*bigList))
+    for combo in allCombos:
+        print combo
+        combos=combos+1
+        checkCombination(combo)
+        if checkCombination(combo) == True:
+            print "NO CONFLICT HERE!!!"
+            goodCombos.append(combo)
+        else:
+            print "WOAH FOUND A CONFLICT!!!"
+            badCombos.append(combo)
+    print "=========="
+    print "SUMMARY"
+    print "There are " + str(combos) + " possible combinations"
+    print str(len(goodCombos)) + " of them work fine"
+    print "The other " + str(len(badCombos)) + " had a conflict"
+    print ""
+    print "Good combinations:"
+    for x in goodCombos:
+        print x
+
+
+
+exCombo=('CS  115A', 'CS  115LA', 'CS  135A', 'CS  135LA', 'BT  353A', 'CS  146A', 'HHS 468EV', 'D   110A')
+
+def checkCombination(inputList):
+    '''This will go through a combination list and see if it all works'''
+    conflicts = 0
+    diffDays = 0
+    for i in range(len(inputList)-1):
+        comp1 = inputList[i]
+        if comp1[7] == 'L':
+            course1 = comp1[0:8]
+            section1 = comp1[8:]
+        else:
+            course1 = comp1[0:7]
+            section1 = comp1[7:]
+        comp2 = inputList[i+1]
+        if comp2[7] == 'L':
+            course2 = comp2[0:8]
+            section2 = comp2[8:]
+        else:
+            course2 = comp2[0:7]
+            section2 = comp2[7:]
+        print "Comparing " + course1 + ' ' + section1 + " to " + course2 + ' ' + section2
+        check1 = coursesNestedBetter[course1][section1]
+        check2 = coursesNestedBetter[course2][section2]
+        for meeting1 in check1:
+            for meeting2 in check2:
+                if meeting1[0] == meeting2[0]:
+                    print "* Meeting 1: " + str(meeting1)
+                    print "* Meeting 2: " + str(meeting2)
+                    if (isAllowed(meeting1,meeting2) == True):
+                        print "  * No conflict"
+                    else:
+                        print "  * Conflict"
+                        conflicts = conflicts + 1
+    print "There were " + str(conflicts) + " conflicts"
+    if conflicts == 0:
+        return True
+
+
+findAllCombinations()
+#checkCombination(exCombo)
+
+'''
+"BT  353A",M,0100PM,0150PM
+"BT  353A",W,1100AM,1240PM
+"BT  353B",M,0300PM,0440PM
+"BT  353B",W,0900AM,0950AM
+"BT  353C",T,0300PM,0440PM
+"BT  353C",R,1100AM,1150AM
+"BT  353D",T,0300PM,0440PM
+"BT  353D",R,1100AM,1150AM
+"BT  353E",M,0615PM,0845PM
+"CS  115A",MWF,1200PM,1250PM
+"CS  115B",MRF,0100PM,0150PM
+"CS  115LA",R,0900AM,1040AM
+"CS  115LB",R,1100AM,1240PM
+"CS  115LC",R,0300PM,0440PM
+"CS  115LD",R,0300PM,0440PM
+"CS  115LE",F,1000AM,1140AM
+"CS  115LF",F,0400PM,0540PM
+"CS  135A",MWF,1000AM,1050AM
+"CS  135LA",F,1100AM,1240PM
+"CS  135LB",F,0100PM,0240PM
+"CS  146A",TWF,0900AM,0950AM
+"CS  146B",MTR,0200PM,0250PM
+"CS  284A",MWF,1200PM,1250PM
+"CS  284RA",M,0300PM,0350PM
+"CS  284RB",M,0300PM,0350PM
+"D   110A",T,0500PM,0605PM
+"HHS 468EV",M,0615PM,0845PM
+'''
 
 '''
 Adding new schedules:
@@ -206,4 +322,8 @@ What if I loop through one at  time until I find a conflict, probably recursivel
 '''
 Read this too:
 http://stackoverflow.com/questions/464864/python-code-to-pick-out-all-possible-combinations-from-a-list
+'''
+
+''' Python docs on looping through stuff
+https://docs.python.org/2/tutorial/datastructures.html#looping-techniques
 '''
