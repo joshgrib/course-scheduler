@@ -1,6 +1,7 @@
 #http://www.diveintopython3.net/xml.html
 #XML CANNOT HAVE '&'s!!! REPLACE WITH 'and's!!!
 import xml.etree.ElementTree as etree
+import re
 
 tree = etree.parse('2015F.xml')
 root = tree.getroot()
@@ -8,7 +9,8 @@ root = tree.getroot()
 print root
 print "There are " + str(len(root)) + " classes here."
 
-def trialParsing():
+def trialParsing():#working
+    '''This goes through and prints some stuff. It's more for me to learn have to parse the XML'''
     for course in root:
         attribs = course.attrib
         print attribs['Section']
@@ -24,7 +26,56 @@ def trialParsing():
             pass#print "Sorry key not there. Either the meeting time is TBA or this is CH 780A."
         print ""
 
-trialParsing()
+def cleanupElements():#working
+    '''This goes through the courses in the XML and removes any element that doesnt have info about meeting times'''
+    for course in root.findall('Course'):
+        print course.get('Section')
+        #current = course
+        for element in course:
+            print element.tag, element.attrib
+            if element.tag == 'Meeting':
+                print "Its a meeting!"
+            else:
+                print "I dont need this!!!"
+                course.remove(element) #for some reason this didn't get all of them the first time
+                print "Removed " + str(element) + " from " + str(course)
+    tree.write('2015F.xml')
+
+def cleanupCourses(courseList):#working
+    '''This goes through the XML and removes any course not specified in the courseList from the tree'''
+    for course in root.findall('Course'):
+        name = course.get('Section')
+        #print name
+        while re.match("([A-Za-z-])", name[-1]) or re.match("([A-Za-z-])", name[-2]):
+            name = name[:(len(name)-1)]
+            #print "Deleted stuff"
+            #print name
+        print name
+        if name in courseList:
+            #print "This belongs"
+        else:
+            #print "This does not belong"
+            root.remove(course)
+    tree.write('2015F.xml')
+
+
+def parseXML():
+    '''
+    Psuedo-code
+    Go through the courses
+        Store course name and call number as variables
+        Add both to the dictionary of call numbers
+        Create a dictionary for the course
+            For each section, create the list of meeting times store under the letter of the section within the course dictionary
+                For each meeting time, get the letter, start time, end time
+    Save it all to an external file with the dicionary of courses, and the dictionary of call numbers
+    '''
+    print "Time to parse"
+
+#There needs to be one space between department and number
+myCourses=["BT 353","CS 115","CS 115L","CS 135","CS 135L","CS 146","D 110","HHS 468"]
+
+cleanupCourses(myCourses)
 
 #Schema references
 coursesNestedBetter = {\

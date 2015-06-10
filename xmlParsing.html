@@ -1016,17 +1016,19 @@ body .markdown-body
 }
 </style><title>xmlParsing</title></head><body><article class="markdown-body"><h1 id="httpwwwdiveintopython3netxmlhtml"><a href="http://www.diveintopython3.net/xml.html">http://www.diveintopython3.net/xml.html</a></h1>
 <h1 id="xml-cannot-have-s-replace-with-ands"><a name="user-content-xml-cannot-have-s-replace-with-ands" href="#xml-cannot-have-s-replace-with-ands" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>XML CANNOT HAVE &lsquo;&amp;&rsquo;s!!! REPLACE WITH &lsquo;and&rsquo;s!!!</h1>
-<p>import xml.etree.ElementTree as etree</p>
+<p>import xml.etree.ElementTree as etree<br />
+import re</p>
 <p>tree = etree.parse(&lsquo;2015F.xml&rsquo;)<br />
 root = tree.getroot()</p>
 <p>print root<br />
 print &ldquo;There are &rdquo; + str(len(root)) + &rdquo; classes here.&rdquo;</p>
-<p>def trialParsing():<br />
+<p>def trialParsing():#working<br />
+    &lsquo;&rsquo;&lsquo;This goes through and prints some stuff. It&rsquo;s more for me to learn have to parse the XML&rsquo;&lsquo;&rsquo;<br />
     for course in root:<br />
         attribs = course.attrib<br />
         print attribs[&lsquo;Section&rsquo;]<br />
         #print course[0].attrib<br />
-        meeting = course[0]<br />
+        meeting = course[0] #TODO: This only checks the first meeting rn<br />
         info = meeting.attrib<br />
         tbaCheck = info[&lsquo;Day&rsquo;]<br />
         try:<br />
@@ -1036,7 +1038,51 @@ print &ldquo;There are &rdquo; + str(len(root)) + &rdquo; classes here.&rdquo;</
         except KeyError:<br />
             pass#print &ldquo;Sorry key not there. Either the meeting time is TBA or this is CH 780A.&rdquo;<br />
         print &ldquo;&rdquo;</p>
-<p>trialParsing()</p>
+<p>def cleanupElements():#working<br />
+    &lsquo;&rsquo;&lsquo;This goes through the courses in the XML and removes any element that doesnt have info about meeting times&rsquo;&lsquo;&rsquo;<br />
+    for course in root.findall(&lsquo;Course&rsquo;):<br />
+        print course.get(&lsquo;Section&rsquo;)<br />
+        #current = course<br />
+        for element in course:<br />
+            print element.tag, element.attrib<br />
+            if element.tag == &lsquo;Meeting&rsquo;:<br />
+                print &ldquo;Its a meeting!&rdquo;<br />
+            else:<br />
+                print &ldquo;I dont need this!!!&rdquo;<br />
+                course.remove(element) #for some reason this didn&rsquo;t get all of them the first time<br />
+                print &ldquo;Removed &rdquo; + str(element) + &rdquo; from &rdquo; + str(course)<br />
+    tree.write(&lsquo;2015F.xml&rsquo;)</p>
+<p>def cleanupCourses(courseList):#working<br />
+    &lsquo;&rsquo;&lsquo;This goes through the XML and removes any course not specified in the courseList from the tree&rsquo;&lsquo;&rsquo;<br />
+    for course in root.findall(&lsquo;Course&rsquo;):<br />
+        name = course.get(&lsquo;Section&rsquo;)<br />
+        #print name<br />
+        while re.match(&ldquo;([A-Za-z-])&rdquo;, name[-1]) or re.match(&ldquo;([A-Za-z-])&rdquo;, name[-2]):<br />
+            name = name[:(len(name)-1)]<br />
+            #print &ldquo;Deleted stuff&rdquo;<br />
+            #print name<br />
+        print name<br />
+        if name in courseList:<br />
+            print &ldquo;True&rsquo;&ldquo;<br />
+        else:<br />
+            root.remove(course)<br />
+    tree.write(&lsquo;2015F.xml&rsquo;)</p>
+<p>def parseXML():<br />
+    &lsquo;&rsquo;&lsquo;<br />
+    Psuedo-code<br />
+    Go through the courses<br />
+        Store course name and call number as variables<br />
+        Add both to the dictionary of call numbers<br />
+        Create a dictionary for the course<br />
+            For each section, create the list of meeting times store under the letter of the section within the course dictionary<br />
+                For each meeting time, get the letter, start time, end time<br />
+    Save it all to an external file with the dicionary of courses, and the dictionary of call numbers<br />
+    &lsquo;&rsquo;&lsquo;<br />
+    print &ldquo;Time to parse&rdquo;</p>
+<h1 id="there-needs-to-be-one-space-between-department-and-number"><a name="user-content-there-needs-to-be-one-space-between-department-and-number" href="#there-needs-to-be-one-space-between-department-and-number" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>There needs to be one space between department and number</h1>
+<p>myCourses=[&ldquo;BT 353&rdquo;,&rdquo;CS 115&rdquo;,&rdquo;CS 115L&rdquo;,&rdquo;CS 135&rdquo;,&rdquo;CS 135L&rdquo;,&rdquo;CS 146&rdquo;,&rdquo;D 110&rdquo;,&rdquo;HHS 468&rdquo;]</p>
+<p>cleanupCourses(myCourses)</p>
+<h1 id="schema-references"><a name="user-content-schema-references" href="#schema-references" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Schema references</h1>
 <p>coursesNestedBetter = {\<br />
     &ldquo;BT  353&rdquo;:{\<br />
         &ldquo;A&rdquo;:[\<br />
