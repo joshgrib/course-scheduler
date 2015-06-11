@@ -1,9 +1,7 @@
-#TODO: comment everything
-
-#http://www.diveintopython3.net/xml.html
 #XML CANNOT HAVE '&'s!!! REPLACE WITH 'and's!!!
 import xml.etree.ElementTree as etree #xml parsing stuff
 import re #regex stuff
+import itertools #for finding combinations
 
 tree = etree.parse('2015F.xml')
 root = tree.getroot()
@@ -25,7 +23,7 @@ def cleanupElements():#working
                 course.remove(element) #for some reason this didn't get all of them the first time
                 #print "Removed " + str(element) + " from " + str(course)
     tree.write('2015F.xml')
-    print "\nUneccesary elements removed\n"
+    print "=====Uneccesary elements removed====="
 def cleanupCourses(courseList):#working
     '''This goes through the XML and removes any course not specified in the courseList from the tree'''
     for course in root.findall('Course'):
@@ -43,7 +41,7 @@ def cleanupCourses(courseList):#working
             #print "This does not belong"
             root.remove(course)
     tree.write('2015F.xml')
-    print "\nUneccesary courses removed\n"
+    print "=====Uneccesary courses removed====="
 def fixTime(Time):#working
     '''Fixes the time formatting'''
     Time = Time[:(len(Time)-4)]#remove the seconds and the Z
@@ -56,6 +54,10 @@ def fixTime(Time):#working
         startHours = "0"+startHours
     Time = startHours + Time[2:]
     return Time
+
+bigDict = {} #yeah I got a big dict
+callNumbers = {}
+
 def parseXML():#working
     '''
     Psuedo-code
@@ -68,8 +70,6 @@ def parseXML():#working
     Save it all to an external file with the dicionary of courses, and the dictionary of call numbers
     '''
     for course in root:
-        bigDict = {} #yeah I got a big dict
-        callNumbers = {}
         attribs = course.attrib
 
         section = attribs['Section']
@@ -134,7 +134,6 @@ def parseXML():#working
                 bigDict[courseBig][courseSection] = [] #add the new section with a list
         prevCourse = thisCourse
 
-        #TODO: stop duplicate writing for D110
         for meeting in course: #write the meetings to the section lists
             info = meeting.attrib
             day =  info['Day']
@@ -157,15 +156,114 @@ def parseXML():#working
 #There needs to be one space between department and number
 myCourses=["BT 353","CS 115","CS 115L","CS 135","CS 135L","CS 146","D 110","HHS 468"]
 
+
+def isAllowed(classList1, classList2):
+    '''
+    isAllowed():
+                    |----------------|                      interval 1
+    |----------|                                            end2<start1         True - No conflict
+                                            |-------|        end1<start2         True - No conflict
+    |------------------|                                  end2 !< start1      False - Conflict
+                                |---------------|          end1 !< start2      False - Conflict
+                |-------------------------|             end2 !< start1      False - Conflict
+                                                         &  end1 !< start2       False - Conflict
+                        |--------|                          end2 !< start1
+                                                         &  end1 !< start2       False - Conflict
+    '''
+    if (classList2[2] < classList1[1]) or (classList1[2] < classList2[1]):
+        #print 'No conflict!'
+        return True
+    else:
+        #print 'Conflict!'
+        return False
+def findAllCombinations(courseDict):
+    '''This function goes through the nested courses, stores lists of all possible combinations of courses, and prints them'''
+    bigList=[] #list of lists of courses and sections
+    goodCombos=[] #store all the good combinations
+    badCombos=[] #store the bad combinations
+    for course in courseDict: #make a list of lists with the small lists being lists of possible sections for one course
+        courseList=[]
+        for section in courseDict[course]:
+            courseList.append(str(course+section))
+            #print courseList
+        bigList.append(courseList)
+    #print "The big list of lists: " + str(bigList)
+    combos=0 #initialize the counter
+    allCombos = list(itertools.product(*bigList))#find all combinations of one section of each class
+    for combo in allCombos:
+        #print combo
+        combos=combos+1
+        checkCombination(courseDict,combo)#see if the combo works and add to apppropriate list
+        if checkCombination(courseDict,combo) == True:
+            #print "NO CONFLICT HERE!!!"
+            goodCombos.append(combo)
+        else:
+            #print "WOAH FOUND A CONFLICT!!!"
+            badCombos.append(combo)
+    print "=========="
+    print "SUMMARY"
+    print "There are " + str(combos) + " possible combinations"
+    print str(len(goodCombos)) + " of them work fine"
+    print "The other " + str(len(badCombos)) + " had a conflict"
+    print ""
+    print "Good combinations:"
+    for x in goodCombos:
+        print x
+        urlPart = []
+        for course in x:
+            urlPart.append(callNumbers[str(course)])
+        print urlPart
+def checkCombination(courseDict,inputList):
+    #print inputList
+    '''This will go through a combination list and see if it all works. If it does it will return a true value'''
+    conflicts = 0 #initialize counters
+    diffDays = 0
+    for i in range(len(inputList)-1): #compare each item in the list to each other, I dont remember what I did here rn, should have commented earlier
+        comp1 = inputList[i] #comparison one in the item in the list we are on now
+        if len(comp1) == 9: #seperate the section and the course, different if its a lecture
+            course1 = comp1[0:8]
+            section1 = comp1[8:]
+        else:
+            course1 = comp1[0:7]
+            section1 = comp1[7:]
+
+        comp2 = inputList[i+1] #comparison two is the next item in the list
+        if len(comp2) == 9: #seperate the section and the course, different if its a letter
+            course2 = comp2[0:8]
+            section2 = comp2[8:]
+        else:
+            course2 = comp2[0:7]
+            section2 = comp2[7:]
+        #print "Comparing " + course1 + ' ' + section1 + " to " + course2 + ' ' + section2
+        check1 = courseDict[course1][section1] #check one is the list of meetings for course1 section1
+        check2 = courseDict[course2][section2] #check two is the list of meetings for course2 section2
+        for meeting1 in check1:
+            for meeting2 in check2:
+                if meeting1[0] == meeting2[0]: #if the meetins are on the same day...
+                    #print "* Meeting 1: " + str(meeting1)
+                    #print "* Meeting 2: " + str(meeting2)
+                    if (isAllowed(meeting1,meeting2) == True): #if there is no conflicts do nothing
+                        #print "  * No conflict"
+                        pass
+                    else: #if there is a conflict, add to the conflict counter
+                        #print "  * Conflict"
+                        conflicts = conflicts + 1
+    #print "There were " + str(conflicts) + " conflicts"
+    if conflicts == 0: #if there were no conflicts, return true
+        return True
+
 def main(): #main function to do everything
     '''Given the XML and a list of courses, this will output all the possible schedules as a list of course ID(dept. ### section) and call numbers'''
     #ask for a courselist, maybe read from a file?
     cleanupCourses(myCourses)
     cleanupElements()
     parseXML()
-    findAllCombinations()#from the other file
+    findAllCombinations(bigDict)#from the other file
 
 main()
 
 '''
+TODO
 main should probably take in the xml file and the courselist, and output the possible schedules to a file
+Add a step to remove the extra D110's
+'''
