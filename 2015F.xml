@@ -1,4 +1,4 @@
-<Semester Courses="1953" Meetings="2167" Requirements="2247" Semester="2015F">
+<Semester Courses="1957" Meetings="2171" Requirements="2250" Semester="2015F">
 <Course CallNumber="10085" CurrentEnrollment="24" EndDate="2015-12-23Z" Instructor1="Lombardi D" MaxCredit="3" MaxEnrollment="35" MinCredit="3" Section="BT 353A" StartDate="2015-08-31Z" Status="O" Term="2015F" Title="Project Management">
 <Meeting Activity="LEC" Building="" Day="M" EndTime="9:50:00Z" Room="" Site="Castle Point" StartTime="9:00:00Z" />
 <Meeting Activity="LEC" Building="" Day="W" EndTime="8:40:00Z" Room="" Site="Castle Point" StartTime="7:00:00Z" />
@@ -20,9 +20,11 @@
 </Course>
 <Course CallNumber="10472" CurrentEnrollment="21" EndDate="2015-12-23Z" Instructor1="Borowski B" MaxCredit="4" MaxEnrollment="60" MinCredit="4" Section="CS 115A" StartDate="2015-08-31Z" Status="O" Term="2015F" Title="Intro to Computer Science">
 <Meeting Activity="LEC" Building="" Day="MWF" EndTime="8:50:00Z" Room="" Site="Castle Point" StartTime="8:00:00Z" />
+<Requirement Argument="" Control="CS" Operator="" Value1="D 110A" Value2="" />
 </Course>
 <Course CallNumber="10473" CurrentEnrollment="13" EndDate="2015-12-23Z" Instructor1="Borowski B" MaxCredit="4" MaxEnrollment="60" MinCredit="4" Section="CS 115B" StartDate="2015-08-31Z" Status="O" Term="2015F" Title="Intro to Computer Science">
 <Meeting Activity="LEC" Building="" Day="MRF" EndTime="9:50:00Z" Room="" Site="Castle Point" StartTime="9:00:00Z" />
+<Requirement Argument="" Control="CS" Operator="" Value1="D 110A" Value2="" />
 </Course>
 <Course CallNumber="10474" CurrentEnrollment="3" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="0" MaxEnrollment="20" MinCredit="0" Section="CS 115LA" StartDate="2015-08-31Z" Status="O" Term="2015F" Title="Intro to Computer Science">
 <Meeting Activity="LAB" Building="" Day="R" EndTime="6:40:00Z" Room="" Site="Castle Point" StartTime="5:00:00Z" />
@@ -42,7 +44,7 @@
 <Course CallNumber="11839" CurrentEnrollment="6" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="0" MaxEnrollment="20" MinCredit="0" Section="CS 115LF" StartDate="2015-08-31Z" Status="O" Term="2015F" Title="Intro to Computer Science">
 <Meeting Activity="LAB" Building="" Day="F" EndTime="13:40:00Z" Room="" Site="Castle Point" StartTime="12:00:00Z" />
 </Course>
-<Course CallNumber="10479" CurrentEnrollment="28" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="4" MaxEnrollment="40" MinCredit="4" Section="CS 135A" StartDate="2015-08-31Z" Status="O" Term="2015F" Title="Discrete Structures">
+<Course CallNumber="10479" CurrentEnrollment="28" EndDate="2015-12-23Z" Instructor1="Naumann D" MaxCredit="4" MaxEnrollment="40" MinCredit="4" Section="CS 135A" StartDate="2015-08-31Z" Status="O" Term="2015F" Title="Discrete Structures">
 <Meeting Activity="LEC" Building="" Day="MWF" EndTime="6:50:00Z" Room="" Site="Castle Point" StartTime="6:00:00Z" />
 </Course>
 <Course CallNumber="10480" CurrentEnrollment="8" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="0" MaxEnrollment="20" MinCredit="0" Section="CS 135LA" StartDate="2015-08-31Z" Status="O" Term="2015F" Title="Discrete Structures">
@@ -64,7 +66,7 @@
 <Meeting Activity="QUZ" Building="" Day="T" EndTime="14:05:00Z" Room="" Site="Castle Point" StartTime="13:00:00Z" />
 <Meeting Activity="QUZ" Building="" Day="T" EndTime="14:05:00Z" Room="" Site="Castle Point" StartTime="13:00:00Z" />
 </Course>
-<Course CallNumber="10584" CurrentEnrollment="38" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="0" MaxEnrollment="999" MinCredit="0" Section="D 110B" StartDate="2015-08-31Z" Status="O" Term="2015F" Title="Freshman Quiz">
+<Course CallNumber="10584" CurrentEnrollment="39" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="0" MaxEnrollment="999" MinCredit="0" Section="D 110B" StartDate="2015-08-31Z" Status="O" Term="2015F" Title="Freshman Quiz">
 <Meeting Activity="QUZ" Building="" Day="R" EndTime="14:05:00Z" Room="" Site="Castle Point" StartTime="13:00:00Z" />
 <Meeting Activity="QUZ" Building="" Day="R" EndTime="14:05:00Z" Room="" Site="Castle Point" StartTime="13:00:00Z" />
 <Meeting Activity="QUZ" Building="" Day="R" EndTime="14:05:00Z" Room="" Site="Castle Point" StartTime="13:00:00Z" />
@@ -77,7 +79,7 @@
 <Meeting Activity="QUZ" Building="" Day="F" EndTime="11:50:00Z" Room="" Site="Castle Point" StartTime="11:00:00Z" />
 <Meeting Activity="QUZ" Building="" Day="F" EndTime="11:50:00Z" Room="" Site="Castle Point" StartTime="11:00:00Z" />
 </Course>
-<Course CallNumber="10586" CurrentEnrollment="418" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="0" MaxEnrollment="999" MinCredit="0" Section="D 110D" StartDate="2015-08-31Z" Status="O" Term="2015F" Title="Freshman Quiz">
+<Course CallNumber="10586" CurrentEnrollment="417" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="0" MaxEnrollment="999" MinCredit="0" Section="D 110D" StartDate="2015-08-31Z" Status="O" Term="2015F" Title="Freshman Quiz">
 <Meeting Activity="QUZ" Building="" Day="F" EndTime="4:50:00Z" Room="" Site="Castle Point" StartTime="4:00:00Z" />
 <Meeting Activity="QUZ" Building="" Day="F" EndTime="4:50:00Z" Room="" Site="Castle Point" StartTime="4:00:00Z" />
 <Meeting Activity="QUZ" Building="" Day="F" EndTime="4:50:00Z" Room="" Site="Castle Point" StartTime="4:00:00Z" />

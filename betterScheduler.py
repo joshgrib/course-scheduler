@@ -2,8 +2,13 @@
 import xml.etree.ElementTree as etree #xml parsing stuff
 import re #regex stuff
 import itertools #for finding combinations
+import time
 
-tree = etree.parse('2015F.xml')
+xmlFile = '2015F_3.xml'
+#There needs to be one space between department and number
+myCourses=["BT 353","CS 115","CS 115L","CS 135","CS 135L","CS 146","D 110","HHS 468"]
+
+tree = etree.parse(xmlFile)
 root = tree.getroot()
 #print root
 print "There are " + str(len(root)) + " classes here."
@@ -22,7 +27,8 @@ def cleanupElements():#working
                 #print "I dont need this!!!"
                 course.remove(element) #for some reason this didn't get all of them the first time
                 #print "Removed " + str(element) + " from " + str(course)
-    tree.write('2015F.xml')
+    tree.write(xmlFile)
+    time.sleep(5)
     print "=====Uneccesary elements removed====="
 def cleanupCourses(courseList):#working
     '''This goes through the XML and removes any course not specified in the courseList from the tree'''
@@ -40,7 +46,8 @@ def cleanupCourses(courseList):#working
         else:
             #print "This does not belong"
             root.remove(course)
-    tree.write('2015F.xml')
+    tree.write(xmlFile)
+    time.sleep(5)
     print "=====Uneccesary courses removed====="
 def fixTime(Time):#working
     '''Fixes the time formatting'''
@@ -152,10 +159,6 @@ def parseXML():#working
 
     print bigDict
     print "\nParsing complete\n"
-
-#There needs to be one space between department and number
-myCourses=["BT 353","CS 115","CS 115L","CS 135","CS 135L","CS 146","D 110","HHS 468"]
-
 
 def isAllowed(classList1, classList2):
     '''
