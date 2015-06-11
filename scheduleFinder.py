@@ -79,7 +79,7 @@ coursesNesterBetter = {\
         }\
     }
 
-newCourseList = {'CS  115': {'A': [['M', '1200', '1250'], ['W', '1200', '1250'], ['F', '1200', '1250']], 'B': [['M', '1300', '1350'], ['R', '1300', '1350'], ['F', '1300', '1350']]}, 'CS  115L': {'A': [['R', '0900', '1040']], 'C': [['R', '1500', '1640']], 'B': [['R', '1100', '1240']], 'E': [['F', '1000', '1140']], 'D': [['R', '1500', '1640']], 'F': [['F', '1600', '1740']]}, 'CS  135': {'A': [['M', '1000', '1050'], ['W', '1000', '1050'], ['F', '1000', '1050']]}, 'CS  135L': {'A': [['F', '1100', '1240']], 'B': [['F', '1300', '1440']]}, 'BT  353': {'A': [['M', '1300', '1350'], ['W', '1100', '1240']], 'C': [['T', '1500', '1640'], ['R', '1100', '1150']], 'B': [['M', '1500', '1640'], ['W', '0900', '0950']], 'E': [['M', '1815', '2045']], 'D': [['T', '1500', '1640'], ['R', '1100', '1150']]}, 'HHS 468': {'EV': [['M', '1815', '2045']]}, 'CS  146': {'A': [['T', '0900', '0950'], ['W', '0900', '0950'], ['F', '0900', '0950']], 'B': [['M', '1400', '1450'], ['T', '1400', '1450'], ['R', '1400', '1450']]}, 'D   110': {'A': [['T', '1700', '1805']]}}
+newCourseList = {'CS  115': {'A': [['M', '1200', '1250'], ['W', '1200', '1250'], ['F', '1200', '1250']], 'B': [['M', '1300', '1350'], ['R', '1300', '1350'], ['F', '1300', '1350']]}, 'CS  115L': {'A': [['R', '0900', '1040']], 'C': [['R', '1500', '1640']], 'B': [['R', '1100', '1240']], 'E': [['F', '1000', '1140']], 'D': [['R', '1500', '1640']], 'F': [['F', '1600', '1740']]}, 'CS  135': {'A': [['M', '1000', '1050'], ['W', '1000', '1050'], ['F', '1000', '1050']]}, 'CS  135L': {'A': [['F', '1100', '1240']], 'B': [['F', '1300', '1440']]}, 'BT  353': {'A': [['M', '1300', '1350'], ['W', '1100', '1240']], 'C': [['T', '1500', '1640'], ['R', '1100', '1150']], 'B': [['M', '1500', '1640'], ['W', '0900', '0950']], 'E': [['M', '1815', '2045']], 'D': [['T', '1500', '1640'], ['R', '1100', '1150']]}, 'HHS 468E': {'V': [['M', '1815', '2045']]}, 'CS  146': {'A': [['T', '0900', '0950'], ['W', '0900', '0950'], ['F', '0900', '0950']], 'B': [['M', '1400', '1450'], ['T', '1400', '1450'], ['R', '1400', '1450']]}, 'D   110': {'A': [['T', '1700', '1805']]}}
 
 courseCodes = {'BT  353A':10085,'BT  353B':12010,'BT  353C':12011,'BT  353D':12012,'BT  353E':12009,'CS  115A':10472,'CS  115B':10473,'CS  115LA':10474,'CS  115LB':10475,'CS  115LC':10476,'CS  115LD':10477,'CS  115LE':10478,'CS  115LF':11839,'CS  135A':10479,'CS  135LA':10480,'CS  135LB':11840,'CS  146A':10481,'CS  146B':10482,'D   110A':10583,'HHS 468EV':11995}
 
@@ -143,12 +143,13 @@ def findAllCombinations(courseDict):
         print urlPart
 
 def checkCombination(courseDict,inputList):
+    #print inputList
     '''This will go through a combination list and see if it all works. If it does it will return a true value'''
     conflicts = 0 #initialize counters
     diffDays = 0
     for i in range(len(inputList)-1): #compare each item in the list to each other, I dont remember what I did here rn, should have commented earlier
         comp1 = inputList[i] #comparison one in the item in the list we are on now
-        if comp1[7] == 'L': #seperate the section and the course, different if its a lecture
+        if len(comp1) == 9: #seperate the section and the course, different if its a lecture
             course1 = comp1[0:8]
             section1 = comp1[8:]
         else:
@@ -156,7 +157,7 @@ def checkCombination(courseDict,inputList):
             section1 = comp1[7:]
 
         comp2 = inputList[i+1] #comparison two is the next item in the list
-        if comp2[7] == 'L': #seperate the section and the course, different if its a letter
+        if len(comp2) == 9: #seperate the section and the course, different if its a letter
             course2 = comp2[0:8]
             section2 = comp2[8:]
         else:
