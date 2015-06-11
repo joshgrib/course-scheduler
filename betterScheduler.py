@@ -3,8 +3,13 @@ import xml.etree.ElementTree as etree #xml parsing stuff
 import re #regex stuff
 import itertools #for finding combinations
 import time
+import urllib
 
-xmlFile = '2015F_3.xml'
+#This would work iif there wasn't the error compiling the first time
+url = 'https://web.stevens.edu/scheduler/core/2015F/2015F.xml'
+urllib.urlretrieve(url, "xmlFile.xml")
+
+xmlFile = "2015f2.xml"
 #There needs to be one space between department and number
 myCourses=["BT 353","CS 115","CS 115L","CS 135","CS 135L","CS 146","D 110","HHS 468"]
 
@@ -16,38 +21,25 @@ print "There are " + str(len(root)) + " classes here."
 def cleanupElements():#working
     '''This goes through the courses in the XML and removes any element that doesnt have info about meeting times'''
     for course in root.findall('Course'):
-        #print course.get('Section')
-        #current = course
         for element in course:
-            #print element.tag, element.attrib
             if element.tag == 'Meeting':
-                #print "Its a meeting!"
                 pass
             else:
-                #print "I dont need this!!!"
                 course.remove(element) #for some reason this didn't get all of them the first time
-                #print "Removed " + str(element) + " from " + str(course)
     tree.write(xmlFile)
-    time.sleep(5)
+    #time.sleep(5)
     print "=====Uneccesary elements removed====="
 def cleanupCourses(courseList):#working
     '''This goes through the XML and removes any course not specified in the courseList from the tree'''
     for course in root.findall('Course'):
         name = course.get('Section')
-        #print name
         while re.match("([A-Za-z-])", name[-1]) or re.match("([A-Za-z-])", name[-2]):
             name = name[:(len(name)-1)]
-            #print "Deleted stuff"
-            #print name
-        #print name
         if name in courseList:
-            #print "This belongs"
             pass
         else:
-            #print "This does not belong"
             root.remove(course)
     tree.write(xmlFile)
-    time.sleep(5)
     print "=====Uneccesary courses removed====="
 def fixTime(Time):#working
     '''Fixes the time formatting'''
@@ -61,21 +53,9 @@ def fixTime(Time):#working
         startHours = "0"+startHours
     Time = startHours + Time[2:]
     return Time
-
 bigDict = {} #yeah I got a big dict
 callNumbers = {}
-
 def parseXML():#working
-    '''
-    Psuedo-code
-    Go through the courses
-        Store course name and call number as variables
-        Add both to the dictionary of call numbers
-        Create a dictionary for the course
-            For each section, create the list of meeting times store under the letter of the section within the course dictionary
-                For each meeting time, get the letter, start time, end time
-    Save it all to an external file with the dicionary of courses, and the dictionary of call numbers
-    '''
     for course in root:
         attribs = course.attrib
 
@@ -106,9 +86,7 @@ def parseXML():#working
     #populate call number dictionary
     for course in root:
         sectionName = course.attrib['Section'] #get the section name
-        #print sectionName
         callNumber = int(course.attrib['CallNumber']) #get the call number as an integer
-        #print callNumber
         callNumbers[sectionName] = callNumber #save section names and call numbers to the dictionary
 
     '''
@@ -146,9 +124,6 @@ def parseXML():#working
             day =  info['Day']
             startTime = info['StartTime']
             endTime = info['EndTime']
-            #print day
-            #print startTime
-            # endTime
             if [day,startTime,endTime] in bigDict[courseBig][courseSection]: #if the exact same meeting is already in the list
                 break #then dont add another!
             if len(day) == 1: #if this meeting describes one day
@@ -159,25 +134,10 @@ def parseXML():#working
 
     print bigDict
     print "\nParsing complete\n"
-
 def isAllowed(classList1, classList2):
-    '''
-    isAllowed():
-                    |----------------|                      interval 1
-    |----------|                                            end2<start1         True - No conflict
-                                            |-------|        end1<start2         True - No conflict
-    |------------------|                                  end2 !< start1      False - Conflict
-                                |---------------|          end1 !< start2      False - Conflict
-                |-------------------------|             end2 !< start1      False - Conflict
-                                                         &  end1 !< start2       False - Conflict
-                        |--------|                          end2 !< start1
-                                                         &  end1 !< start2       False - Conflict
-    '''
     if (classList2[2] < classList1[1]) or (classList1[2] < classList2[1]):
-        #print 'No conflict!'
         return True
     else:
-        #print 'Conflict!'
         return False
 def findAllCombinations(courseDict):
     '''This function goes through the nested courses, stores lists of all possible combinations of courses, and prints them'''
@@ -188,20 +148,15 @@ def findAllCombinations(courseDict):
         courseList=[]
         for section in courseDict[course]:
             courseList.append(str(course+section))
-            #print courseList
         bigList.append(courseList)
-    #print "The big list of lists: " + str(bigList)
     combos=0 #initialize the counter
     allCombos = list(itertools.product(*bigList))#find all combinations of one section of each class
     for combo in allCombos:
-        #print combo
         combos=combos+1
         checkCombination(courseDict,combo)#see if the combo works and add to apppropriate list
         if checkCombination(courseDict,combo) == True:
-            #print "NO CONFLICT HERE!!!"
             goodCombos.append(combo)
         else:
-            #print "WOAH FOUND A CONFLICT!!!"
             badCombos.append(combo)
     print "=========="
     print "SUMMARY"
@@ -215,9 +170,13 @@ def findAllCombinations(courseDict):
         urlPart = []
         for course in x:
             urlPart.append(callNumbers[str(course)])
-        print urlPart
+        #format url
+        url = 'https://web.stevens.edu/scheduler/#2015F='
+        for callNumber in urlPart:
+            url = url + str(callNumber) + ","
+        url = url[:-1]
+        print url
 def checkCombination(courseDict,inputList):
-    #print inputList
     '''This will go through a combination list and see if it all works. If it does it will return a true value'''
     conflicts = 0 #initialize counters
     diffDays = 0
@@ -237,21 +196,15 @@ def checkCombination(courseDict,inputList):
         else:
             course2 = comp2[0:7]
             section2 = comp2[7:]
-        #print "Comparing " + course1 + ' ' + section1 + " to " + course2 + ' ' + section2
         check1 = courseDict[course1][section1] #check one is the list of meetings for course1 section1
         check2 = courseDict[course2][section2] #check two is the list of meetings for course2 section2
         for meeting1 in check1:
             for meeting2 in check2:
                 if meeting1[0] == meeting2[0]: #if the meetins are on the same day...
-                    #print "* Meeting 1: " + str(meeting1)
-                    #print "* Meeting 2: " + str(meeting2)
                     if (isAllowed(meeting1,meeting2) == True): #if there is no conflicts do nothing
-                        #print "  * No conflict"
                         pass
                     else: #if there is a conflict, add to the conflict counter
-                        #print "  * Conflict"
                         conflicts = conflicts + 1
-    #print "There were " + str(conflicts) + " conflicts"
     if conflicts == 0: #if there were no conflicts, return true
         return True
 
