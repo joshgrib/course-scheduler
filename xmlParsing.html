@@ -1014,15 +1014,16 @@ body .markdown-body
     page-break-after: avoid;
   }
 }
-</style><title>xmlParsing</title></head><body><article class="markdown-body"><h1 id="httpwwwdiveintopython3netxmlhtml"><a href="http://www.diveintopython3.net/xml.html">http://www.diveintopython3.net/xml.html</a></h1>
+</style><title>xmlParsing</title></head><body><article class="markdown-body"><h1 id="todo-comment-everything"><a name="user-content-todo-comment-everything" href="#todo-comment-everything" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>TODO: comment everything</h1>
+<h1 id="httpwwwdiveintopython3netxmlhtml"><a href="http://www.diveintopython3.net/xml.html">http://www.diveintopython3.net/xml.html</a></h1>
 <h1 id="xml-cannot-have-s-replace-with-ands"><a name="user-content-xml-cannot-have-s-replace-with-ands" href="#xml-cannot-have-s-replace-with-ands" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>XML CANNOT HAVE &lsquo;&amp;&rsquo;s!!! REPLACE WITH &lsquo;and&rsquo;s!!!</h1>
-<p>import xml.etree.ElementTree as etree<br />
-import re</p>
+<p>import xml.etree.ElementTree as etree #xml parsing stuff<br />
+import re #regex stuff</p>
 <p>tree = etree.parse(&lsquo;2015F.xml&rsquo;)<br />
 root = tree.getroot()</p>
-<p>print root<br />
-print &ldquo;There are &rdquo; + str(len(root)) + &rdquo; classes here.&rdquo;</p>
-<p>def trialParsing():#working<br />
+<h1 id="print-root"><a name="user-content-print-root" href="#print-root" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>print root</h1>
+<p>print &ldquo;There are &rdquo; + str(len(root)) + &rdquo; classes here.&rdquo;</p>
+<p>def trialParsing():#useless<br />
     &lsquo;&rsquo;&lsquo;This goes through and prints some stuff. It&rsquo;s more for me to learn have to parse the XML&rsquo;&lsquo;&rsquo;<br />
     for course in root:<br />
         attribs = course.attrib<br />
@@ -1041,18 +1042,20 @@ print &ldquo;There are &rdquo; + str(len(root)) + &rdquo; classes here.&rdquo;</
 <p>def cleanupElements():#working<br />
     &lsquo;&rsquo;&lsquo;This goes through the courses in the XML and removes any element that doesnt have info about meeting times&rsquo;&lsquo;&rsquo;<br />
     for course in root.findall(&lsquo;Course&rsquo;):<br />
-        print course.get(&lsquo;Section&rsquo;)<br />
+        #print course.get(&lsquo;Section&rsquo;)<br />
         #current = course<br />
         for element in course:<br />
-            print element.tag, element.attrib<br />
+            #print element.tag, element.attrib<br />
             if element.tag == &lsquo;Meeting&rsquo;:<br />
-                print &ldquo;Its a meeting!&rdquo;<br />
+                #print &ldquo;Its a meeting!&rdquo;<br />
+                pass<br />
             else:<br />
-                print &ldquo;I dont need this!!!&rdquo;<br />
+                #print &ldquo;I dont need this!!!&rdquo;<br />
                 course.remove(element) #for some reason this didn&rsquo;t get all of them the first time<br />
-                print &ldquo;Removed &rdquo; + str(element) + &rdquo; from &rdquo; + str(course)<br />
-    tree.write(&lsquo;2015F.xml&rsquo;)</p>
-<p>def cleanupCourses(courseList):#working<br />
+                #print &ldquo;Removed &rdquo; + str(element) + &rdquo; from &rdquo; + str(course)<br />
+    tree.write(&lsquo;2015F.xml&rsquo;)<br />
+    print &ldquo;\nUneccesary elements removed\n&rdquo;<br />
+def cleanupCourses(courseList):#working<br />
     &lsquo;&rsquo;&lsquo;This goes through the XML and removes any course not specified in the courseList from the tree&rsquo;&lsquo;&rsquo;<br />
     for course in root.findall(&lsquo;Course&rsquo;):<br />
         name = course.get(&lsquo;Section&rsquo;)<br />
@@ -1061,12 +1064,27 @@ print &ldquo;There are &rdquo; + str(len(root)) + &rdquo; classes here.&rdquo;</
             name = name[:(len(name)-1)]<br />
             #print &ldquo;Deleted stuff&rdquo;<br />
             #print name<br />
-        print name<br />
+        #print name<br />
         if name in courseList:<br />
-            print &ldquo;True&rsquo;&ldquo;<br />
+            #print &ldquo;This belongs&rdquo;<br />
+            pass<br />
         else:<br />
+            #print &ldquo;This does not belong&rdquo;<br />
             root.remove(course)<br />
-    tree.write(&lsquo;2015F.xml&rsquo;)</p>
+    tree.write(&lsquo;2015F.xml&rsquo;)<br />
+    print &ldquo;\nUneccesary courses removed\n&rdquo;</p>
+<p>def fixTime(Time):<br />
+    &lsquo;&rsquo;&lsquo;Fixes the time formatting&rsquo;&lsquo;&rsquo;<br />
+    Time = Time[:(len(Time)-4)]#remove the seconds and the Z<br />
+    if len(Time) == 4:#add the 0 to the front of early times<br />
+        Time = &lsquo;0&rsquo;+Time<br />
+    Time = Time[:2] + Time[3:]<br />
+    startHours = int(Time[:2])+4<br />
+    startHours = str(startHours)<br />
+    if len(startHours) == 1:<br />
+        startHours = &ldquo;0&rdquo;+startHours<br />
+    Time = startHours + Time[2:]<br />
+    return Time</p>
 <p>def parseXML():<br />
     &lsquo;&rsquo;&lsquo;<br />
     Psuedo-code<br />
@@ -1078,10 +1096,101 @@ print &ldquo;There are &rdquo; + str(len(root)) + &rdquo; classes here.&rdquo;</
                 For each meeting time, get the letter, start time, end time<br />
     Save it all to an external file with the dicionary of courses, and the dictionary of call numbers<br />
     &lsquo;&rsquo;&lsquo;<br />
-    print &ldquo;Time to parse&rdquo;</p>
+    for course in root:<br />
+        bigDict = {} #yeah I got a big dict<br />
+        callNumbers = {}<br />
+        attribs = course.attrib</p>
+<pre><code>    section = attribs['Section']
+    #fix the spaces on the course names
+    indexCount=0#initialize counter
+    newSection = ""
+    for letter in section:#fore each letter...
+        if letter == " ":#if its the space set the space equal to the right amount of spaces
+            #print "Space at index:" + str(indexCount)
+            letter = (4-indexCount)*" "
+        else:
+            letter = letter
+        newSection = newSection+letter#create the new name
+        indexCount = indexCount+1
+    attribs['Section']=newSection
+
+    #fix time formatting
+    for meeting in course:
+        meetingAttribs = meeting.attrib
+        startTime = meetingAttribs['StartTime']
+        endTime = meetingAttribs['EndTime']
+        startTime = fixTime(startTime)
+        endTime = fixTime(endTime)
+        meetingAttribs['StartTime'] = startTime
+        meetingAttribs['EndTime'] = endTime
+
+#populate call number dictionary
+for course in root:
+    sectionName = course.attrib['Section'] #get the section name
+    #print sectionName
+    callNumber = int(course.attrib['CallNumber']) #get the call number as an integer
+    #print callNumber
+    callNumbers[sectionName] = callNumber #save section names and call numbers to the dictionary
+
+'''
+At this point in the function:
+Course names are properly formatted, with the proper number of spaces, one for every section, stored under the 'Section' attribute
+Start and end times are properly formatted, store as the StatTime and EndTime attributes
+The dictionary for call numbers is done
+'''
+
+prevCourse = ""
+for course in root:
+    attribs = course.attrib
+    thisCourse = attribs['Section']
+    print thisCourse
+    if len(thisCourse) == 9: #recitation course
+        courseBig = thisCourse[:8]
+        courseSection =thisCourse[8:]
+        if courseBig == prevCourse[:8]: #same course
+            bigDict[courseBig][courseSection] = [] #add the new section with a list
+        else: #new course
+            bigDict[courseBig] = {} #add the new class
+            bigDict[courseBig][courseSection] = [] #add the new section with a list
+    else: #normal course(lecture)
+        courseBig = thisCourse[:7]
+        courseSection =thisCourse[7:]
+        if thisCourse[:7] == prevCourse[:7]: #same course
+            bigDict[courseBig][courseSection] = [] #add the new section with a list
+        else: #new course
+            bigDict[courseBig] = {} #add the new class
+            bigDict[courseBig][courseSection] = [] #add the new section with a list
+    prevCourse = thisCourse
+</code></pre>
+<h1 id="at-this-point-all-classes-and-sections-are-added-to-the-bigdict"><a name="user-content-at-this-point-all-classes-and-sections-are-added-to-the-bigdict" href="#at-this-point-all-classes-and-sections-are-added-to-the-bigdict" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>AT THIS POINT - all classes and sections are added to the bigDict</h1>
+<pre><code>    for meeting in course:
+        info = meeting.attrib
+        day =  info['Day']
+        startTime = info['StartTime']
+        endTime = info['EndTime']
+        print day
+        print startTime
+        print endTime
+        if len(day) == 1:
+            bigDict[courseBig][courseSection].append([day,startTime,endTime])
+        else:
+            for letter in day:
+                bigDict[courseBig][courseSection].append([letter,startTime,endTime])
+
+print bigDict
+print "\nParsing complete\n"
+</code></pre>
+<p>parseXML()</p>
+<p>def main(): #main function to do everything<br />
+    &lsquo;&rsquo;&lsquo;Given the XML and a list of courses, this will output all the possible schedules as a list of course ID(dept. ### section) and call numbers&rsquo;&lsquo;&rsquo;<br />
+    #ask for a courselist, maybe read from a file?<br />
+    cleanupCourses(courseList)<br />
+    cleanupElements()<br />
+    parseXML()<br />
+    findAllCombinations()#from the other file</p>
 <h1 id="there-needs-to-be-one-space-between-department-and-number"><a name="user-content-there-needs-to-be-one-space-between-department-and-number" href="#there-needs-to-be-one-space-between-department-and-number" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>There needs to be one space between department and number</h1>
 <p>myCourses=[&ldquo;BT 353&rdquo;,&rdquo;CS 115&rdquo;,&rdquo;CS 115L&rdquo;,&rdquo;CS 135&rdquo;,&rdquo;CS 135L&rdquo;,&rdquo;CS 146&rdquo;,&rdquo;D 110&rdquo;,&rdquo;HHS 468&rdquo;]</p>
-<p>cleanupCourses(myCourses)</p>
+<h1 id="cleanupcoursesmycourses"><a name="user-content-cleanupcoursesmycourses" href="#cleanupcoursesmycourses" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>cleanupCourses(myCourses)</h1>
 <h1 id="schema-references"><a name="user-content-schema-references" href="#schema-references" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Schema references</h1>
 <p>coursesNestedBetter = {\<br />
     &ldquo;BT  353&rdquo;:{\<br />
