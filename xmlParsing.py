@@ -153,20 +153,22 @@ def parseXML():
                 bigDict[courseBig] = {} #add the new class
                 bigDict[courseBig][courseSection] = [] #add the new section with a list
         prevCourse = thisCourse
-#AT THIS POINT - all classes and sections are added to the bigDict
 
-        for meeting in course:
+        #TODO: stop duplicate writing for D110
+        for meeting in course: #write the meetings to the section lists
             info = meeting.attrib
             day =  info['Day']
             startTime = info['StartTime']
             endTime = info['EndTime']
-            print day
-            print startTime
-            print endTime
-            if len(day) == 1:
-                bigDict[courseBig][courseSection].append([day,startTime,endTime])
-            else:
-                for letter in day:
+            #print day
+            #print startTime
+            # endTime
+            if [day,startTime,endTime] in bigDict[courseBig][courseSection]: #if the exact same meeting is already in the list
+                break #then dont add another!
+            if len(day) == 1: #if this meeting describes one day
+                bigDict[courseBig][courseSection].append([day,startTime,endTime]) #add the meeting time
+            else: #if multiple days happen at the same time
+                for letter in day: #add one list for each meeting
                     bigDict[courseBig][courseSection].append([letter,startTime,endTime])
 
     print bigDict
