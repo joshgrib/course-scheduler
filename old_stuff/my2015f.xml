@@ -1,0 +1,66 @@
+<Semester Semester="2015F" Courses="1928" Meetings="2143" Requirements="2221">
+	<Course Section="BT 353A" Title="Project Management" CallNumber="10085">
+		<Meeting Day="M" StartTime="9:00:00Z" EndTime="9:50:00Z"></Meeting>
+		<Meeting Day="W" StartTime="7:00:00Z" EndTime="8:40:00Z"></Meeting>
+	</Course>
+	<Course Section="BT 353B" Title="Project Management" CallNumber="12010">
+		<Meeting Day="M" StartTime="11:00:00Z" EndTime="12:40:00Z"></Meeting>
+		<Meeting Day="W" StartTime="5:00:00Z" EndTime="5:50:00Z"></Meeting>
+	</Course>
+	<Course Section="BT 353C" Title="Project Management" CallNumber="12011">
+		<Meeting Day="T" StartTime="11:00:00Z" EndTime="12:40:00Z"></Meeting>
+		<Meeting Day="R" StartTime="7:00:00Z" EndTime="7:50:00Z"></Meeting>
+	</Course>
+	<Course Section="BT 353D" Title="Project Management" CallNumber="12012">
+		<Meeting Day="T" StartTime="11:00:00Z" EndTime="12:40:00Z"></Meeting>
+		<Meeting Day="R" StartTime="7:00:00Z" EndTime="7:50:00Z"></Meeting>
+	</Course>
+	<Course Section="BT 353E" Title="Project Management" CallNumber="12009">
+		<Meeting Day="M" StartTime="14:15:00Z" EndTime="16:45:00Z"></Meeting>
+	</Course>
+	<Course Section="CS 115A" Title="Intro to Computer Science" CallNumber="10472">
+		<Meeting Day="MWF" StartTime="8:00:00Z" EndTime="8:50:00Z"></Meeting>
+	</Course>
+	<Course Section="CS 115B" Title="Intro to Computer Science" CallNumber="10473">
+		<Meeting Day="MRF" StartTime="9:00:00Z" EndTime="9:50:00Z"></Meeting>
+	</Course>
+	<Course Section="CS 115LA" Title="Intro to Computer Science" CallNumber="10474">
+		<Meeting Day="R" StartTime="5:00:00Z" EndTime="6:40:00Z"></Meeting>
+	</Course>
+	<Course Section="CS 115LB" Title="Intro to Computer Science" CallNumber="10475">
+		<Meeting Day="R" StartTime="7:00:00Z" EndTime="8:40:00Z"></Meeting>
+	</Course>
+	<Course Section="CS 115LC" Title="Intro to Computer Science" CallNumber="10476">
+		<Meeting Day="R" StartTime="11:00:00Z" EndTime="12:40:00Z"></Meeting>
+	</Course>
+	<Course Section="CS 115LD" Title="Intro to Computer Science" CallNumber="10477">
+		<Meeting Day="R" StartTime="11:00:00Z" EndTime="12:40:00Z"></Meeting>
+	</Course>
+	<Course Section="CS 115LE" Title="Intro to Computer Science" CallNumber="10478">
+		<Meeting Day="F" StartTime="6:00:00Z" EndTime="7:40:00Z"></Meeting>
+	</Course>
+	<Course Section="CS 115LF" Title="Intro to Computer Science" CallNumber="11839">
+		<Meeting Day="F" StartTime="12:00:00Z" EndTime="13:40:00Z"></Meeting>
+	</Course>
+	<Course Section="CS 135A" Title="Discrete Structures" CallNumber="10479">
+		<Meeting Day="MWF" StartTime="6:00:00Z" EndTime="6:50:00Z"></Meeting>
+	</Course>
+	<Course Section="CS 135LA" Title="Discrete Structures" CallNumber="10480">
+		<Meeting Day="F" StartTime="7:00:00Z" EndTime="8:40:00Z"></Meeting>
+	</Course>
+	<Course Section="CS 135LB" Title="Discrete Structures" CallNumber="11840">
+		<Meeting Day="F" StartTime="9:00:00Z" EndTime="10:40:00Z"></Meeting>
+	</Course>
+	<Course Section="CS 146A" Title="Intro to Web Prgming and Web Dev" CallNumber="10481">
+		<Meeting Day="TWF" StartTime="5:00:00Z" EndTime="5:50:00Z"></Meeting>
+	</Course>
+	<Course Section="CS 146B" Title="Intro to Web Prgming and Web Dev" CallNumber="10482">
+		<Meeting Day="MTR" StartTime="10:00:00Z" EndTime="10:50:00Z"></Meeting>
+	</Course>
+	<Course Section="D 110A" Title="Freshman Quiz" CallNumber="10583">
+		<Meeting Day="T" StartTime="13:00:00Z" EndTime="14:05:00Z"></Meeting>
+	</Course>
+	<Course Section="HHS 468EV" Title="History of the World" CallNumber="11995">
+		<Meeting Day="M" StartTime="14:15:00Z" EndTime="16:45:00Z"></Meeting>
+	</Course>
+</Semester>
