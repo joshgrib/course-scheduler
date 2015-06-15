@@ -1,20 +1,18 @@
-#XML CANNOT HAVE '&'s!!! REPLACE WITH 'and's!!!
 import xml.etree.ElementTree as etree #xml parsing stuff
 import re #regex stuff
 import itertools #for finding combinations
-#import time #for delay - not needed now
-import urllib #for getting xml from online - not needed now
+import urllib #for getting xml from online
 import pickle #to read/write from files hopefully better
 
 #This would work iif there wasn't the error compiling the first time
-#url = 'https://web.stevens.edu/scheduler/core/2015F/2015F.xml'
-#urllib.urlretrieve(url, "xmlFile.xml")
+url = 'https://web.stevens.edu/scheduler/core/2015F/2015F.xml'
+urllib.urlretrieve(url, "xmlFile.xml")
+xmlFile = "xmlFile.xml"
 
-xmlFile = "2015f2.xml"
 tree = etree.parse(xmlFile)
 root = tree.getroot()
 pickle.dump( root, open( "rootSave.p", "wb" ) )
-print "Pickle saved"
+#print "Pickle saved"
 root = pickle.load( open( "rootSave.p", "rb" ) )
 print "Root is " + str(root)
 
@@ -33,7 +31,7 @@ def cleanupElements():#working
     print "=====Uneccesary elements removed====="
     #tree.write(xmlFile)
     pickle.dump( root, open( "rootSave.p", "wb" ) )
-    print "Root saved"
+    #print "Root saved"
     #time.sleep(5)
 def cleanupCourses(courseList):#working
     '''This goes through the XML and removes any course not specified in the courseList from the tree'''
@@ -49,7 +47,7 @@ def cleanupCourses(courseList):#working
     print "=====Uneccesary courses removed====="
     #tree.write(xmlFile)
     pickle.dump( root, open( "rootSave.p", "wb" ) )
-    print "Root saved"
+    #print "Root saved"
 def fixTime(Time):#working
     '''Fixes the time formatting'''
     root = pickle.load( open( "rootSave.p", "rb" ) )
@@ -65,7 +63,7 @@ def fixTime(Time):#working
     return Time
     print "=====Time format fixed====="
     pickle.dump( root, open( "rootSave.p", "wb" ) )
-    print "Root saved"
+    #print "Root saved"
 bigDict = {} #yeah I got a big dict
 callNumbers = {} #call numbers for the courses will go in this dictionary
 def parseXML():#working
@@ -225,6 +223,9 @@ def checkCombination(courseDict,inputList):
 def main(): #main function to do everything
     '''Given the XML and a list of courses, this will output all the possible schedules as a list of course ID(dept. ### section) and call numbers'''
     #ask for a courselist, maybe read from a file?
+    root = pickle.load( open( "rootSave.p", "rb" ) )
+    print "There are " + str(len(root)) + " classes here."
+    pickle.dump( root, open( "rootSave.p", "wb" ) )
     cleanupCourses(myCourses)
     cleanupElements()
     root = pickle.load( open( "rootSave.p", "rb" ) )
