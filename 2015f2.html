@@ -1014,242 +1014,172 @@ body .markdown-body
     page-break-after: avoid;
   }
 }
-</style><title>betterScheduler</title></head><body><article class="markdown-body"><h1 id="xml-cannot-have-s-replace-with-ands"><a name="user-content-xml-cannot-have-s-replace-with-ands" href="#xml-cannot-have-s-replace-with-ands" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>XML CANNOT HAVE &lsquo;&amp;&rsquo;s!!! REPLACE WITH &lsquo;and&rsquo;s!!!</h1>
-<p>import xml.etree.ElementTree as etree #xml parsing stuff<br />
-import re #regex stuff<br />
-import itertools #for finding combinations</p>
-<h1 id="import-time-for-delay-not-needed-now"><a name="user-content-import-time-for-delay-not-needed-now" href="#import-time-for-delay-not-needed-now" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>import time #for delay - not needed now</h1>
-<p>import urllib #for getting xml from online - not needed now<br />
-import pickle #to read/write from files hopefully better</p>
-<h1 id="this-would-work-iif-there-wasnt-the-error-compiling-the-first-time"><a name="user-content-this-would-work-iif-there-wasnt-the-error-compiling-the-first-time" href="#this-would-work-iif-there-wasnt-the-error-compiling-the-first-time" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>This would work iif there wasn&rsquo;t the error compiling the first time</h1>
-<h1 id="url-httpswebstevenseduschedulercore2015f2015fxml"><a name="user-content-url-httpswebstevenseduschedulercore2015f2015fxml" href="#url-httpswebstevenseduschedulercore2015f2015fxml" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>url = &lsquo;<a href="https://web.stevens.edu/scheduler/core/2015F/2015F.xml">https://web.stevens.edu/scheduler/core/2015F/2015F.xml</a>&lsquo;</h1>
-<h1 id="urlliburlretrieveurl-xmlfilexml"><a name="user-content-urlliburlretrieveurl-xmlfilexml" href="#urlliburlretrieveurl-xmlfilexml" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>urllib.urlretrieve(url, &ldquo;xmlFile.xml&rdquo;)</h1>
-<p>xmlFile = &ldquo;2015f2.xml&rdquo;<br />
-tree = etree.parse(xmlFile)<br />
-root = tree.getroot()<br />
-pickle.dump( root, open( &ldquo;rootSave.p&rdquo;, &ldquo;wb&rdquo; ) )<br />
-print &ldquo;Pickle saved&rdquo;<br />
-root = pickle.load( open( &ldquo;rootSave.p&rdquo;, &ldquo;rb&rdquo; ) )<br />
-print &ldquo;Root is &rdquo; + str(root)</p>
-<h1 id="there-needs-to-be-one-space-between-department-and-number"><a name="user-content-there-needs-to-be-one-space-between-department-and-number" href="#there-needs-to-be-one-space-between-department-and-number" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>There needs to be one space between department and number</h1>
-<p>myCourses=[&lsquo;BT 353&rsquo;,&rsquo;CS 135&rsquo;,&rsquo;HHS 468&rsquo;,&rsquo;BT 181&rsquo;,&rsquo;CS 146&rsquo;,&rsquo;CS 284&rsquo;]</p>
-<p>def cleanupElements():#working<br />
-    &lsquo;&rsquo;&lsquo;This goes through the courses in the XML and removes any element that doesnt have info about meeting times&rsquo;&lsquo;&rsquo;<br />
-    root = pickle.load( open( &ldquo;rootSave.p&rdquo;, &ldquo;rb&rdquo; ) )<br />
-    for course in root.findall(&lsquo;Course&rsquo;):<br />
-        for element in course:<br />
-            if element.tag == &lsquo;Meeting&rsquo;:<br />
-                pass<br />
-            else:<br />
-                course.remove(element) #for some reason this didn&rsquo;t get all of them the first time<br />
-    print &ldquo;=====Uneccesary elements removed=====&rdquo;<br />
-    #tree.write(xmlFile)<br />
-    pickle.dump( root, open( &ldquo;rootSave.p&rdquo;, &ldquo;wb&rdquo; ) )<br />
-    print &ldquo;Root saved&rdquo;<br />
-    #time.sleep(5)<br />
-def cleanupCourses(courseList):#working<br />
-    &lsquo;&rsquo;&lsquo;This goes through the XML and removes any course not specified in the courseList from the tree&rsquo;&lsquo;&rsquo;<br />
-    root = pickle.load( open( &ldquo;rootSave.p&rdquo;, &ldquo;rb&rdquo; ) )<br />
-    for course in root.findall(&lsquo;Course&rsquo;):<br />
-        name = course.get(&lsquo;Section&rsquo;)<br />
-        while re.match(&ldquo;([A-Za-z-])&rdquo;, name[-1]) or re.match(&ldquo;([A-Za-z-])&rdquo;, name[-2]):<br />
-            name = name[:(len(name)-1)]<br />
-        if name in courseList:<br />
-            pass<br />
-        else:<br />
-            root.remove(course)<br />
-    print &ldquo;=====Uneccesary courses removed=====&rdquo;<br />
-    #tree.write(xmlFile)<br />
-    pickle.dump( root, open( &ldquo;rootSave.p&rdquo;, &ldquo;wb&rdquo; ) )<br />
-    print &ldquo;Root saved&rdquo;<br />
-def fixTime(Time):#working<br />
-    &lsquo;&rsquo;&lsquo;Fixes the time formatting&rsquo;&lsquo;&rsquo;<br />
-    root = pickle.load( open( &ldquo;rootSave.p&rdquo;, &ldquo;rb&rdquo; ) )<br />
-    Time = Time[:(len(Time)-4)]#remove the seconds and the Z<br />
-    if len(Time) == 4:#add the 0 to the front of early times<br />
-        Time = &lsquo;0&rsquo;+Time<br />
-    Time = Time[:2] + Time[3:]<br />
-    startHours = int(Time[:2])+4<br />
-    startHours = str(startHours)<br />
-    if len(startHours) == 1:<br />
-        startHours = &ldquo;0&rdquo;+startHours<br />
-    Time = startHours + Time[2:]<br />
-    return Time<br />
-    print &ldquo;=====Time format fixed=====&rdquo;<br />
-    pickle.dump( root, open( &ldquo;rootSave.p&rdquo;, &ldquo;wb&rdquo; ) )<br />
-    print &ldquo;Root saved&rdquo;<br />
-bigDict = {} #yeah I got a big dict<br />
-callNumbers = {} #call numbers for the courses will go in this dictionary<br />
-def parseXML():#working<br />
-    root = pickle.load( open( &ldquo;rootSave.p&rdquo;, &ldquo;rb&rdquo; ) )<br />
-    for course in root:<br />
-        attribs = course.attrib</p>
-<pre><code>    section = attribs['Section']
-    #fix the spaces on the course names
-    indexCount=0#initialize counter
-    newSection = ""
-    for letter in section:#fore each letter...
-        if letter == " ":#if its the space set the space equal to the right amount of spaces
-            #print "Space at index:" + str(indexCount)
-            letter = (4-indexCount)*" "
-        else:
-            letter = letter
-        newSection = newSection+letter#create the new name
-        indexCount = indexCount+1
-    attribs['Section']=newSection
-
-    #fix time formatting
-    for meeting in course:
-        meetingAttribs = meeting.attrib
-        startTime = meetingAttribs['StartTime']
-        endTime = meetingAttribs['EndTime']
-        startTime = fixTime(startTime)
-        endTime = fixTime(endTime)
-        meetingAttribs['StartTime'] = startTime
-        meetingAttribs['EndTime'] = endTime
-
-#populate call number dictionary
-for course in root:
-    sectionName = course.attrib['Section'] #get the section name
-    callNumber = int(course.attrib['CallNumber']) #get the call number as an integer
-    callNumbers[sectionName] = callNumber #save section names and call numbers to the dictionary
-
-'''
-At this point in the function:
-Course names are properly formatted, with the proper number of spaces, one for every section, stored under the 'Section' attribute
-Start and end times are properly formatted, store as the StatTime and EndTime attributes
-The dictionary for call numbers is done
-'''
-
-prevCourse = ""
-for course in root:
-    attribs = course.attrib
-    thisCourse = attribs['Section']
-    print thisCourse
-    if len(thisCourse) == 9: #recitation course
-        courseBig = thisCourse[:8]
-        courseSection =thisCourse[8:]
-        if courseBig == prevCourse[:8]: #same course
-            bigDict[courseBig][courseSection] = [] #add the new section with a list
-        else: #new course
-            bigDict[courseBig] = {} #add the new class
-            bigDict[courseBig][courseSection] = [] #add the new section with a list
-    else: #normal course(lecture)
-        courseBig = thisCourse[:7]
-        courseSection =thisCourse[7:]
-        if thisCourse[:7] == prevCourse[:7]: #same course
-            bigDict[courseBig][courseSection] = [] #add the new section with a list
-        else: #new course
-            bigDict[courseBig] = {} #add the new class
-            bigDict[courseBig][courseSection] = [] #add the new section with a list
-    prevCourse = thisCourse
-
-    for meeting in course: #write the meetings to the section lists
-        info = meeting.attrib
-        day =  info['Day']
-        startTime = info['StartTime']
-        endTime = info['EndTime']
-        if [day,startTime,endTime] in bigDict[courseBig][courseSection]: #if the exact same meeting is already in the list
-            break #then dont add another!
-        if len(day) == 1: #if this meeting describes one day
-            bigDict[courseBig][courseSection].append([day,startTime,endTime]) #add the meeting time
-        else: #if multiple days happen at the same time
-            for letter in day: #add one list for each meeting
-                bigDict[courseBig][courseSection].append([letter,startTime,endTime])
-
-print bigDict
-print "\nParsing complete\n"
-</code></pre>
-<p>def isAllowed(classList1, classList2):<br />
-    if (classList2[2] &lt; classList1[1]) or (classList1[2] &lt; classList2[1]):<br />
-        return True<br />
-    else:<br />
-        return False<br />
-def findAllCombinations(courseDict):<br />
-    &lsquo;&rsquo;&lsquo;This function goes through the nested courses, stores lists of all possible combinations of courses, and prints them&rsquo;&lsquo;&rsquo;<br />
-    bigList=[] #list of lists of courses and sections<br />
-    goodCombos=[] #store all the good combinations<br />
-    badCombos=[] #store the bad combinations<br />
-    for course in courseDict: #make a list of lists with the small lists being lists of possible sections for one course<br />
-        courseList=[]<br />
-        for section in courseDict[course]:<br />
-            courseList.append(str(course+section))<br />
-        bigList.append(courseList)<br />
-    combos=0 #initialize the counter<br />
-    allCombos = list(itertools.product(*bigList))#find all combinations of one section of each class<br />
-    for combo in allCombos:<br />
-        combos=combos+1<br />
-        checkCombination(courseDict,combo)#see if the combo works and add to apppropriate list<br />
-        if checkCombination(courseDict,combo) == True:<br />
-            goodCombos.append(combo)<br />
-        else:<br />
-            badCombos.append(combo)<br />
-    print &ldquo;==========&rdquo;<br />
-    print &ldquo;SUMMARY&rdquo;<br />
-    print &ldquo;There are &rdquo; + str(combos) + &rdquo; possible combinations&rdquo;<br />
-    print str(len(goodCombos)) + &rdquo; of them work fine&rdquo;<br />
-    print &ldquo;The other &rdquo; + str(len(badCombos)) + &rdquo; had a conflict&rdquo;<br />
-    print &ldquo;&rdquo;<br />
-    print &ldquo;Good combinations:&rdquo;<br />
-    for x in goodCombos:<br />
-        print x<br />
-        urlPart = []<br />
-        for course in x:<br />
-            urlPart.append(callNumbers[str(course)])<br />
-        #format url<br />
-        url = &lsquo;<a href="https://web.stevens.edu/scheduler/#2015F=">https://web.stevens.edu/scheduler/#2015F=</a>&lsquo;<br />
-        for callNumber in urlPart:<br />
-            url = url + str(callNumber) + &ldquo;,&rdquo;<br />
-        url = url[:-1]<br />
-        print url<br />
-def checkCombination(courseDict,inputList):<br />
-    &lsquo;&rsquo;&lsquo;This will go through a combination list and see if it all works. If it does it will return a true value&rsquo;&lsquo;&rsquo;<br />
-    conflicts = 0 #initialize counters<br />
-    diffDays = 0<br />
-    for i in range(len(inputList)-1): #compare each item in the list to each other, I dont remember what I did here rn, should have commented earlier<br />
-        comp1 = inputList[i] #comparison one in the item in the list we are on now<br />
-        if len(comp1) == 9: #seperate the section and the course, different if its a lecture<br />
-            course1 = comp1[0:8]<br />
-            section1 = comp1[8:]<br />
-        else:<br />
-            course1 = comp1[0:7]<br />
-            section1 = comp1[7:]</p>
-<pre><code>    comp2 = inputList[i+1] #comparison two is the next item in the list
-    if len(comp2) == 9: #seperate the section and the course, different if its a letter
-        course2 = comp2[0:8]
-        section2 = comp2[8:]
-    else:
-        course2 = comp2[0:7]
-        section2 = comp2[7:]
-    check1 = courseDict[course1][section1] #check one is the list of meetings for course1 section1
-    check2 = courseDict[course2][section2] #check two is the list of meetings for course2 section2
-    for meeting1 in check1:
-        for meeting2 in check2:
-            if meeting1[0] == meeting2[0]: #if the meetins are on the same day...
-                if (isAllowed(meeting1,meeting2) == True): #if there is no conflicts do nothing
-                    pass
-                else: #if there is a conflict, add to the conflict counter
-                    conflicts = conflicts + 1
-if conflicts == 0: #if there were no conflicts, return true
-    return True
-</code></pre>
-<p>def main(): #main function to do everything<br />
-    &lsquo;&rsquo;&lsquo;Given the XML and a list of courses, this will output all the possible schedules as a list of course ID(dept. ### section) and call numbers&rsquo;&lsquo;&rsquo;<br />
-    #ask for a courselist, maybe read from a file?<br />
-    cleanupCourses(myCourses)<br />
-    cleanupElements()<br />
-    root = pickle.load( open( &ldquo;rootSave.p&rdquo;, &ldquo;rb&rdquo; ) )<br />
-    print &ldquo;Now there are &rdquo; + str(len(root)) + &rdquo; classes here.&rdquo;<br />
-    pickle.dump( root, open( &ldquo;rootSave.p&rdquo;, &ldquo;wb&rdquo; ) )<br />
-    try:<br />
-        parseXML()<br />
-        findAllCombinations(bigDict)#from the other file<br />
-    except KeyError:<br />
-        print &ldquo;KeyError: trying again&rdquo;<br />
-        main()</p>
-<p>main()</p>
-<p>&rsquo;&lsquo;&rsquo;<br />
-TODO<br />
-main should probably take in the xml file and the courselist, and output the possible schedules to a file<br />
-Add a step to remove the extra D110&rsquo;s<br />
-&lsquo;&rsquo;&lsquo;</p></article></body></html>
+</style><title>2015f2</title></head><body><article class="markdown-body"><p><Semester Courses="1960" Meetings="2174" Requirements="2254" Semester="2015F"><br />
+<Course CallNumber="10586" CurrentEnrollment="416" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="0" MaxEnrollment="999" MinCredit="0" Section="D 110D" StartDate="2015-08-31Z" Status="O" Term="2015F" Title="Freshman Quiz"><br />
+<Meeting Activity="QUZ" Building="" Day="F" EndTime="4:50:00Z" Room="" Site="Castle Point" StartTime="4:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="10648" CurrentEnrollment="37" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="4" MaxEnrollment="35" MinCredit="4" Section="E 126A" StartDate="2015-08-31Z" Status="C" Term="2015F" Title="Mechanics of Solids"><br />
+<Meeting Activity="LEC" Building="" Day="MTR" EndTime="11:50:00Z" Room="" Site="Castle Point" StartTime="11:00:00Z" /><br />
+<Meeting Activity="LEC" Building="" Day="F" EndTime="10:50:00Z" Room="" Site="Castle Point" StartTime="10:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="10649" CurrentEnrollment="40" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="4" MaxEnrollment="35" MinCredit="4" Section="E 126B" StartDate="2015-08-31Z" Status="C" Term="2015F" Title="Mechanics of Solids"><br />
+<Meeting Activity="LEC" Building="" Day="M" EndTime="10:40:00Z" Room="" Site="Castle Point" StartTime="9:00:00Z" /><br />
+<Meeting Activity="LEC" Building="" Day="TR" EndTime="10:50:00Z" Room="" Site="Castle Point" StartTime="10:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="10650" CurrentEnrollment="34" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="4" MaxEnrollment="35" MinCredit="4" Section="E 126C" StartDate="2015-08-31Z" Status="O" Term="2015F" Title="Mechanics of Solids"><br />
+<Meeting Activity="LEC" Building="" Day="T" EndTime="13:40:00Z" Room="" Site="Castle Point" StartTime="12:00:00Z" /><br />
+<Meeting Activity="LEC" Building="" Day="R" EndTime="13:50:00Z" Room="" Site="Castle Point" StartTime="13:00:00Z" /><br />
+<Meeting Activity="LEC" Building="" Day="F" EndTime="10:50:00Z" Room="" Site="Castle Point" StartTime="10:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="10651" CurrentEnrollment="36" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="4" MaxEnrollment="35" MinCredit="4" Section="E 126D" StartDate="2015-08-31Z" Status="C" Term="2015F" Title="Mechanics of Solids"><br />
+<Meeting Activity="LEC" Building="" Day="MTWR" EndTime="7:50:00Z" Room="" Site="Castle Point" StartTime="7:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="10652" CurrentEnrollment="37" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="4" MaxEnrollment="35" MinCredit="4" Section="E 126E" StartDate="2015-08-31Z" Status="C" Term="2015F" Title="Mechanics of Solids"><br />
+<Meeting Activity="LEC" Building="" Day="M" EndTime="9:40:00Z" Room="" Site="Castle Point" StartTime="8:00:00Z" /><br />
+<Meeting Activity="LEC" Building="" Day="T" EndTime="8:50:00Z" Room="" Site="Castle Point" StartTime="8:00:00Z" /><br />
+<Meeting Activity="LEC" Building="" Day="F" EndTime="10:50:00Z" Room="" Site="Castle Point" StartTime="10:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="10653" CurrentEnrollment="37" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="4" MaxEnrollment="35" MinCredit="4" Section="E 126F" StartDate="2015-08-31Z" Status="C" Term="2015F" Title="Mechanics of Solids"><br />
+<Meeting Activity="LEC" Building="" Day="MTWR" EndTime="6:50:00Z" Room="" Site="Castle Point" StartTime="6:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="10654" CurrentEnrollment="37" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="4" MaxEnrollment="35" MinCredit="4" Section="E 126G" StartDate="2015-08-31Z" Status="C" Term="2015F" Title="Mechanics of Solids"><br />
+<Meeting Activity="LEC" Building="" Day="T" EndTime="12:40:00Z" Room="" Site="Castle Point" StartTime="11:00:00Z" /><br />
+<Meeting Activity="LEC" Building="" Day="WR" EndTime="8:50:00Z" Room="" Site="Castle Point" StartTime="8:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="10655" CurrentEnrollment="34" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="4" MaxEnrollment="35" MinCredit="4" Section="E 126H" StartDate="2015-08-31Z" Status="O" Term="2015F" Title="Mechanics of Solids"><br />
+<Meeting Activity="LEC" Building="" Day="MTWR" EndTime="5:50:00Z" Room="" Site="Castle Point" StartTime="5:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="10656" CurrentEnrollment="34" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="4" MaxEnrollment="35" MinCredit="4" Section="E 126I" StartDate="2015-08-31Z" Status="O" Term="2015F" Title="Mechanics of Solids"><br />
+<Meeting Activity="LEC" Building="" Day="MTWR" EndTime="7:50:00Z" Room="" Site="Castle Point" StartTime="7:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="10657" CurrentEnrollment="4" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="4" MaxEnrollment="4" MinCredit="4" Section="E 126J" StartDate="2015-08-31Z" Status="C" Term="2015F" Title="Mechanics of Solids"><br />
+<Meeting Activity="LEC" Building="" Day="TBA" Room="" Site="Castle Point" /><br />
+</Course><br />
+<Course CallNumber="10658" CurrentEnrollment="30" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="2" MaxEnrollment="27" MinCredit="2" Section="E 231A" StartDate="2015-08-31Z" Status="C" Term="2015F" Title="Engineering Design III"><br />
+<Meeting Activity="LAB" Building="E" Day="M" EndTime="16:50:00Z" Room="201" Site="Castle Point" StartTime="14:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="10659" CurrentEnrollment="27" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="2" MaxEnrollment="27" MinCredit="2" Section="E 231B" StartDate="2015-08-31Z" Status="C" Term="2015F" Title="Engineering Design III"><br />
+<Meeting Activity="LAB" Building="E" Day="T" EndTime="9:50:00Z" Room="201" Site="Castle Point" StartTime="7:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="10660" CurrentEnrollment="30" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="2" MaxEnrollment="27" MinCredit="2" Section="E 231C" StartDate="2015-08-31Z" Status="C" Term="2015F" Title="Engineering Design III"><br />
+<Meeting Activity="LAB" Building="E" Day="T" EndTime="13:50:00Z" Room="201" Site="Castle Point" StartTime="11:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="10661" CurrentEnrollment="30" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="2" MaxEnrollment="27" MinCredit="2" Section="E 231D" StartDate="2015-08-31Z" Status="C" Term="2015F" Title="Engineering Design III"><br />
+<Meeting Activity="LAB" Building="E" Day="T" EndTime="16:50:00Z" Room="201" Site="Castle Point" StartTime="14:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="10662" CurrentEnrollment="27" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="2" MaxEnrollment="27" MinCredit="2" Section="E 231E" StartDate="2015-08-31Z" Status="C" Term="2015F" Title="Engineering Design III"><br />
+<Meeting Activity="LAB" Building="E" Day="R" EndTime="9:50:00Z" Room="201" Site="Castle Point" StartTime="7:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="10663" CurrentEnrollment="30" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="2" MaxEnrollment="27" MinCredit="2" Section="E 231F" StartDate="2015-08-31Z" Status="C" Term="2015F" Title="Engineering Design III"><br />
+<Meeting Activity="LAB" Building="E" Day="R" EndTime="13:50:00Z" Room="201" Site="Castle Point" StartTime="11:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="10664" CurrentEnrollment="28" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="2" MaxEnrollment="27" MinCredit="2" Section="E 231G" StartDate="2015-08-31Z" Status="C" Term="2015F" Title="Engineering Design III"><br />
+<Meeting Activity="LAB" Building="E" Day="R" EndTime="16:50:00Z" Room="201" Site="Castle Point" StartTime="14:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="10665" CurrentEnrollment="30" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="2" MaxEnrollment="27" MinCredit="2" Section="E 231H" StartDate="2015-08-31Z" Status="C" Term="2015F" Title="Engineering Design III"><br />
+<Meeting Activity="LAB" Building="E" Day="F" EndTime="8:50:00Z" Room="201" Site="Castle Point" StartTime="6:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="10666" CurrentEnrollment="21" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="2" MaxEnrollment="27" MinCredit="2" Section="E 231I" StartDate="2015-08-31Z" Status="O" Term="2015F" Title="Engineering Design III"><br />
+<Meeting Activity="LAB" Building="E" Day="T" EndTime="6:50:00Z" Room="201" Site="Castle Point" StartTime="4:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="10667" CurrentEnrollment="31" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="2" MaxEnrollment="27" MinCredit="2" Section="E 231J" StartDate="2015-08-31Z" Status="C" Term="2015F" Title="Engineering Design III"><br />
+<Meeting Activity="LAB" Building="E" Day="W" EndTime="16:50:00Z" Room="201" Site="Castle Point" StartTime="14:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="10668" CurrentEnrollment="23" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="2" MaxEnrollment="27" MinCredit="2" Section="E 231K" StartDate="2015-08-31Z" Status="O" Term="2015F" Title="Engineering Design III"><br />
+<Meeting Activity="LAB" Building="E" Day="W" EndTime="6:50:00Z" Room="201" Site="Castle Point" StartTime="4:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="10669" CurrentEnrollment="14" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="2" MaxEnrollment="27" MinCredit="2" Section="E 231L" StartDate="2015-08-31Z" Status="O" Term="2015F" Title="Engineering Design III"><br />
+<Meeting Activity="LAB" Building="E" Day="F" EndTime="13:50:00Z" Room="201" Site="Castle Point" StartTime="11:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="10670" CurrentEnrollment="29" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="2" MaxEnrollment="27" MinCredit="2" Section="E 231M" StartDate="2015-08-31Z" Status="C" Term="2015F" Title="Engineering Design III"><br />
+<Meeting Activity="LAB" Building="E" Day="M" EndTime="9:50:00Z" Room="201" Site="Castle Point" StartTime="7:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="10671" CurrentEnrollment="28" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="2" MaxEnrollment="27" MinCredit="2" Section="E 231N" StartDate="2015-08-31Z" Status="C" Term="2015F" Title="Engineering Design III"><br />
+<Meeting Activity="LAB" Building="E" Day="F" EndTime="16:50:00Z" Room="201" Site="Castle Point" StartTime="14:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="10672" CurrentEnrollment="29" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="2" MaxEnrollment="27" MinCredit="2" Section="E 231O" StartDate="2015-08-31Z" Status="C" Term="2015F" Title="Engineering Design III"><br />
+<Meeting Activity="LAB" Building="" Day="M" EndTime="13:50:00Z" Room="" Site="Castle Point" StartTime="11:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="10691" CurrentEnrollment="127" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="3" MaxEnrollment="120" MinCredit="3" Section="E 245A" StartDate="2015-08-31Z" Status="C" Term="2015F" Title="Circuits and Systems"><br />
+<Meeting Activity="LEC" Building="" Day="MR" EndTime="10:50:00Z" Room="" Site="Castle Point" StartTime="10:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="10692" CurrentEnrollment="119" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="3" MaxEnrollment="120" MinCredit="3" Section="E 245B" StartDate="2015-08-31Z" Status="O" Term="2015F" Title="Circuits and Systems"><br />
+<Meeting Activity="LEC" Building="" Day="M" EndTime="8:50:00Z" Room="" Site="Castle Point" StartTime="8:00:00Z" /><br />
+<Meeting Activity="LEC" Building="" Day="R" EndTime="8:50:00Z" Room="" Site="Castle Point" StartTime="8:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="10693" CurrentEnrollment="119" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="3" MaxEnrollment="120" MinCredit="3" Section="E 245C" StartDate="2015-08-31Z" Status="O" Term="2015F" Title="Circuits and Systems"><br />
+<Meeting Activity="LEC" Building="" Day="M" EndTime="11:50:00Z" Room="" Site="Castle Point" StartTime="11:00:00Z" /><br />
+<Meeting Activity="LEC" Building="" Day="W" EndTime="7:50:00Z" Room="" Site="Castle Point" StartTime="7:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="10694" CurrentEnrollment="34" EndDate="2015-12-23Z" Instructor1="Ryan K" MaxCredit="0" MaxEnrollment="45" MinCredit="0" Section="E 245LA" StartDate="2015-08-31Z" Status="O" Term="2015F" Title="Circuits and Systems"><br />
+<Meeting Activity="LAB" Building="B" Day="M" EndTime="10:30:00Z" Room="126" Site="Castle Point" StartTime="8:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="10695" CurrentEnrollment="49" EndDate="2015-12-23Z" Instructor1="Ryan K" MaxCredit="0" MaxEnrollment="45" MinCredit="0" Section="E 245LB" StartDate="2015-08-31Z" Status="C" Term="2015F" Title="Circuits and Systems"><br />
+<Meeting Activity="LAB" Building="B" Day="T" EndTime="10:30:00Z" Room="126" Site="Castle Point" StartTime="8:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="10696" CurrentEnrollment="22" EndDate="2015-12-23Z" Instructor1="Ryan K" MaxCredit="0" MaxEnrollment="45" MinCredit="0" Section="E 245LC" StartDate="2015-08-31Z" Status="O" Term="2015F" Title="Circuits and Systems"><br />
+<Meeting Activity="LAB" Building="B" Day="R" EndTime="10:30:00Z" Room="126" Site="Castle Point" StartTime="8:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="10697" CurrentEnrollment="54" EndDate="2015-12-23Z" Instructor1="Ryan K" MaxCredit="0" MaxEnrollment="45" MinCredit="0" Section="E 245LD" StartDate="2015-08-31Z" Status="C" Term="2015F" Title="Circuits and Systems"><br />
+<Meeting Activity="LAB" Building="B" Day="R" EndTime="16:30:00Z" Room="126" Site="Castle Point" StartTime="14:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="10698" CurrentEnrollment="55" EndDate="2015-12-23Z" Instructor1="Ryan K" MaxCredit="0" MaxEnrollment="45" MinCredit="0" Section="E 245LE" StartDate="2015-08-31Z" Status="C" Term="2015F" Title="Circuits and Systems"><br />
+<Meeting Activity="LAB" Building="B" Day="F" EndTime="7:30:00Z" Room="126" Site="Castle Point" StartTime="5:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="12021" CurrentEnrollment="25" EndDate="2015-12-23Z" Instructor1="Ryan K" MaxCredit="0" MaxEnrollment="45" MinCredit="0" Section="E 245LF" StartDate="2015-08-31Z" Status="O" Term="2015F" Title="Circuits and Systems"><br />
+<Meeting Activity="LAB" Building="" Day="R" EndTime="7:30:00Z" Room="" Site="Castle Point" StartTime="5:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="10699" CurrentEnrollment="55" EndDate="2015-12-23Z" Instructor1="Ryan K" MaxCredit="0" MaxEnrollment="45" MinCredit="0" Section="E 245LG" StartDate="2015-08-31Z" Status="C" Term="2015F" Title="Circuits and Systems"><br />
+<Meeting Activity="LAB" Building="B" Day="R" EndTime="13:30:00Z" Room="126" Site="Castle Point" StartTime="11:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="10700" CurrentEnrollment="20" EndDate="2015-12-23Z" Instructor1="Ryan K" MaxCredit="0" MaxEnrollment="45" MinCredit="0" Section="E 245LH" StartDate="2015-08-31Z" Status="O" Term="2015F" Title="Circuits and Systems"><br />
+<Meeting Activity="LAB" Building="B" Day="W" EndTime="7:30:00Z" Room="126" Site="Castle Point" StartTime="5:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="10701" CurrentEnrollment="53" EndDate="2015-12-23Z" Instructor1="Ryan K" MaxCredit="0" MaxEnrollment="45" MinCredit="0" Section="E 245LI" StartDate="2015-08-31Z" Status="C" Term="2015F" Title="Circuits and Systems"><br />
+<Meeting Activity="LAB" Building="B" Day="F" EndTime="10:30:00Z" Room="126" Site="Castle Point" StartTime="8:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="10727" CurrentEnrollment="149" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="3" MaxEnrollment="140" MinCredit="3" Section="E 344A" StartDate="2015-08-31Z" Status="C" Term="2015F" Title="Materials Processing"><br />
+<Meeting Activity="LEC" Building="" Day="T" EndTime="10:50:00Z" Room="" Site="Castle Point" StartTime="10:00:00Z" /><br />
+<Meeting Activity="LEC" Building="" Day="R" EndTime="11:40:00Z" Room="" Site="Castle Point" StartTime="10:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="10728" CurrentEnrollment="124" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="3" MaxEnrollment="140" MinCredit="3" Section="E 344B" StartDate="2015-08-31Z" Status="O" Term="2015F" Title="Materials Processing"><br />
+<Meeting Activity="LEC" Building="" Day="T" EndTime="12:50:00Z" Room="" Site="Castle Point" StartTime="12:00:00Z" /><br />
+<Meeting Activity="LEC" Building="" Day="R" EndTime="13:40:00Z" Room="" Site="Castle Point" StartTime="12:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="11995" CurrentEnrollment="14" EndDate="2015-12-23Z" Instructor1="McClellan J" MaxCredit="3" MaxEnrollment="14" MinCredit="3" Section="HHS 468EV" StartDate="2015-08-31Z" Status="C" Term="2015F" Title="History of the World"><br />
+<Meeting Activity="LEC" Building="" Day="M" EndTime="16:45:00Z" Room="" Site="Castle Point" StartTime="14:15:00Z" /><br />
+</Course><br />
+<Course CallNumber="11165" CurrentEnrollment="78" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="3" MaxEnrollment="80" MinCredit="3" Section="MA 227A" StartDate="2015-08-31Z" Status="O" Term="2015F" Title="Multivariable Calculus"><br />
+<Meeting Activity="LEC" Building="" Day="TR" EndTime="7:50:00Z" Room="" Site="Castle Point" StartTime="7:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="11166" CurrentEnrollment="80" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="3" MaxEnrollment="80" MinCredit="3" Section="MA 227B" StartDate="2015-08-31Z" Status="C" Term="2015F" Title="Multivariable Calculus"><br />
+<Meeting Activity="LEC" Building="" Day="TR" EndTime="9:50:00Z" Room="" Site="Castle Point" StartTime="9:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="11167" CurrentEnrollment="64" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="3" MaxEnrollment="65" MinCredit="3" Section="MA 227C" StartDate="2015-08-31Z" Status="O" Term="2015F" Title="Multivariable Calculus"><br />
+<Meeting Activity="LEC" Building="" Day="TR" EndTime="10:50:00Z" Room="" Site="Castle Point" StartTime="10:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="11168" CurrentEnrollment="30" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="0" MaxEnrollment="30" MinCredit="0" Section="MA 227RA" StartDate="2015-08-31Z" Status="C" Term="2015F" Title="Multivariable Calculus"><br />
+<Meeting Activity="RCT" Building="" Day="F" EndTime="5:50:00Z" Room="" Site="Castle Point" StartTime="5:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="11169" CurrentEnrollment="30" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="0" MaxEnrollment="30" MinCredit="0" Section="MA 227RB" StartDate="2015-08-31Z" Status="C" Term="2015F" Title="Multivariable Calculus"><br />
+<Meeting Activity="RCT" Building="" Day="F" EndTime="6:50:00Z" Room="" Site="Castle Point" StartTime="6:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="11170" CurrentEnrollment="25" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="0" MaxEnrollment="25" MinCredit="0" Section="MA 227RC" StartDate="2015-08-31Z" Status="C" Term="2015F" Title="Multivariable Calculus"><br />
+<Meeting Activity="RCT" Building="" Day="F" EndTime="6:50:00Z" Room="" Site="Castle Point" StartTime="6:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="11171" CurrentEnrollment="28" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="0" MaxEnrollment="30" MinCredit="0" Section="MA 227RD" StartDate="2015-08-31Z" Status="O" Term="2015F" Title="Multivariable Calculus"><br />
+<Meeting Activity="RCT" Building="" Day="F" EndTime="7:50:00Z" Room="" Site="Castle Point" StartTime="7:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="11172" CurrentEnrollment="23" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="0" MaxEnrollment="25" MinCredit="0" Section="MA 227RE" StartDate="2015-08-31Z" Status="O" Term="2015F" Title="Multivariable Calculus"><br />
+<Meeting Activity="RCT" Building="" Day="F" EndTime="7:50:00Z" Room="" Site="Castle Point" StartTime="7:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="11173" CurrentEnrollment="29" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="0" MaxEnrollment="30" MinCredit="0" Section="MA 227RF" StartDate="2015-08-31Z" Status="O" Term="2015F" Title="Multivariable Calculus"><br />
+<Meeting Activity="RCT" Building="" Day="F" EndTime="9:50:00Z" Room="" Site="Castle Point" StartTime="9:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="11174" CurrentEnrollment="27" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="0" MaxEnrollment="25" MinCredit="0" Section="MA 227RG" StartDate="2015-08-31Z" Status="C" Term="2015F" Title="Multivariable Calculus"><br />
+<Meeting Activity="RCT" Building="" Day="F" EndTime="9:50:00Z" Room="" Site="Castle Point" StartTime="9:00:00Z" /><br />
+</Course><br />
+<Course CallNumber="11175" CurrentEnrollment="30" EndDate="2015-12-23Z" Instructor1="STAFF" MaxCredit="0" MaxEnrollment="30" MinCredit="0" Section="MA 227RH" StartDate="2015-08-31Z" Status="C" Term="2015F" Title="Multivariable Calculus"><br />
+<Meeting Activity="RCT" Building="" Day="F" EndTime="10:50:00Z" Room="" Site="Castle Point" StartTime="10:00:00Z" /><br />
+</Course><br />
+</Semester></p></article></body></html>
