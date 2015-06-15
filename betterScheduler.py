@@ -2,35 +2,42 @@
 import xml.etree.ElementTree as etree #xml parsing stuff
 import re #regex stuff
 import itertools #for finding combinations
-import time
-import urllib
+#import time #for delay - not needed now
+import urllib #for getting xml from online - not needed now
+import pickle #to read/write from files hopefully better
 
 #This would work iif there wasn't the error compiling the first time
-url = 'https://web.stevens.edu/scheduler/core/2015F/2015F.xml'
-urllib.urlretrieve(url, "xmlFile.xml")
+#url = 'https://web.stevens.edu/scheduler/core/2015F/2015F.xml'
+#urllib.urlretrieve(url, "xmlFile.xml")
 
 xmlFile = "2015f2.xml"
-#There needs to be one space between department and number
-myCourses=["BT 353","CS 115","CS 115L","CS 135","CS 135L","CS 146","D 110","HHS 468"]
-
 tree = etree.parse(xmlFile)
 root = tree.getroot()
-#print root
-print "There are " + str(len(root)) + " classes here."
+pickle.dump( root, open( "rootSave.p", "wb" ) )
+print "Pickle saved"
+root = pickle.load( open( "rootSave.p", "rb" ) )
+print "Root is " + str(root)
+
+#There needs to be one space between department and number
+myCourses=['BT 353','CS 135','HHS 468','BT 181','CS 146','CS 284']
 
 def cleanupElements():#working
     '''This goes through the courses in the XML and removes any element that doesnt have info about meeting times'''
+    root = pickle.load( open( "rootSave.p", "rb" ) )
     for course in root.findall('Course'):
         for element in course:
             if element.tag == 'Meeting':
                 pass
             else:
                 course.remove(element) #for some reason this didn't get all of them the first time
-    tree.write(xmlFile)
-    #time.sleep(5)
     print "=====Uneccesary elements removed====="
+    #tree.write(xmlFile)
+    pickle.dump( root, open( "rootSave.p", "wb" ) )
+    print "Root saved"
+    #time.sleep(5)
 def cleanupCourses(courseList):#working
     '''This goes through the XML and removes any course not specified in the courseList from the tree'''
+    root = pickle.load( open( "rootSave.p", "rb" ) )
     for course in root.findall('Course'):
         name = course.get('Section')
         while re.match("([A-Za-z-])", name[-1]) or re.match("([A-Za-z-])", name[-2]):
@@ -39,10 +46,13 @@ def cleanupCourses(courseList):#working
             pass
         else:
             root.remove(course)
-    tree.write(xmlFile)
     print "=====Uneccesary courses removed====="
+    #tree.write(xmlFile)
+    pickle.dump( root, open( "rootSave.p", "wb" ) )
+    print "Root saved"
 def fixTime(Time):#working
     '''Fixes the time formatting'''
+    root = pickle.load( open( "rootSave.p", "rb" ) )
     Time = Time[:(len(Time)-4)]#remove the seconds and the Z
     if len(Time) == 4:#add the 0 to the front of early times
         Time = '0'+Time
@@ -53,9 +63,13 @@ def fixTime(Time):#working
         startHours = "0"+startHours
     Time = startHours + Time[2:]
     return Time
+    print "=====Time format fixed====="
+    pickle.dump( root, open( "rootSave.p", "wb" ) )
+    print "Root saved"
 bigDict = {} #yeah I got a big dict
-callNumbers = {}
+callNumbers = {} #call numbers for the courses will go in this dictionary
 def parseXML():#working
+    root = pickle.load( open( "rootSave.p", "rb" ) )
     for course in root:
         attribs = course.attrib
 
@@ -213,8 +227,16 @@ def main(): #main function to do everything
     #ask for a courselist, maybe read from a file?
     cleanupCourses(myCourses)
     cleanupElements()
-    parseXML()
-    findAllCombinations(bigDict)#from the other file
+    root = pickle.load( open( "rootSave.p", "rb" ) )
+    print "Now there are " + str(len(root)) + " classes here."
+    pickle.dump( root, open( "rootSave.p", "wb" ) )
+    try:
+        parseXML()
+        findAllCombinations(bigDict)#from the other file
+    except KeyError:
+        print "KeyError: trying again"
+        main()
+
 
 main()
 
