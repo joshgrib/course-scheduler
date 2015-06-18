@@ -3,6 +3,9 @@ import re #regex stuff
 import itertools #for finding combinations
 import urllib #for getting xml from online
 import pickle #to read/write from files hopefully better
+from flask import Flask
+
+app = Flask(__name__)
 
 #This would work iif there wasn't the error compiling the first time
 url = 'https://web.stevens.edu/scheduler/core/2015F/2015F.xml'
@@ -14,10 +17,10 @@ root = tree.getroot()
 pickle.dump( root, open( "rootSave.p", "wb" ) )
 #print "Pickle saved"
 root = pickle.load( open( "rootSave.p", "rb" ) )
-print "Root is " + str(root)
+#print "Root is " + str(root)
 
 #There needs to be one space between department and number
-myCourses=['BT 353','CS 135','HHS 468','BT 181','CS 146','CS 284']
+#myCourses=['BT 353','CS 135','HHS 468','BT 181','CS 146','CS 284']
 
 def cleanupElements():#working
     '''This goes through the courses in the XML and removes any element that doesnt have info about meeting times'''
@@ -28,7 +31,7 @@ def cleanupElements():#working
                 pass
             else:
                 course.remove(element) #for some reason this didn't get all of them the first time
-    print "=====Uneccesary elements removed====="
+    #print "=====Uneccesary elements removed====="
     #tree.write(xmlFile)
     pickle.dump( root, open( "rootSave.p", "wb" ) )
     #print "Root saved"
@@ -44,7 +47,7 @@ def cleanupCourses(courseList):#working
             pass
         else:
             root.remove(course)
-    print "=====Uneccesary courses removed====="
+    #print "=====Uneccesary courses removed====="
     #tree.write(xmlFile)
     pickle.dump( root, open( "rootSave.p", "wb" ) )
     #print "Root saved"
@@ -61,7 +64,7 @@ def fixTime(Time):#working
         startHours = "0"+startHours
     Time = startHours + Time[2:]
     return Time
-    print "=====Time format fixed====="
+    #print "=====Time format fixed====="
     pickle.dump( root, open( "rootSave.p", "wb" ) )
     #print "Root saved"
 bigDict = {} #yeah I got a big dict
@@ -112,7 +115,7 @@ def parseXML():#working
     for course in root:
         attribs = course.attrib
         thisCourse = attribs['Section']
-        print thisCourse
+        #print thisCourse
         if len(thisCourse) == 9: #recitation course
             courseBig = thisCourse[:8]
             courseSection =thisCourse[8:]
@@ -144,8 +147,8 @@ def parseXML():#working
                 for letter in day: #add one list for each meeting
                     bigDict[courseBig][courseSection].append([letter,startTime,endTime])
 
-    print bigDict
-    print "\nParsing complete\n"
+    #print bigDict
+    #print "\nParsing complete\n"
 def isAllowed(classList1, classList2):
     if (classList2[2] < classList1[1]) or (classList1[2] < classList2[1]):
         return True
@@ -156,6 +159,7 @@ def findAllCombinations(courseDict):
     bigList=[] #list of lists of courses and sections
     goodCombos=[] #store all the good combinations
     badCombos=[] #store the bad combinations
+    possibilities = ""
     for course in courseDict: #make a list of lists with the small lists being lists of possible sections for one course
         courseList=[]
         for section in courseDict[course]:
@@ -170,15 +174,14 @@ def findAllCombinations(courseDict):
             goodCombos.append(combo)
         else:
             badCombos.append(combo)
-    print "=========="
-    print "SUMMARY"
-    print "There are " + str(combos) + " possible combinations"
-    print str(len(goodCombos)) + " of them work fine"
-    print "The other " + str(len(badCombos)) + " had a conflict"
-    print ""
-    print "Good combinations:"
+    #print "=========="
+    #print "SUMMARY"
+    #print "There are " + str(combos) + " possible combinations"
+    #print str(len(goodCombos)) + " of them work fine"
+    #print "The other " + str(len(badCombos)) + " had a conflict"
+    #print ""
+    #print "Good combinations:"
     for x in goodCombos:
-        print x
         urlPart = []
         for course in x:
             urlPart.append(callNumbers[str(course)])
@@ -187,7 +190,8 @@ def findAllCombinations(courseDict):
         for callNumber in urlPart:
             url = url + str(callNumber) + ","
         url = url[:-1]
-        print url
+        possibilities = possibilities + str(x) + '</br>' + str(url) + '</br>'
+    return possibilities
 def checkCombination(courseDict,inputList):
     '''This will go through a combination list and see if it all works. If it does it will return a true value'''
     conflicts = 0 #initialize counters
@@ -223,21 +227,31 @@ def checkCombination(courseDict,inputList):
 def schedule(courseList): #main function to do everything
     '''Given the XML and a list of courses, this will output all the possible schedules as a list of course ID(dept. ### section) and call numbers'''
     root = pickle.load( open( "rootSave.p", "rb" ) )
-    print "There are " + str(len(root)) + " classes here."
+    #print "There are " + str(len(root)) + " classes here."
     pickle.dump( root, open( "rootSave.p", "wb" ) )
     cleanupCourses(courseList)
     cleanupElements()
     root = pickle.load( open( "rootSave.p", "rb" ) )
-    print "Now there are " + str(len(root)) + " classes here."
+    #print "Now there are " + str(len(root)) + " classes here."
     pickle.dump( root, open( "rootSave.p", "wb" ) )
     try:
         parseXML()
-        findAllCombinations(bigDict)#from the other file
+        return findAllCombinations(bigDict)#from the other file
     except KeyError:
-        print "KeyError: trying again"
+        #print "KeyError: trying again"
         schedule(courseList)
 
-schedule(myCourses)
+@app.route('/')
+def index():
+    return schedule(myCourses)
+
+@app.route('/sched/<list>')
+def scheduleMe(list):
+	courseList = list.split(',')
+	return schedule(courseList)
+
+if __name__ == '__main__':
+    app.run()
 
 '''
 TODO
