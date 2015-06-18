@@ -1014,10 +1014,249 @@ body .markdown-body
     page-break-after: avoid;
   }
 }
-</style><title>flaskTesting</title></head><body><article class="markdown-body"><p>from flask import Flask<br />
-app = Flask(<strong>name</strong>)</p>
+</style><title>flaskScheduler</title></head><body><article class="markdown-body"><p>import xml.etree.ElementTree as etree #xml parsing stuff<br />
+import re #regex stuff<br />
+import itertools #for finding combinations<br />
+import urllib #for getting xml from online<br />
+import pickle #to read/write from files hopefully better<br />
+from flask import Flask</p>
+<p>app = Flask(<strong>name</strong>)</p>
+<h1 id="this-would-work-iif-there-wasnt-the-error-compiling-the-first-time"><a name="user-content-this-would-work-iif-there-wasnt-the-error-compiling-the-first-time" href="#this-would-work-iif-there-wasnt-the-error-compiling-the-first-time" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>This would work iif there wasn&rsquo;t the error compiling the first time</h1>
+<p>url = &lsquo;<a href="https://web.stevens.edu/scheduler/core/2015F/2015F.xml">https://web.stevens.edu/scheduler/core/2015F/2015F.xml</a>&lsquo;<br />
+urllib.urlretrieve(url, &ldquo;xmlFile.xml&rdquo;)<br />
+xmlFile = &ldquo;xmlFile.xml&rdquo;</p>
+<p>tree = etree.parse(xmlFile)<br />
+root = tree.getroot()<br />
+pickle.dump( root, open( &ldquo;rootSave.p&rdquo;, &ldquo;wb&rdquo; ) )</p>
+<h1 id="print-pickle-saved"><a name="user-content-print-pickle-saved" href="#print-pickle-saved" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>print &ldquo;Pickle saved&rdquo;</h1>
+<p>root = pickle.load( open( &ldquo;rootSave.p&rdquo;, &ldquo;rb&rdquo; ) )</p>
+<h1 id="print-root-is-strroot"><a name="user-content-print-root-is-strroot" href="#print-root-is-strroot" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>print &ldquo;Root is &rdquo; + str(root)</h1>
+<h1 id="there-needs-to-be-one-space-between-department-and-number"><a name="user-content-there-needs-to-be-one-space-between-department-and-number" href="#there-needs-to-be-one-space-between-department-and-number" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>There needs to be one space between department and number</h1>
+<p>myCourses=[&lsquo;BT 353&rsquo;,&rsquo;CS 135&rsquo;,&rsquo;HHS 468&rsquo;,&rsquo;BT 181&rsquo;,&rsquo;CS 146&rsquo;,&rsquo;CS 284&rsquo;]</p>
+<p>def cleanupElements():#working<br />
+    &lsquo;&rsquo;&lsquo;This goes through the courses in the XML and removes any element that doesnt have info about meeting times&rsquo;&lsquo;&rsquo;<br />
+    root = pickle.load( open( &ldquo;rootSave.p&rdquo;, &ldquo;rb&rdquo; ) )<br />
+    for course in root.findall(&lsquo;Course&rsquo;):<br />
+        for element in course:<br />
+            if element.tag == &lsquo;Meeting&rsquo;:<br />
+                pass<br />
+            else:<br />
+                course.remove(element) #for some reason this didn&rsquo;t get all of them the first time<br />
+    #print &ldquo;=====Uneccesary elements removed=====&rdquo;<br />
+    #tree.write(xmlFile)<br />
+    pickle.dump( root, open( &ldquo;rootSave.p&rdquo;, &ldquo;wb&rdquo; ) )<br />
+    #print &ldquo;Root saved&rdquo;<br />
+    #time.sleep(5)<br />
+def cleanupCourses(courseList):#working<br />
+    &lsquo;&rsquo;&lsquo;This goes through the XML and removes any course not specified in the courseList from the tree&rsquo;&lsquo;&rsquo;<br />
+    root = pickle.load( open( &ldquo;rootSave.p&rdquo;, &ldquo;rb&rdquo; ) )<br />
+    for course in root.findall(&lsquo;Course&rsquo;):<br />
+        name = course.get(&lsquo;Section&rsquo;)<br />
+        while re.match(&ldquo;([A-Za-z-])&rdquo;, name[-1]) or re.match(&ldquo;([A-Za-z-])&rdquo;, name[-2]):<br />
+            name = name[:(len(name)-1)]<br />
+        if name in courseList:<br />
+            pass<br />
+        else:<br />
+            root.remove(course)<br />
+    #print &ldquo;=====Uneccesary courses removed=====&rdquo;<br />
+    #tree.write(xmlFile)<br />
+    pickle.dump( root, open( &ldquo;rootSave.p&rdquo;, &ldquo;wb&rdquo; ) )<br />
+    #print &ldquo;Root saved&rdquo;<br />
+def fixTime(Time):#working<br />
+    &lsquo;&rsquo;&lsquo;Fixes the time formatting&rsquo;&lsquo;&rsquo;<br />
+    root = pickle.load( open( &ldquo;rootSave.p&rdquo;, &ldquo;rb&rdquo; ) )<br />
+    Time = Time[:(len(Time)-4)]#remove the seconds and the Z<br />
+    if len(Time) == 4:#add the 0 to the front of early times<br />
+        Time = &lsquo;0&rsquo;+Time<br />
+    Time = Time[:2] + Time[3:]<br />
+    startHours = int(Time[:2])+4<br />
+    startHours = str(startHours)<br />
+    if len(startHours) == 1:<br />
+        startHours = &ldquo;0&rdquo;+startHours<br />
+    Time = startHours + Time[2:]<br />
+    return Time<br />
+    #print &ldquo;=====Time format fixed=====&rdquo;<br />
+    pickle.dump( root, open( &ldquo;rootSave.p&rdquo;, &ldquo;wb&rdquo; ) )<br />
+    #print &ldquo;Root saved&rdquo;<br />
+bigDict = {} #yeah I got a big dict<br />
+callNumbers = {} #call numbers for the courses will go in this dictionary<br />
+def parseXML():#working<br />
+    root = pickle.load( open( &ldquo;rootSave.p&rdquo;, &ldquo;rb&rdquo; ) )<br />
+    for course in root:<br />
+        attribs = course.attrib</p>
+<pre><code>    section = attribs['Section']
+    #fix the spaces on the course names
+    indexCount=0#initialize counter
+    newSection = ""
+    for letter in section:#fore each letter...
+        if letter == " ":#if its the space set the space equal to the right amount of spaces
+            #print "Space at index:" + str(indexCount)
+            letter = (4-indexCount)*" "
+        else:
+            letter = letter
+        newSection = newSection+letter#create the new name
+        indexCount = indexCount+1
+    attribs['Section']=newSection
+
+    #fix time formatting
+    for meeting in course:
+        meetingAttribs = meeting.attrib
+        startTime = meetingAttribs['StartTime']
+        endTime = meetingAttribs['EndTime']
+        startTime = fixTime(startTime)
+        endTime = fixTime(endTime)
+        meetingAttribs['StartTime'] = startTime
+        meetingAttribs['EndTime'] = endTime
+
+#populate call number dictionary
+for course in root:
+    sectionName = course.attrib['Section'] #get the section name
+    callNumber = int(course.attrib['CallNumber']) #get the call number as an integer
+    callNumbers[sectionName] = callNumber #save section names and call numbers to the dictionary
+
+'''
+At this point in the function:
+Course names are properly formatted, with the proper number of spaces, one for every section, stored under the 'Section' attribute
+Start and end times are properly formatted, store as the StatTime and EndTime attributes
+The dictionary for call numbers is done
+'''
+
+prevCourse = ""
+for course in root:
+    attribs = course.attrib
+    thisCourse = attribs['Section']
+    #print thisCourse
+    if len(thisCourse) == 9: #recitation course
+        courseBig = thisCourse[:8]
+        courseSection =thisCourse[8:]
+        if courseBig == prevCourse[:8]: #same course
+            bigDict[courseBig][courseSection] = [] #add the new section with a list
+        else: #new course
+            bigDict[courseBig] = {} #add the new class
+            bigDict[courseBig][courseSection] = [] #add the new section with a list
+    else: #normal course(lecture)
+        courseBig = thisCourse[:7]
+        courseSection =thisCourse[7:]
+        if thisCourse[:7] == prevCourse[:7]: #same course
+            bigDict[courseBig][courseSection] = [] #add the new section with a list
+        else: #new course
+            bigDict[courseBig] = {} #add the new class
+            bigDict[courseBig][courseSection] = [] #add the new section with a list
+    prevCourse = thisCourse
+
+    for meeting in course: #write the meetings to the section lists
+        info = meeting.attrib
+        day =  info['Day']
+        startTime = info['StartTime']
+        endTime = info['EndTime']
+        if [day,startTime,endTime] in bigDict[courseBig][courseSection]: #if the exact same meeting is already in the list
+            break #then dont add another!
+        if len(day) == 1: #if this meeting describes one day
+            bigDict[courseBig][courseSection].append([day,startTime,endTime]) #add the meeting time
+        else: #if multiple days happen at the same time
+            for letter in day: #add one list for each meeting
+                bigDict[courseBig][courseSection].append([letter,startTime,endTime])
+
+#print bigDict
+#print "\nParsing complete\n"
+</code></pre>
+<p>def isAllowed(classList1, classList2):<br />
+    if (classList2[2] &lt; classList1[1]) or (classList1[2] &lt; classList2[1]):<br />
+        return True<br />
+    else:<br />
+        return False<br />
+def findAllCombinations(courseDict):<br />
+    &lsquo;&rsquo;&lsquo;This function goes through the nested courses, stores lists of all possible combinations of courses, and prints them&rsquo;&lsquo;&rsquo;<br />
+    bigList=[] #list of lists of courses and sections<br />
+    goodCombos=[] #store all the good combinations<br />
+    badCombos=[] #store the bad combinations<br />
+    possibilities = &ldquo;&rdquo;<br />
+    for course in courseDict: #make a list of lists with the small lists being lists of possible sections for one course<br />
+        courseList=[]<br />
+        for section in courseDict[course]:<br />
+            courseList.append(str(course+section))<br />
+        bigList.append(courseList)<br />
+    combos=0 #initialize the counter<br />
+    allCombos = list(itertools.product(*bigList))#find all combinations of one section of each class<br />
+    for combo in allCombos:<br />
+        combos=combos+1<br />
+        checkCombination(courseDict,combo)#see if the combo works and add to apppropriate list<br />
+        if checkCombination(courseDict,combo) == True:<br />
+            goodCombos.append(combo)<br />
+        else:<br />
+            badCombos.append(combo)<br />
+    #print &ldquo;==========&rdquo;<br />
+    #print &ldquo;SUMMARY&rdquo;<br />
+    #print &ldquo;There are &rdquo; + str(combos) + &rdquo; possible combinations&rdquo;<br />
+    #print str(len(goodCombos)) + &rdquo; of them work fine&rdquo;<br />
+    #print &ldquo;The other &rdquo; + str(len(badCombos)) + &rdquo; had a conflict&rdquo;<br />
+    #print &ldquo;&rdquo;<br />
+    #print &ldquo;Good combinations:&rdquo;<br />
+    for x in goodCombos:<br />
+        urlPart = []<br />
+        for course in x:<br />
+            urlPart.append(callNumbers[str(course)])<br />
+        #format url<br />
+        url = &lsquo;<a href="https://web.stevens.edu/scheduler/#2015F=">https://web.stevens.edu/scheduler/#2015F=</a>&lsquo;<br />
+        for callNumber in urlPart:<br />
+            url = url + str(callNumber) + &ldquo;,&rdquo;<br />
+        url = url[:-1]<br />
+        possibilities = possibilities + str(x) + &lsquo;</br>&lsquo; + str(url) + &lsquo;</br>&lsquo;<br />
+    return possibilities<br />
+def checkCombination(courseDict,inputList):<br />
+    &lsquo;&rsquo;&lsquo;This will go through a combination list and see if it all works. If it does it will return a true value&rsquo;&lsquo;&rsquo;<br />
+    conflicts = 0 #initialize counters<br />
+    diffDays = 0<br />
+    for i in range(len(inputList)-1): #compare each item in the list to each other, I dont remember what I did here rn, should have commented earlier<br />
+        comp1 = inputList[i] #comparison one in the item in the list we are on now<br />
+        if len(comp1) == 9: #seperate the section and the course, different if its a lecture<br />
+            course1 = comp1[0:8]<br />
+            section1 = comp1[8:]<br />
+        else:<br />
+            course1 = comp1[0:7]<br />
+            section1 = comp1[7:]</p>
+<pre><code>    comp2 = inputList[i+1] #comparison two is the next item in the list
+    if len(comp2) == 9: #seperate the section and the course, different if its a letter
+        course2 = comp2[0:8]
+        section2 = comp2[8:]
+    else:
+        course2 = comp2[0:7]
+        section2 = comp2[7:]
+    check1 = courseDict[course1][section1] #check one is the list of meetings for course1 section1
+    check2 = courseDict[course2][section2] #check two is the list of meetings for course2 section2
+    for meeting1 in check1:
+        for meeting2 in check2:
+            if meeting1[0] == meeting2[0]: #if the meetins are on the same day...
+                if (isAllowed(meeting1,meeting2) == True): #if there is no conflicts do nothing
+                    pass
+                else: #if there is a conflict, add to the conflict counter
+                    conflicts = conflicts + 1
+if conflicts == 0: #if there were no conflicts, return true
+    return True
+</code></pre>
+<p>def schedule(courseList): #main function to do everything<br />
+    &lsquo;&rsquo;&lsquo;Given the XML and a list of courses, this will output all the possible schedules as a list of course ID(dept. ### section) and call numbers&rsquo;&lsquo;&rsquo;<br />
+    root = pickle.load( open( &ldquo;rootSave.p&rdquo;, &ldquo;rb&rdquo; ) )<br />
+    #print &ldquo;There are &rdquo; + str(len(root)) + &rdquo; classes here.&rdquo;<br />
+    pickle.dump( root, open( &ldquo;rootSave.p&rdquo;, &ldquo;wb&rdquo; ) )<br />
+    cleanupCourses(courseList)<br />
+    cleanupElements()<br />
+    root = pickle.load( open( &ldquo;rootSave.p&rdquo;, &ldquo;rb&rdquo; ) )<br />
+    #print &ldquo;Now there are &rdquo; + str(len(root)) + &rdquo; classes here.&rdquo;<br />
+    pickle.dump( root, open( &ldquo;rootSave.p&rdquo;, &ldquo;wb&rdquo; ) )<br />
+    try:<br />
+        parseXML()<br />
+        return findAllCombinations(bigDict)#from the other file<br />
+    except KeyError:<br />
+        #print &ldquo;KeyError: trying again&rdquo;<br />
+        schedule(courseList)</p>
 <p>@app.route(&lsquo;/&rsquo;)<br />
-def hello_world():<br />
-    return &lsquo;Hello World!&rsquo;</p>
+def index():<br />
+    return schedule(myCourses)</p>
 <p>if <strong>name</strong> == &lsquo;<strong>main</strong>&rsquo;:<br />
-    app.run()</p></article></body></html>
+    app.run()</p>
+<p>&rsquo;&lsquo;&rsquo;<br />
+TODO<br />
+main should probably take in the xml file and the courselist, and output the possible schedules to a file<br />
+Add a step to remove the extra D110&rsquo;s<br />
+&lsquo;&rsquo;&lsquo;</p></article></body></html>
