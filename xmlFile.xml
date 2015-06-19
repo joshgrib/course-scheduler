@@ -3,13 +3,13 @@
 <!--Last update: 4-Nov-2008 20:28-->
 <!--Original Author: Peter Garafano-->
 <!--This data is solely for the use of Stevens Institute of Technology, its students and faculty.-->
-<!--File created: Thu Jun 18 17:46:17 2015-->
-<!--The xml file was 475 seconds old.-->
+<!--File created: Fri Jun 19 16:54:08 2015-->
+<!--The xml file was 2027 seconds old.-->
 <!--Courses parsed: 1968-->
 <!--Meetings parsed: 2182-->
 <!--Requirements parsed: 2250-->
 <Semester Semester="2015F" Courses="1968" Meetings="2182" Requirements="2250">
-	<Course Section="BIA 650A" Title="Optimization &amp; Proc. Analytics" CallNumber="10002" MinCredit="3" MaxCredit="3" MaxEnrollment="35" CurrentEnrollment="9" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Stohr E" Term="2015F">
+	<Course Section="BIA 650A" Title="Optimization &amp; Proc. Analytics" CallNumber="10002" MinCredit="3" MaxCredit="3" MaxEnrollment="35" CurrentEnrollment="10" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Stohr E" Term="2015F">
 		<Meeting Day="R" StartTime="14:15:00Z" EndTime="16:45:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 		<Requirement Control="PUN" Argument="" Value1="" Operator="" Value2=""/>
 	</Course>
@@ -17,7 +17,7 @@
 		<Meeting Day="R" StartTime="11:15:00Z" EndTime="13:45:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 		<Requirement Control="PUN" Argument="" Value1="" Operator="" Value2=""/>
 	</Course>
-	<Course Section="BIA 652A" Title="Multivariate Data Analysis I" CallNumber="10005" MinCredit="3" MaxCredit="3" MaxEnrollment="35" CurrentEnrollment="27" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Belanger D" Term="2015F">
+	<Course Section="BIA 652A" Title="Multivariate Data Analysis I" CallNumber="10005" MinCredit="3" MaxCredit="3" MaxEnrollment="35" CurrentEnrollment="28" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Belanger D" Term="2015F">
 		<Meeting Day="M" StartTime="14:15:00Z" EndTime="16:45:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 		<Requirement Control="PUN" Argument="" Value1="" Operator="" Value2=""/>
 	</Course>
@@ -312,11 +312,11 @@
 	<Course Section="BT 181A" Title="Seminar in Business" CallNumber="10063" MinCredit="1" MaxCredit="1" MaxEnrollment="45" CurrentEnrollment="42" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Murphy A" Term="2015F">
 		<Meeting Day="W" StartTime="5:00:00Z" EndTime="5:50:00Z" Site="Castle Point" Building="" Room="" Activity="SEM"/>
 	</Course>
-	<Course Section="BT 200A" Title="Financial Accounting" CallNumber="10064" MinCredit="3" MaxCredit="3" MaxEnrollment="45" CurrentEnrollment="37" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
+	<Course Section="BT 200A" Title="Financial Accounting" CallNumber="10064" MinCredit="3" MaxCredit="3" MaxEnrollment="45" CurrentEnrollment="38" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
 		<Meeting Day="M" StartTime="6:00:00Z" EndTime="7:40:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 		<Meeting Day="W" StartTime="6:00:00Z" EndTime="6:50:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 	</Course>
-	<Course Section="BT 200B" Title="Financial Accounting" CallNumber="10065" MinCredit="3" MaxCredit="3" MaxEnrollment="45" CurrentEnrollment="39" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
+	<Course Section="BT 200B" Title="Financial Accounting" CallNumber="10065" MinCredit="3" MaxCredit="3" MaxEnrollment="45" CurrentEnrollment="38" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
 		<Meeting Day="M" StartTime="9:00:00Z" EndTime="10:40:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 		<Meeting Day="W" StartTime="7:00:00Z" EndTime="7:50:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 	</Course>
@@ -362,7 +362,7 @@
 	<Course Section="BT 244B" Title="Microeconomics" CallNumber="10074" MinCredit="3" MaxCredit="3" MaxEnrollment="40" CurrentEnrollment="31" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Wu Y" Term="2015F">
 		<Meeting Day="MWF" StartTime="7:00:00Z" EndTime="7:50:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 	</Course>
-	<Course Section="BT 244C" Title="Microeconomics" CallNumber="10075" MinCredit="3" MaxCredit="3" MaxEnrollment="55" CurrentEnrollment="53" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Anderson R" Term="2015F">
+	<Course Section="BT 244C" Title="Microeconomics" CallNumber="10075" MinCredit="3" MaxCredit="3" MaxEnrollment="55" CurrentEnrollment="54" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Anderson R" Term="2015F">
 		<Meeting Day="M" StartTime="8:00:00Z" EndTime="9:40:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 		<Meeting Day="W" StartTime="8:00:00Z" EndTime="8:50:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 	</Course>
@@ -370,7 +370,7 @@
 		<Meeting Day="M" StartTime="10:00:00Z" EndTime="11:40:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 		<Meeting Day="W" StartTime="7:00:00Z" EndTime="7:50:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 	</Course>
-	<Course Section="BT 244E" Title="Microeconomics" CallNumber="10077" MinCredit="3" MaxCredit="3" MaxEnrollment="55" CurrentEnrollment="27" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
+	<Course Section="BT 244E" Title="Microeconomics" CallNumber="10077" MinCredit="3" MaxCredit="3" MaxEnrollment="55" CurrentEnrollment="28" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
 		<Meeting Day="T" StartTime="5:00:00Z" EndTime="6:40:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 		<Meeting Day="R" StartTime="5:00:00Z" EndTime="5:50:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 	</Course>
@@ -434,7 +434,7 @@
 		<Meeting Day="T" StartTime="11:00:00Z" EndTime="12:40:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 		<Meeting Day="R" StartTime="7:00:00Z" EndTime="7:50:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 	</Course>
-	<Course Section="BT 353E" Title="Project Management" CallNumber="12009" MinCredit="3" MaxCredit="3" MaxEnrollment="39" CurrentEnrollment="39" Status="C" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Lombardi D" Term="2015F">
+	<Course Section="BT 353E" Title="Project Management" CallNumber="12009" MinCredit="3" MaxCredit="3" MaxEnrollment="39" CurrentEnrollment="38" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Lombardi D" Term="2015F">
 		<Meeting Day="M" StartTime="14:15:00Z" EndTime="16:45:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 	</Course>
 	<Course Section="BT 360A" Title="International Business" CallNumber="10086" MinCredit="3" MaxCredit="3" MaxEnrollment="35" CurrentEnrollment="38" Status="C" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
@@ -462,7 +462,7 @@
 		<Meeting Day="W" StartTime="14:15:00Z" EndTime="16:45:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 		<Requirement Control="NQ" Argument="" Value1="BT  321" Operator="" Value2=""/>
 	</Course>
-	<Course Section="BT 435A" Title="Social Networks: Marketing Persp" CallNumber="10094" MinCredit="3" MaxCredit="3" MaxEnrollment="45" CurrentEnrollment="32" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
+	<Course Section="BT 435A" Title="Social Networks: Marketing Persp" CallNumber="10094" MinCredit="3" MaxCredit="3" MaxEnrollment="45" CurrentEnrollment="31" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
 		<Meeting Day="T" StartTime="5:00:00Z" EndTime="6:40:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 		<Meeting Day="R" StartTime="5:00:00Z" EndTime="5:50:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 	</Course>
@@ -471,7 +471,7 @@
 		<Meeting Day="R" StartTime="10:00:00Z" EndTime="10:50:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 		<Requirement Control="NQ" Argument="" Value1="BT  321" Operator="" Value2=""/>
 	</Course>
-	<Course Section="BT 465A" Title="IntegratedMarketingCommunication" CallNumber="12015" MinCredit="3" MaxCredit="3" MaxEnrollment="50" CurrentEnrollment="12" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
+	<Course Section="BT 465A" Title="IntegratedMarketingCommunication" CallNumber="12015" MinCredit="3" MaxCredit="3" MaxEnrollment="50" CurrentEnrollment="11" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
 		<Meeting Day="W" StartTime="14:15:00Z" EndTime="16:45:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 	</Course>
 	<Course Section="BT 499A" Title="Independent Study" CallNumber="10096" MinCredit="3" MaxCredit="3" MaxEnrollment="30" CurrentEnrollment="0" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
@@ -2194,7 +2194,7 @@
 		<Meeting Day="MTR" StartTime="10:00:00Z" EndTime="10:50:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 	</Course>
 	<Course Section="CS 181A" Title="Intro Comp Sci-Honors I" CallNumber="10483" MinCredit="4" MaxCredit="4" MaxEnrollment="45" CurrentEnrollment="0" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Nicolosi A" Term="2015F">
-		<Meeting Day="MWF" StartTime="8:00:00Z" EndTime="8:50:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
+		<Meeting Day="MWR" StartTime="8:00:00Z" EndTime="8:50:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 		<Requirement Control="PDP" Argument="" Value1="" Operator="" Value2=""/>
 		<Requirement Control="CA" Argument="" Value1="LAB" Operator="" Value2=""/>
 	</Course>
@@ -2466,7 +2466,7 @@
 		<Meeting Day="W" StartTime="11:00:00Z" EndTime="13:30:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 		<Requirement Control="PIN" Argument="" Value1="" Operator="" Value2=""/>
 	</Course>
-	<Course Section="CS 555C" Title="Agile Methods for Software Dev." CallNumber="12277" MinCredit="3" MaxCredit="3" MaxEnrollment="0" CurrentEnrollment="0" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Ardis M" Term="2015F">
+	<Course Section="CS 555C" Title="Agile Methods for Software Dev." CallNumber="12277" MinCredit="3" MaxCredit="3" MaxEnrollment="10" CurrentEnrollment="0" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Ardis M" Term="2015F">
 		<Meeting Day="M" StartTime="14:15:00Z" EndTime="16:45:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 	</Course>
 	<Course Section="CS 555WS" Title="Agile Methods for Software Dev." CallNumber="11964" MinCredit="3" MaxCredit="3" MaxEnrollment="15" CurrentEnrollment="5" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Ardis M" Term="2015F">
@@ -2497,7 +2497,7 @@
 	<Course Section="CS 570A" Title="Intro. to Programming in C++" CallNumber="10541" MinCredit="3" MaxCredit="3" MaxEnrollment="70" CurrentEnrollment="21" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Pfeffer D" Term="2015F">
 		<Meeting Day="R" StartTime="8:00:00Z" EndTime="10:30:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 	</Course>
-	<Course Section="CS 570B" Title="Intro. to Programming in C++" CallNumber="10542" MinCredit="3" MaxCredit="3" MaxEnrollment="70" CurrentEnrollment="15" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Pfeffer D" Term="2015F">
+	<Course Section="CS 570B" Title="Intro. to Programming in C++" CallNumber="10542" MinCredit="3" MaxCredit="3" MaxEnrollment="70" CurrentEnrollment="16" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Pfeffer D" Term="2015F">
 		<Meeting Day="R" StartTime="11:00:00Z" EndTime="13:30:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 	</Course>
 	<Course Section="CS 570C" Title="Intro. to Programming in C++" CallNumber="12080" MinCredit="3" MaxCredit="3" MaxEnrollment="30" CurrentEnrollment="0" Status="X" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Katz D" Term="2015F">
@@ -3506,7 +3506,7 @@
 		<Meeting Day="M" StartTime="6:00:00Z" EndTime="7:50:00Z" Site="Castle Point" Building="B" Room="314" Activity="LAB"/>
 		<Requirement Control="NQ" Argument="" Value1="E   344" Operator="" Value2=""/>
 	</Course>
-	<Course Section="E 321B" Title="Engineering Design V" CallNumber="10704" MinCredit="2" MaxCredit="2" MaxEnrollment="12" CurrentEnrollment="12" Status="C" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Eitel R" Term="2015F">
+	<Course Section="E 321B" Title="Engineering Design V" CallNumber="10704" MinCredit="2" MaxCredit="2" MaxEnrollment="12" CurrentEnrollment="11" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Eitel R" Term="2015F">
 		<Meeting Day="M" StartTime="8:00:00Z" EndTime="9:50:00Z" Site="Castle Point" Building="B" Room="314" Activity="LAB"/>
 		<Requirement Control="NQ" Argument="" Value1="E   344" Operator="" Value2=""/>
 	</Course>
@@ -3594,7 +3594,7 @@
 		<Meeting Day="M" StartTime="12:00:00Z" EndTime="13:50:00Z" Site="Castle Point" Building="B" Room="314" Activity="LAB"/>
 		<Requirement Control="NQ" Argument="" Value1="E   344" Operator="" Value2=""/>
 	</Course>
-	<Course Section="E 321X" Title="Engineering Design V" CallNumber="10726" MinCredit="2" MaxCredit="2" MaxEnrollment="12" CurrentEnrollment="11" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Eitel R" Term="2015F">
+	<Course Section="E 321X" Title="Engineering Design V" CallNumber="10726" MinCredit="2" MaxCredit="2" MaxEnrollment="12" CurrentEnrollment="12" Status="C" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Eitel R" Term="2015F">
 		<Meeting Day="T" StartTime="10:00:00Z" EndTime="11:50:00Z" Site="Castle Point" Building="B" Room="314" Activity="LAB"/>
 		<Requirement Control="NQ" Argument="" Value1="E   344" Operator="" Value2=""/>
 	</Course>
@@ -3750,7 +3750,7 @@
 	<Course Section="EE 548A" Title="Digital Signal Processing" CallNumber="10757" MinCredit="3" MaxCredit="3" MaxEnrollment="30" CurrentEnrollment="10" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
 		<Meeting Day="M" StartTime="8:00:00Z" EndTime="10:30:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 	</Course>
-	<Course Section="EE 560A" Title="Fundamentals of Remote Sensing" CallNumber="10759" MinCredit="3" MaxCredit="3" MaxEnrollment="0" CurrentEnrollment="3" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
+	<Course Section="EE 560A" Title="Fundamentals of Remote Sensing" CallNumber="10759" MinCredit="3" MaxCredit="3" MaxEnrollment="0" CurrentEnrollment="4" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
 		<Meeting Day="T" StartTime="14:15:00Z" EndTime="16:45:00Z" Site="Castle Point" Building="D" Room="242" Activity="LEC"/>
 	</Course>
 	<Course Section="EE 560WS" Title="Introduction to Remote Sensing" CallNumber="10760" MinCredit="3" MaxCredit="3" MaxEnrollment="0" CurrentEnrollment="0" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
@@ -3840,7 +3840,7 @@
 		<Meeting Day="R" StartTime="14:15:00Z" EndTime="16:45:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 		<Requirement Control="PUN" Argument="" Value1="" Operator="" Value2=""/>
 	</Course>
-	<Course Section="EE 672A" Title="Game Theory for Wireless Network" CallNumber="10788" MinCredit="3" MaxCredit="3" MaxEnrollment="30" CurrentEnrollment="12" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Comaniciu C" Term="2015F">
+	<Course Section="EE 672A" Title="Game Theory for Wireless Network" CallNumber="10788" MinCredit="3" MaxCredit="3" MaxEnrollment="30" CurrentEnrollment="13" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Comaniciu C" Term="2015F">
 		<Meeting Day="R" StartTime="11:00:00Z" EndTime="13:30:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 		<Requirement Control="PUN" Argument="" Value1="" Operator="" Value2=""/>
 	</Course>
@@ -4029,12 +4029,12 @@
 	<Course Section="ELC 091E" Title="Writing&amp;SpeakingAcademicPurp II" CallNumber="10840" MinCredit="2" MaxCredit="2" MaxEnrollment="20" CurrentEnrollment="0" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
 		<Meeting Day="MW" StartTime="12:00:00Z" EndTime="14:00:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 	</Course>
-	<Course Section="EM 301A" Title="Accounting &amp; Business Analysis" CallNumber="10841" MinCredit="4" MaxCredit="4" MaxEnrollment="35" CurrentEnrollment="30" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Dugas C" Term="2015F">
+	<Course Section="EM 301A" Title="Accounting &amp; Business Analysis" CallNumber="10841" MinCredit="4" MaxCredit="4" MaxEnrollment="35" CurrentEnrollment="29" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Dugas C" Term="2015F">
 		<Meeting Day="M" StartTime="11:00:00Z" EndTime="11:50:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 		<Meeting Day="T" StartTime="5:00:00Z" EndTime="6:40:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 		<Requirement Control="CA" Argument="" Value1="LAB" Operator="" Value2=""/>
 	</Course>
-	<Course Section="EM 301LA" Title="Accounting &amp; Business Analysis" CallNumber="10842" MinCredit="0" MaxCredit="0" MaxEnrollment="35" CurrentEnrollment="30" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Dugas C" Term="2015F">
+	<Course Section="EM 301LA" Title="Accounting &amp; Business Analysis" CallNumber="10842" MinCredit="0" MaxCredit="0" MaxEnrollment="35" CurrentEnrollment="29" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Dugas C" Term="2015F">
 		<Meeting Day="W" StartTime="4:00:00Z" EndTime="6:50:00Z" Site="Castle Point" Building="" Room="" Activity="LAB"/>
 		<Requirement Control="CA" Argument="" Value1="LEC" Operator="" Value2=""/>
 	</Course>
@@ -4048,7 +4048,7 @@
 		<Requirement Control="PDP" Argument="" Value1="" Operator="" Value2=""/>
 		<Requirement Control="RQ" Argument="" Value1="EM  600" Operator="" Value2="MGT 618"/>
 	</Course>
-	<Course Section="EM 360A" Title="Operations Mgt &amp; Proc Engineerng" CallNumber="10845" MinCredit="3" MaxCredit="3" MaxEnrollment="30" CurrentEnrollment="30" Status="C" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Mansouri M" Term="2015F">
+	<Course Section="EM 360A" Title="Operations Mgt &amp; Proc Engineerng" CallNumber="10845" MinCredit="3" MaxCredit="3" MaxEnrollment="30" CurrentEnrollment="29" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Mansouri M" Term="2015F">
 		<Meeting Day="T" StartTime="8:00:00Z" EndTime="8:50:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 		<Meeting Day="R" StartTime="5:00:00Z" EndTime="6:40:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 	</Course>
@@ -4056,12 +4056,12 @@
 		<Meeting Day="R" StartTime="8:00:00Z" EndTime="8:50:00Z" Site="Castle Point" Building="" Room="" Activity="LAB"/>
 		<Requirement Control="PDP" Argument="" Value1="" Operator="" Value2=""/>
 	</Course>
-	<Course Section="EM 365A" Title="Statistics For Engr. Management" CallNumber="10847" MinCredit="4" MaxCredit="4" MaxEnrollment="36" CurrentEnrollment="17" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Pennock M" Term="2015F">
+	<Course Section="EM 365A" Title="Statistics For Engr. Management" CallNumber="10847" MinCredit="4" MaxCredit="4" MaxEnrollment="36" CurrentEnrollment="16" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Pennock M" Term="2015F">
 		<Meeting Day="W" StartTime="7:00:00Z" EndTime="8:40:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 		<Meeting Day="R" StartTime="9:00:00Z" EndTime="9:50:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 		<Requirement Control="CA" Argument="" Value1="LAB" Operator="" Value2=""/>
 	</Course>
-	<Course Section="EM 365LA" Title="Statistics For Engr. Management" CallNumber="10848" MinCredit="0" MaxCredit="0" MaxEnrollment="36" CurrentEnrollment="17" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
+	<Course Section="EM 365LA" Title="Statistics For Engr. Management" CallNumber="10848" MinCredit="0" MaxCredit="0" MaxEnrollment="36" CurrentEnrollment="16" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
 		<Meeting Day="R" StartTime="8:00:00Z" EndTime="8:50:00Z" Site="Castle Point" Building="" Room="" Activity="LAB"/>
 		<Requirement Control="CA" Argument="" Value1="LEC" Operator="" Value2=""/>
 	</Course>
@@ -4387,7 +4387,7 @@
 	<Course Section="FE 505A" Title="Financial Lab: Tech Writing Fina" CallNumber="11826" MinCredit="1" MaxCredit="1" MaxEnrollment="30" CurrentEnrollment="8" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
 		<Meeting Day="TBA" Site="Castle Point" Building="" Room="" Activity="LAB"/>
 	</Course>
-	<Course Section="FE 511A" Title="IntrotoBloomberg&amp;ThomsonReuters" CallNumber="10908" MinCredit="1" MaxCredit="1" MaxEnrollment="30" CurrentEnrollment="8" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
+	<Course Section="FE 511A" Title="IntrotoBloomberg&amp;ThomsonReuters" CallNumber="10908" MinCredit="1" MaxCredit="1" MaxEnrollment="30" CurrentEnrollment="9" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
 		<Meeting Day="R" StartTime="7:00:00Z" EndTime="7:50:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 	</Course>
 	<Course Section="FE 512A" Title="Database Engineering" CallNumber="10909" MinCredit="3" MaxCredit="3" MaxEnrollment="30" CurrentEnrollment="0" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
@@ -4466,10 +4466,10 @@
 	<Course Section="FE 555A" Title="DataVisualizationProgforFinApp" CallNumber="12097" MinCredit="3" MaxCredit="3" MaxEnrollment="30" CurrentEnrollment="2" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Moriarty B" Term="2015F">
 		<Meeting Day="T" StartTime="14:15:00Z" EndTime="16:45:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 	</Course>
-	<Course Section="FE 570A" Title="Market Microstruct Trading Strat" CallNumber="10926" MinCredit="3" MaxCredit="3" MaxEnrollment="30" CurrentEnrollment="8" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
+	<Course Section="FE 570A" Title="Market Microstruct Trading Strat" CallNumber="10926" MinCredit="3" MaxCredit="3" MaxEnrollment="30" CurrentEnrollment="9" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
 		<Meeting Day="T" StartTime="14:15:00Z" EndTime="16:45:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 	</Course>
-	<Course Section="FE 575A" Title="Intro to Econophysics" CallNumber="12114" MinCredit="3" MaxCredit="3" MaxEnrollment="30" CurrentEnrollment="0" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Staff A" Term="2015F">
+	<Course Section="FE 575A" Title="Intro to Econophysics" CallNumber="12114" MinCredit="3" MaxCredit="3" MaxEnrollment="30" CurrentEnrollment="1" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Staff A" Term="2015F">
 		<Meeting Day="TBA" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 	</Course>
 	<Course Section="FE 580A" Title="SecuritizationofFinancialAssets" CallNumber="12162" MinCredit="3" MaxCredit="3" MaxEnrollment="30" CurrentEnrollment="6" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Kaufman J" Term="2015F">
@@ -4540,7 +4540,7 @@
 	<Course Section="FE 622A" Title="Sim Mthds in Comp Finance&amp;Econ" CallNumber="11832" MinCredit="3" MaxCredit="3" MaxEnrollment="30" CurrentEnrollment="3" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
 		<Meeting Day="TBA" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 	</Course>
-	<Course Section="FE 625A" Title="EmergingMarkets:RisksandModels" CallNumber="10938" MinCredit="3" MaxCredit="3" MaxEnrollment="30" CurrentEnrollment="13" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
+	<Course Section="FE 625A" Title="EmergingMarkets:RisksandModels" CallNumber="10938" MinCredit="3" MaxCredit="3" MaxEnrollment="30" CurrentEnrollment="14" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
 		<Meeting Day="M" StartTime="14:15:00Z" EndTime="16:45:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 	</Course>
 	<Course Section="FE 630A" Title="Portfolio Theory &amp; Applications" CallNumber="10939" MinCredit="3" MaxCredit="3" MaxEnrollment="30" CurrentEnrollment="24" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
@@ -4575,7 +4575,7 @@
 		<Requirement Control="PUN" Argument="" Value1="" Operator="" Value2=""/>
 		<Requirement Control="RQ" Argument="" Value1="FE  620" Operator="" Value2=""/>
 	</Course>
-	<Course Section="FE 680WS" Title="Advanced Derivatives" CallNumber="10946" MinCredit="3" MaxCredit="3" MaxEnrollment="30" CurrentEnrollment="21" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
+	<Course Section="FE 680WS" Title="Advanced Derivatives" CallNumber="10946" MinCredit="3" MaxCredit="3" MaxEnrollment="30" CurrentEnrollment="22" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
 		<Meeting Day="TBA" Site="WS" Building="OFF" Room="WEB" Activity="LEC"/>
 		<Requirement Control="PUN" Argument="" Value1="" Operator="" Value2=""/>
 		<Requirement Control="RQ" Argument="" Value1="FE  620" Operator="" Value2=""/>
@@ -4856,7 +4856,7 @@
 		<Meeting Day="T" StartTime="9:00:00Z" EndTime="9:50:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 		<Meeting Day="R" StartTime="9:00:00Z" EndTime="10:40:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 	</Course>
-	<Course Section="HPL 112A" Title="Science and Metaphysics" CallNumber="11978" MinCredit="3" MaxCredit="3" MaxEnrollment="20" CurrentEnrollment="10" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Dobbins G" Term="2015F">
+	<Course Section="HPL 112A" Title="Science and Metaphysics" CallNumber="11978" MinCredit="3" MaxCredit="3" MaxEnrollment="20" CurrentEnrollment="11" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Dobbins G" Term="2015F">
 		<Meeting Day="TWR" StartTime="6:00:00Z" EndTime="6:50:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 	</Course>
 	<Course Section="HPL 347A" Title="Thrys Knowldg &amp; Reality" CallNumber="11979" MinCredit="3" MaxCredit="3" MaxEnrollment="24" CurrentEnrollment="15" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Dobbins G" Term="2015F">
@@ -4919,7 +4919,7 @@
 	<Course Section="HSS 441A" Title="Gender &amp; Race in Sci. &amp; Eng." CallNumber="12002" MinCredit="3" MaxCredit="3" MaxEnrollment="24" CurrentEnrollment="21" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Tao Y" Term="2015F">
 		<Meeting Day="T" StartTime="11:00:00Z" EndTime="13:30:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 	</Course>
-	<Course Section="HSS 477A" Title="Psychology of Religion" CallNumber="12003" MinCredit="3" MaxCredit="3" MaxEnrollment="24" CurrentEnrollment="24" Status="C" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Schept S" Term="2015F">
+	<Course Section="HSS 477A" Title="Psychology of Religion" CallNumber="12003" MinCredit="3" MaxCredit="3" MaxEnrollment="24" CurrentEnrollment="23" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Schept S" Term="2015F">
 		<Meeting Day="T" StartTime="7:00:00Z" EndTime="8:40:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 		<Meeting Day="R" StartTime="7:00:00Z" EndTime="7:50:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 	</Course>
@@ -5696,7 +5696,7 @@
 		<Requirement Control="NQ" Argument="" Value1="MA  221" Operator="" Value2="MA  281"/>
 		<Requirement Control="CA" Argument="" Value1="RCT" Operator="" Value2=""/>
 	</Course>
-	<Course Section="MA 227RA" Title="Multivariable Calculus" CallNumber="11168" MinCredit="0" MaxCredit="0" MaxEnrollment="30" CurrentEnrollment="30" Status="C" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
+	<Course Section="MA 227RA" Title="Multivariable Calculus" CallNumber="11168" MinCredit="0" MaxCredit="0" MaxEnrollment="30" CurrentEnrollment="29" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
 		<Meeting Day="F" StartTime="5:00:00Z" EndTime="5:50:00Z" Site="Castle Point" Building="" Room="" Activity="RCT"/>
 		<Requirement Control="NQ" Argument="" Value1="MA  221" Operator="" Value2="MA  281"/>
 		<Requirement Control="CA" Argument="" Value1="LEC" Operator="" Value2=""/>
@@ -5721,7 +5721,7 @@
 		<Requirement Control="NQ" Argument="" Value1="MA  221" Operator="" Value2="MA  281"/>
 		<Requirement Control="CA" Argument="" Value1="LEC" Operator="" Value2=""/>
 	</Course>
-	<Course Section="MA 227RF" Title="Multivariable Calculus" CallNumber="11173" MinCredit="0" MaxCredit="0" MaxEnrollment="30" CurrentEnrollment="29" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
+	<Course Section="MA 227RF" Title="Multivariable Calculus" CallNumber="11173" MinCredit="0" MaxCredit="0" MaxEnrollment="30" CurrentEnrollment="30" Status="C" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
 		<Meeting Day="F" StartTime="9:00:00Z" EndTime="9:50:00Z" Site="Castle Point" Building="" Room="" Activity="RCT"/>
 		<Requirement Control="NQ" Argument="" Value1="MA  221" Operator="" Value2="MA  281"/>
 		<Requirement Control="CA" Argument="" Value1="LEC" Operator="" Value2=""/>
@@ -5858,7 +5858,7 @@
 	<Course Section="ME 181A" Title="Seminar in Mechanical Eng." CallNumber="11214" MinCredit="1" MaxCredit="1" MaxEnrollment="25" CurrentEnrollment="19" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
 		<Meeting Day="M" StartTime="10:00:00Z" EndTime="10:50:00Z" Site="Castle Point" Building="" Room="" Activity="SEM"/>
 	</Course>
-	<Course Section="ME 225A" Title="Dynamics" CallNumber="11215" MinCredit="3" MaxCredit="3" MaxEnrollment="35" CurrentEnrollment="34" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
+	<Course Section="ME 225A" Title="Dynamics" CallNumber="11215" MinCredit="3" MaxCredit="3" MaxEnrollment="35" CurrentEnrollment="35" Status="C" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
 		<Meeting Day="MWF" StartTime="5:00:00Z" EndTime="5:50:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 		<Requirement Control="RQ" Argument="" Value1="MA  124" Operator="" Value2="MA  116"/>
 		<Requirement Control="R&amp;" Argument="" Value1="PEP 112" Operator="" Value2=""/>
@@ -6133,7 +6133,7 @@
 	<Course Section="ME 565A" Title="Intro to Additive Manufacturing" CallNumber="12275" MinCredit="3" MaxCredit="3" MaxEnrollment="30" CurrentEnrollment="0" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Gebre B" Term="2015F">
 		<Meeting Day="F" StartTime="11:00:00Z" EndTime="13:30:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 	</Course>
-	<Course Section="ME 566A" Title="Dsgn/Manufacturability" CallNumber="11265" MinCredit="3" MaxCredit="3" MaxEnrollment="35" CurrentEnrollment="25" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Mottahed B" Term="2015F">
+	<Course Section="ME 566A" Title="Dsgn/Manufacturability" CallNumber="11265" MinCredit="3" MaxCredit="3" MaxEnrollment="35" CurrentEnrollment="28" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Mottahed B" Term="2015F">
 		<Meeting Day="M" StartTime="14:15:00Z" EndTime="16:45:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 	</Course>
 	<Course Section="ME 573A" Title="Intro to MEMS" CallNumber="11266" MinCredit="3" MaxCredit="3" MaxEnrollment="35" CurrentEnrollment="4" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Shi Y" Term="2015F">
@@ -6173,7 +6173,7 @@
 		<Meeting Day="T" StartTime="14:15:00Z" EndTime="16:45:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 		<Requirement Control="PUN" Argument="" Value1="" Operator="" Value2=""/>
 	</Course>
-	<Course Section="ME 615A" Title="Thermal System Design" CallNumber="11273" MinCredit="3" MaxCredit="3" MaxEnrollment="35" CurrentEnrollment="15" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Thangam S" Term="2015F">
+	<Course Section="ME 615A" Title="Thermal System Design" CallNumber="11273" MinCredit="3" MaxCredit="3" MaxEnrollment="35" CurrentEnrollment="16" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Thangam S" Term="2015F">
 		<Meeting Day="W" StartTime="14:15:00Z" EndTime="16:45:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 		<Requirement Control="PUN" Argument="" Value1="" Operator="" Value2=""/>
 	</Course>
@@ -6307,7 +6307,7 @@
 	<Course Section="MGT 199A" Title="Ethics Quiz" CallNumber="11309" MinCredit="0" MaxCredit="0" MaxEnrollment="999" CurrentEnrollment="0" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
 		<Meeting Day="TBA" Site="Castle Point" Building="OFF" Room="WEB" Activity="QUZ"/>
 	</Course>
-	<Course Section="MGT 600A" Title="Financial&amp;Managerial Accounting" CallNumber="11310" MinCredit="3" MaxCredit="3" MaxEnrollment="35" CurrentEnrollment="3" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
+	<Course Section="MGT 600A" Title="Financial&amp;Managerial Accounting" CallNumber="11310" MinCredit="3" MaxCredit="3" MaxEnrollment="35" CurrentEnrollment="4" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
 		<Meeting Day="T" StartTime="14:15:00Z" EndTime="16:45:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 		<Requirement Control="PUN" Argument="" Value1="" Operator="" Value2=""/>
 	</Course>
@@ -6315,7 +6315,7 @@
 		<Meeting Day="TBA" Site="WS" Building="OFF" Room="WEB" Activity="LEC"/>
 		<Requirement Control="PUN" Argument="" Value1="" Operator="" Value2=""/>
 	</Course>
-	<Course Section="MGT 606A" Title="Economics for Managers" CallNumber="11311" MinCredit="3" MaxCredit="3" MaxEnrollment="35" CurrentEnrollment="2" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Panayides A" Term="2015F">
+	<Course Section="MGT 606A" Title="Economics for Managers" CallNumber="11311" MinCredit="3" MaxCredit="3" MaxEnrollment="35" CurrentEnrollment="3" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Panayides A" Term="2015F">
 		<Meeting Day="R" StartTime="14:15:00Z" EndTime="16:45:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 		<Requirement Control="PUN" Argument="" Value1="" Operator="" Value2=""/>
 	</Course>
@@ -6670,11 +6670,11 @@
 		<Meeting Day="T" StartTime="11:00:00Z" EndTime="12:30:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 		<Requirement Control="CA" Argument="" Value1="RCT" Operator="" Value2=""/>
 	</Course>
-	<Course Section="MIS 201RA" Title="Fundamentals of Info Systems" CallNumber="11945" MinCredit="0" MaxCredit="0" MaxEnrollment="40" CurrentEnrollment="20" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Lohmann P" Term="2015F">
+	<Course Section="MIS 201RA" Title="Fundamentals of Info Systems" CallNumber="11945" MinCredit="0" MaxCredit="0" MaxEnrollment="40" CurrentEnrollment="21" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Lohmann P" Term="2015F">
 		<Meeting Day="R" StartTime="7:00:00Z" EndTime="8:40:00Z" Site="Castle Point" Building="" Room="" Activity="RCT"/>
 		<Requirement Control="CA" Argument="" Value1="LEC" Operator="" Value2=""/>
 	</Course>
-	<Course Section="MIS 201RB" Title="Fundamentals of Info Systems" CallNumber="11946" MinCredit="0" MaxCredit="0" MaxEnrollment="40" CurrentEnrollment="3" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Kotiloglu S" Term="2015F">
+	<Course Section="MIS 201RB" Title="Fundamentals of Info Systems" CallNumber="11946" MinCredit="0" MaxCredit="0" MaxEnrollment="40" CurrentEnrollment="2" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Kotiloglu S" Term="2015F">
 		<Meeting Day="R" StartTime="9:00:00Z" EndTime="10:40:00Z" Site="Castle Point" Building="" Room="" Activity="RCT"/>
 		<Requirement Control="CA" Argument="" Value1="LEC" Operator="" Value2=""/>
 	</Course>
@@ -6702,7 +6702,7 @@
 	<Course Section="MIS 635A" Title="Designing the Knowledge Org." CallNumber="11380" MinCredit="3" MaxCredit="3" MaxEnrollment="35" CurrentEnrollment="14" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Morabito J" Term="2015F">
 		<Meeting Day="M" StartTime="14:15:00Z" EndTime="16:45:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 	</Course>
-	<Course Section="MIS 636A" Title="Data Warehousing/Busi. Intel." CallNumber="11381" MinCredit="3" MaxCredit="3" MaxEnrollment="35" CurrentEnrollment="26" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Morabito J" Term="2015F">
+	<Course Section="MIS 636A" Title="Data Warehousing/Busi. Intel." CallNumber="11381" MinCredit="3" MaxCredit="3" MaxEnrollment="35" CurrentEnrollment="27" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Morabito J" Term="2015F">
 		<Meeting Day="W" StartTime="14:15:00Z" EndTime="16:45:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 	</Course>
 	<Course Section="MIS 636B" Title="Data Warehousing/Busi. Intel." CallNumber="11382" MinCredit="3" MaxCredit="3" MaxEnrollment="35" CurrentEnrollment="35" Status="C" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Morabito J" Term="2015F">
@@ -7066,7 +7066,7 @@
 	<Course Section="OE 527A" Title="Lab Naval Architecture" CallNumber="11467" MinCredit="3" MaxCredit="3" MaxEnrollment="30" CurrentEnrollment="7" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
 		<Meeting Day="T" StartTime="14:15:00Z" EndTime="16:45:00Z" Site="Castle Point" Building="" Room="" Activity="LAB"/>
 	</Course>
-	<Course Section="OE 529A" Title="Maritime Safety &amp; Security" CallNumber="11468" MinCredit="3" MaxCredit="3" MaxEnrollment="30" CurrentEnrollment="2" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
+	<Course Section="OE 529A" Title="Maritime Safety &amp; Security" CallNumber="11468" MinCredit="3" MaxCredit="3" MaxEnrollment="30" CurrentEnrollment="3" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
 		<Meeting Day="R" StartTime="11:00:00Z" EndTime="13:30:00Z" Site="Castle Point" Building="D" Room="231" Activity="LEC"/>
 	</Course>
 	<Course Section="OE 530A" Title="Yacht Design" CallNumber="11469" MinCredit="3" MaxCredit="3" MaxEnrollment="15" CurrentEnrollment="1" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
@@ -7280,7 +7280,7 @@
 	<Course Section="PE 200D8" Title="Racketball" CallNumber="11529" MinCredit="0" MaxCredit="0" MaxEnrollment="10" CurrentEnrollment="10" Status="C" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Peluso G" Instructor2="Mykulak N" Term="2015F">
 		<Meeting Day="M" StartTime="9:00:00Z" EndTime="10:30:00Z" Site="Castle Point" Building="N/A" Room="N/A" Activity="PRA"/>
 	</Course>
-	<Course Section="PE 200D9" Title="Racketball" CallNumber="11530" MinCredit="0" MaxCredit="0" MaxEnrollment="10" CurrentEnrollment="9" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Peluso G" Instructor2="Mykulak N" Term="2015F">
+	<Course Section="PE 200D9" Title="Racketball" CallNumber="11530" MinCredit="0" MaxCredit="0" MaxEnrollment="10" CurrentEnrollment="10" Status="C" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Peluso G" Instructor2="Mykulak N" Term="2015F">
 		<Meeting Day="F" StartTime="8:00:00Z" EndTime="9:30:00Z" Site="Castle Point" Building="N/A" Room="N/A" Activity="PRA"/>
 	</Course>
 	<Course Section="PE 200E2" Title="Intermediate Yoga" CallNumber="11531" MinCredit="0" MaxCredit="0" MaxEnrollment="20" CurrentEnrollment="20" Status="C" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Maurizi J" Instructor2="Mykulak N" Term="2015F">
@@ -7322,7 +7322,7 @@
 	<Course Section="PE 200F8" Title="Body Combat" CallNumber="11908" MinCredit="0" MaxCredit="0" MaxEnrollment="20" CurrentEnrollment="20" Status="C" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Maurizi J" Instructor2="Mykulak N" Term="2015F">
 		<Meeting Day="T" StartTime="14:30:00Z" EndTime="15:30:00Z" Site="Castle Point" Building="" Room="" Activity="PRA"/>
 	</Course>
-	<Course Section="PE 200G0" Title="Tai Chi" CallNumber="11544" MinCredit="0" MaxCredit="0" MaxEnrollment="25" CurrentEnrollment="24" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Maurizi J" Instructor2="Mykulak N" Term="2015F">
+	<Course Section="PE 200G0" Title="Tai Chi" CallNumber="11544" MinCredit="0" MaxCredit="0" MaxEnrollment="25" CurrentEnrollment="25" Status="C" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Maurizi J" Instructor2="Mykulak N" Term="2015F">
 		<Meeting Day="M" StartTime="13:30:00Z" EndTime="14:30:00Z" Site="Castle Point" Building="N/A" Room="N/A" Activity="PRA"/>
 	</Course>
 	<Course Section="PE 200G2" Title="Zumba" CallNumber="11545" MinCredit="0" MaxCredit="0" MaxEnrollment="25" CurrentEnrollment="17" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Maurizi J" Instructor2="Mykulak N" Term="2015F">
@@ -7648,7 +7648,7 @@
 	<Course Section="PEP 187A" Title="Seminar in Physics" CallNumber="11638" MinCredit="1" MaxCredit="1" MaxEnrollment="44" CurrentEnrollment="24" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
 		<Meeting Day="R" StartTime="10:00:00Z" EndTime="10:50:00Z" Site="Castle Point" Building="" Room="" Activity="SEM"/>
 	</Course>
-	<Course Section="PEP 201A" Title="Physics III for Engineers" CallNumber="11639" MinCredit="3" MaxCredit="3" MaxEnrollment="96" CurrentEnrollment="87" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
+	<Course Section="PEP 201A" Title="Physics III for Engineers" CallNumber="11639" MinCredit="3" MaxCredit="3" MaxEnrollment="96" CurrentEnrollment="88" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
 		<Meeting Day="T" StartTime="5:00:00Z" EndTime="6:50:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 		<Meeting Day="R" StartTime="6:00:00Z" EndTime="6:50:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 		<Requirement Control="RQ" Argument="" Value1="MA  124" Operator="" Value2="MA  116"/>
@@ -7661,7 +7661,7 @@
 		<Requirement Control="R&amp;" Argument="" Value1="PEP 112" Operator="" Value2=""/>
 		<Requirement Control="CA" Argument="" Value1="LEC" Operator="" Value2=""/>
 	</Course>
-	<Course Section="PEP 201LB" Title="Physics III for Engineers" CallNumber="11641" MinCredit="0" MaxCredit="0" MaxEnrollment="48" CurrentEnrollment="39" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
+	<Course Section="PEP 201LB" Title="Physics III for Engineers" CallNumber="11641" MinCredit="0" MaxCredit="0" MaxEnrollment="48" CurrentEnrollment="40" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
 		<Meeting Day="F" StartTime="10:00:00Z" EndTime="12:50:00Z" Site="Castle Point" Building="" Room="" Activity="LAB"/>
 		<Requirement Control="RQ" Argument="" Value1="MA  124" Operator="" Value2="MA  116"/>
 		<Requirement Control="R&amp;" Argument="" Value1="PEP 112" Operator="" Value2=""/>
@@ -7745,7 +7745,7 @@
 	<Course Section="PEP 570A" Title="Guided-Wave Optics" CallNumber="11925" MinCredit="3" MaxCredit="3" MaxEnrollment="25" CurrentEnrollment="5" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
 		<Meeting Day="W" StartTime="14:15:00Z" EndTime="16:45:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 	</Course>
-	<Course Section="PEP 577A" Title="Laser Theory &amp; Design" CallNumber="11659" MinCredit="3" MaxCredit="3" MaxEnrollment="30" CurrentEnrollment="2" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
+	<Course Section="PEP 577A" Title="Laser Theory &amp; Design" CallNumber="11659" MinCredit="3" MaxCredit="3" MaxEnrollment="30" CurrentEnrollment="3" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
 		<Meeting Day="M" StartTime="14:15:00Z" EndTime="16:45:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 	</Course>
 	<Course Section="PEP 599A" Title="Curricular Practical Training" CallNumber="11660" MinCredit="1" MaxCredit="3" MaxEnrollment="999" CurrentEnrollment="0" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="STAFF" Term="2015F">
@@ -8074,13 +8074,13 @@
 		<Meeting Day="W" StartTime="11:00:00Z" EndTime="13:30:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 		<Requirement Control="PIN" Argument="" Value1="" Operator="" Value2=""/>
 	</Course>
-	<Course Section="SSW 555C" Title="Agile Methods for Software Dev." CallNumber="12276" MinCredit="3" MaxCredit="3" MaxEnrollment="20" CurrentEnrollment="0" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Ardis M" Term="2015F">
+	<Course Section="SSW 555C" Title="Agile Methods for Software Dev." CallNumber="12276" MinCredit="3" MaxCredit="3" MaxEnrollment="10" CurrentEnrollment="0" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Ardis M" Term="2015F">
 		<Meeting Day="M" StartTime="14:15:00Z" EndTime="16:45:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 	</Course>
 	<Course Section="SSW 555WS" Title="Agile Methods for Software Dev." CallNumber="11963" MinCredit="3" MaxCredit="3" MaxEnrollment="5" CurrentEnrollment="0" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Ardis M" Term="2015F">
 		<Meeting Day="TBA" Site="WS" Building="OFF" Room="WEB" Activity="LEC"/>
 	</Course>
-	<Course Section="SSW 564A" Title="SW Req Acquisition &amp; Analysis" CallNumber="11738" MinCredit="3" MaxCredit="3" MaxEnrollment="20" CurrentEnrollment="15" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Gelman S" Term="2015F">
+	<Course Section="SSW 564A" Title="SW Req Acquisition &amp; Analysis" CallNumber="11738" MinCredit="3" MaxCredit="3" MaxEnrollment="20" CurrentEnrollment="14" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Gelman S" Term="2015F">
 		<Meeting Day="T" StartTime="14:15:00Z" EndTime="16:45:00Z" Site="Castle Point" Building="" Room="" Activity="LEC"/>
 	</Course>
 	<Course Section="SSW 564B" Title="SW Requirements Analysis &amp; Eng." CallNumber="12115" MinCredit="3" MaxCredit="3" MaxEnrollment="20" CurrentEnrollment="0" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Gelman S" Term="2015F">
@@ -8094,7 +8094,7 @@
 		<Requirement Control="RQ" Argument="" Value1="SSW 540" Operator="" Value2=""/>
 		<Requirement Control="RQ" Argument="" Value1="CS  551" Operator="" Value2=""/>
 	</Course>
-	<Course Section="SSW 567WS" Title="SW Testing, Qual. Assur. &amp; Maint" CallNumber="11935" MinCredit="3" MaxCredit="3" MaxEnrollment="20" CurrentEnrollment="12" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Laird L" Term="2015F">
+	<Course Section="SSW 567WS" Title="SW Testing, Qual. Assur. &amp; Maint" CallNumber="11935" MinCredit="3" MaxCredit="3" MaxEnrollment="20" CurrentEnrollment="13" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Laird L" Term="2015F">
 		<Meeting Day="TBA" Site="WS" Building="OFF" Room="WEB" Activity="LEC"/>
 	</Course>
 	<Course Section="SSW 687WS" Title="Engineering Large Software Sys." CallNumber="11741" MinCredit="3" MaxCredit="3" MaxEnrollment="20" CurrentEnrollment="1" Status="O" StartDate="2015-08-31Z" EndDate="2015-12-23Z" Instructor1="Turner R" Term="2015F">
