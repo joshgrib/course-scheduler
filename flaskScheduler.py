@@ -190,7 +190,7 @@ def findAllCombinations(courseDict):
         for callNumber in urlPart:
             url = url + str(callNumber) + ","
         url = url[:-1]
-        possibilities = possibilities + str(x) + '</br>' + str(url) + '</br>'
+        possibilities = possibilities + '<a href="' + str(url) + '" target="_blank">' + str(x) + '</a></br>'
     return possibilities
 def checkCombination(courseDict,inputList):
     '''This will go through a combination list and see if it all works. If it does it will return a true value'''
@@ -243,7 +243,11 @@ def schedule(courseList): #main function to do everything
 
 @app.route('/')
 def index():
-    return schedule(myCourses)
+    return "Index page"
+
+@app.route('/sched/')
+def schedIndex():
+	return "<h1>Scheduler Index Page</h1></br><h3>How to use the scheduler</h3></br>Right now the url is '/sched'. To find a new schedule make it /sched/<list> where the <list> is a list of the classes you want to take with a space between the letters and numbers, and a comma between each class.</br><b>Example: </b> /sched/BT 353,CS 135,HHS 468,BT 181,CS 146,CS 284"
 
 @app.route('/sched/<list>')
 def scheduleMe(list):
