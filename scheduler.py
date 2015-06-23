@@ -15,12 +15,7 @@ xmlFile = "xmlFile.xml"
 tree = etree.parse(xmlFile)
 root = tree.getroot()
 pickle.dump( root, open( "rootSave.p", "wb" ) )
-#print "Pickle saved"
 root = pickle.load( open( "rootSave.p", "rb" ) )
-#print "Root is " + str(root)
-
-#There needs to be one space between department and number
-#myCourses=['BT 353','CS 135','HHS 468','BT 181','CS 146','CS 284']
 
 def cleanupElements():#working
     '''This goes through the courses in the XML and removes any element that doesnt have info about meeting times'''
@@ -31,11 +26,8 @@ def cleanupElements():#working
                 pass
             else:
                 course.remove(element) #for some reason this didn't get all of them the first time
-    #print "=====Uneccesary elements removed====="
-    #tree.write(xmlFile)
     pickle.dump( root, open( "rootSave.p", "wb" ) )
-    #print "Root saved"
-    #time.sleep(5)
+
 def cleanupCourses(courseList):#working
     '''This goes through the XML and removes any course not specified in the courseList from the tree'''
     root = pickle.load( open( "rootSave.p", "rb" ) )
@@ -47,10 +39,7 @@ def cleanupCourses(courseList):#working
             pass
         else:
             root.remove(course)
-    #print "=====Uneccesary courses removed====="
-    #tree.write(xmlFile)
     pickle.dump( root, open( "rootSave.p", "wb" ) )
-    #print "Root saved"
 def fixTime(Time):#working
     '''Fixes the time formatting'''
     root = pickle.load( open( "rootSave.p", "rb" ) )
@@ -64,9 +53,7 @@ def fixTime(Time):#working
         startHours = "0"+startHours
     Time = startHours + Time[2:]
     return Time
-    #print "=====Time format fixed====="
     pickle.dump( root, open( "rootSave.p", "wb" ) )
-    #print "Root saved"
 bigDict = {} #yeah I got a big dict
 callNumbers = {} #call numbers for the courses will go in this dictionary
 def parseXML():#working
@@ -80,7 +67,6 @@ def parseXML():#working
         newSection = ""
         for letter in section:#fore each letter...
             if letter == " ":#if its the space set the space equal to the right amount of spaces
-                #print "Space at index:" + str(indexCount)
                 letter = (4-indexCount)*" "
             else:
                 letter = letter
@@ -115,7 +101,6 @@ def parseXML():#working
     for course in root:
         attribs = course.attrib
         thisCourse = attribs['Section']
-        #print thisCourse
         if len(thisCourse) == 9: #recitation course
             courseBig = thisCourse[:8]
             courseSection =thisCourse[8:]
@@ -147,8 +132,6 @@ def parseXML():#working
                 for letter in day: #add one list for each meeting
                     bigDict[courseBig][courseSection].append([letter,startTime,endTime])
 
-    #print bigDict
-    #print "\nParsing complete\n"
 def isAllowed(classList1, classList2):
     if (classList2[2] < classList1[1]) or (classList1[2] < classList2[1]):
         return True
@@ -174,13 +157,7 @@ def findAllCombinations(courseDict):
             goodCombos.append(combo)
         else:
             badCombos.append(combo)
-    #print "=========="
-    #print "SUMMARY"
-    #print "There are " + str(combos) + " possible combinations"
-    #print str(len(goodCombos)) + " of them work fine"
-    #print "The other " + str(len(badCombos)) + " had a conflict"
-    #print ""
-    #print "Good combinations:"
+
     possibilities = "<style>body{background-color:#B0B0B0}#combo{float: left;margin: 5px;padding: 15px;width:505px;height:305px;border: solid 1px black;background-color: #D63030;}#my-div{width    : 500px;height   : 300px;overflow : hidden;position : relative;}#my-iframe{position : absolute;top      : -5px;left     : -5px;width    : 1323px;height   : 550px;-webkit-transform: scale(0.5);transform: scale(0.5);-ms-transform-origin: 0 0;-moz-transform-origin: 0 0;-o-transform-origin: 0 0;-webkit-transform-origin: 0 0;transform-origin: 0 0;}</style>There are " + str(combos) + " possible combinations</br>" + str(len(goodCombos)) + " of them work fine</br><h3>Good combinations:</h3>"
     for x in goodCombos:
         urlPart = []
@@ -191,7 +168,7 @@ def findAllCombinations(courseDict):
         for callNumber in urlPart:
             url = url + str(callNumber) + ","
         url = url[:-1]
-        #possibilities = possibilities + '<a href="' + str(url) + '" target="_blank">' + str(x) + '</a></br>'
+
         possibilities = possibilities + '<div id="combo"><a href="' + str(url) + '" target="_blank">' + str(x) + '</a></br><div id="my-div"><iframe src="' + str(url) + '" id="my-iframe" scrolling="yes" width="100%" height="100%"></iframe></div></br></div>'
     possibilities = possibilities + "<footer>I'm frankly amazed at how cool this all is. In like an hour I modified the a python web app(for a program I wasn't sure I could make) running flask so it went from displaying a list of links to showing nicely scaled iframes and it's even a responsive design!</footer>"
     return possibilities
@@ -229,18 +206,16 @@ def checkCombination(courseDict,inputList):
 def schedule(courseList): #main function to do everything
     '''Given the XML and a list of courses, this will output all the possible schedules as a list of course ID(dept. ### section) and call numbers'''
     root = pickle.load( open( "rootSave.p", "rb" ) )
-    #print "There are " + str(len(root)) + " classes here."
     pickle.dump( root, open( "rootSave.p", "wb" ) )
     cleanupCourses(courseList)
     cleanupElements()
     root = pickle.load( open( "rootSave.p", "rb" ) )
-    #print "Now there are " + str(len(root)) + " classes here."
     pickle.dump( root, open( "rootSave.p", "wb" ) )
     try:
         parseXML()
         return findAllCombinations(bigDict)#from the other file
     except KeyError:
-        #print "KeyError: trying again"
+        #try again - this needs to run twice for whatever reason
         schedule(courseList)
 
 @app.route('/')
