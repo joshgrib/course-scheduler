@@ -181,6 +181,7 @@ def findAllCombinations(courseDict):
     #print "The other " + str(len(badCombos)) + " had a conflict"
     #print ""
     #print "Good combinations:"
+    possibilities = "<style>body{background-color:#B0B0B0}#combo{float: left;margin: 5px;padding: 15px;width:505px;height:305px;border: solid 1px black;background-color: #D63030;}#my-div{width    : 500px;height   : 300px;overflow : hidden;position : relative;}#my-iframe{position : absolute;top      : -5px;left     : -5px;width    : 1323px;height   : 550px;-webkit-transform: scale(0.5);transform: scale(0.5);-ms-transform-origin: 0 0;-moz-transform-origin: 0 0;-o-transform-origin: 0 0;-webkit-transform-origin: 0 0;transform-origin: 0 0;}</style>There are " + str(combos) + " possible combinations</br>" + str(len(goodCombos)) + " of them work fine</br><h3>Good combinations:</h3>"
     for x in goodCombos:
         urlPart = []
         for course in x:
@@ -190,12 +191,13 @@ def findAllCombinations(courseDict):
         for callNumber in urlPart:
             url = url + str(callNumber) + ","
         url = url[:-1]
-        possibilities = possibilities + '<a href="' + str(url) + '" target="_blank">' + str(x) + '</a></br>'
+        #possibilities = possibilities + '<a href="' + str(url) + '" target="_blank">' + str(x) + '</a></br>'
+        possibilities = possibilities + '<div id="combo"><a href="' + str(url) + '" target="_blank">' + str(x) + '</a></br><div id="my-div"><iframe src="' + str(url) + '" id="my-iframe" scrolling="yes" width="100%" height="100%"></iframe></div></br></div>'
+    possibilities = possibilities + "<footer>I'm frankly amazed at how cool this all is. In like an hour I modified the a python web app(for a program I wasn't sure I could make) running flask so it went from displaying a list of links to showing nicely scaled iframes and it's even a responsive design!</footer>"
     return possibilities
 def checkCombination(courseDict,inputList):
     '''This will go through a combination list and see if it all works. If it does it will return a true value'''
     conflicts = 0 #initialize counters
-    diffDays = 0
     for i in range(len(inputList)-1): #compare each item in the list to each other, I dont remember what I did here rn, should have commented earlier
         comp1 = inputList[i] #comparison one in the item in the list we are on now
         if len(comp1) == 9: #seperate the section and the course, different if its a lecture
@@ -243,11 +245,11 @@ def schedule(courseList): #main function to do everything
 
 @app.route('/')
 def index():
-    return "Index page"
+    return "<h1>Welcome to joshgrib.pythonanywhere.com</h1></br>This is a python web app built with flask, using python 2.7, hosted on pythonanywhere.<h3>How to use the scheduler</h3>Go <a href='/sched'>here</a> then follow the instructions!<hr>This is <b>not at all perfect yet</b>.Here are some known problems/things I should add:<li>Many of the schedules the app makes still have conflicts</li><li>The website looks awful</li><li>There's no way to sort, like to see classes starting later first or something like that</li><li>I need to document and probably refactor the code better</li><li>I really need to get the html/css organized for flask</li>"
 
 @app.route('/sched/')
 def schedIndex():
-	return "<h1>Scheduler Index Page</h1></br><h3>How to use the scheduler</h3></br>Right now the url is '/sched'. To find a new schedule make it /sched/<list> where the <list> is a list of the classes you want to take with a space between the letters and numbers, and a comma between each class.</br><b>Example: </b> /sched/BT 353,CS 135,HHS 468,BT 181,CS 146,CS 284"
+	return "<h1>Scheduler Index Page</h1><h3>How to use the scheduler</h3>Right now the url is '/sched'. To find a new schedule make it /sched/<list> where the <list> is a list of the classes you want to take with a space between the letters and numbers, and a comma between each class.</br><b>Note: </b>This is for the 2015F semester</br><b><a href='/sched/BT 353,CS 135,HHS 468,BT 181,CS 146,CS 284' target='_blank'>Example</a>: </b> joshgrib.pythonanywhere.com/sched/BT 353,CS 135,HHS 468,BT 181,CS 146,CS 284</br>You may need to load the page twice.</br><a href='/'>Return home</a>"
 
 @app.route('/sched/<list>')
 def scheduleMe(list):
