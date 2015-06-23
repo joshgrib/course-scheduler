@@ -3,77 +3,77 @@ import re #regex stuff
 import itertools #for finding combinations
 import urllib #for getting xml from online
 import pickle #to read/write from files hopefully better
-from flask import Flask
+from flask import Flask #web app framework
 
 app = Flask(__name__)
 
 #This would work iif there wasn't the error compiling the first time
 url = 'https://web.stevens.edu/scheduler/core/2015F/2015F.xml'
-urllib.urlretrieve(url, "xmlFile.xml")
+urllib.urlretrieve(url, "xmlFile.xml") #import the xml file as 'xmlFile.xml'
 xmlFile = "xmlFile.xml"
 
-tree = etree.parse(xmlFile)
-root = tree.getroot()
-pickle.dump( root, open( "rootSave.p", "wb" ) )
-root = pickle.load( open( "rootSave.p", "rb" ) )
+tree = etree.parse(xmlFile) #parse xml
+root = tree.getroot() #get the root of the xml tree
+pickle.dump( root, open( "rootSave.p", "wb" ) ) #save xml file
+root = pickle.load( open( "rootSave.p", "rb" ) ) #load xml file
 
 def cleanupElements():#working
     '''This goes through the courses in the XML and removes any element that doesnt have info about meeting times'''
-    root = pickle.load( open( "rootSave.p", "rb" ) )
-    for course in root.findall('Course'):
-        for element in course:
-            if element.tag == 'Meeting':
+    root = pickle.load( open( "rootSave.p", "rb" ) ) #open xml file
+    for course in root.findall('Course'): #loop through all courses
+        for element in course: #loop through the elements in each course
+            if element.tag == 'Meeting': #if the element is a meeting leave it alone
                 pass
-            else:
+            else: #if its not a meeting (its a prereq or something) then remove it
                 course.remove(element) #for some reason this didn't get all of them the first time
-    pickle.dump( root, open( "rootSave.p", "wb" ) )
-
+    pickle.dump( root, open( "rootSave.p", "wb" ) ) #save file
 def cleanupCourses(courseList):#working
     '''This goes through the XML and removes any course not specified in the courseList from the tree'''
-    root = pickle.load( open( "rootSave.p", "rb" ) )
-    for course in root.findall('Course'):
-        name = course.get('Section')
+    root = pickle.load( open( "rootSave.p", "rb" ) ) #open xml file
+    for course in root.findall('Course'): #loop through all courses in the xml tree
+        name = course.get('Section') #find the name of this course section
         while re.match("([A-Za-z-])", name[-1]) or re.match("([A-Za-z-])", name[-2]):
             name = name[:(len(name)-1)]
-        if name in courseList:
+        if name in courseList: #if the course is in the list of courses to schedule, do nothing
             pass
-        else:
+        else: #if it's not on the list (and it doesn't know anyone here) then get rid of it
             root.remove(course)
-    pickle.dump( root, open( "rootSave.p", "wb" ) )
+    pickle.dump( root, open( "rootSave.p", "wb" ) ) #save xml file
 def fixTime(Time):#working
     '''Fixes the time formatting'''
-    root = pickle.load( open( "rootSave.p", "rb" ) )
+    root = pickle.load( open( "rootSave.p", "rb" ) ) #open the xml file
     Time = Time[:(len(Time)-4)]#remove the seconds and the Z
     if len(Time) == 4:#add the 0 to the front of early times
         Time = '0'+Time
-    Time = Time[:2] + Time[3:]
-    startHours = int(Time[:2])+4
+    Time = Time[:2] + Time[3:] #get rid of the colon in the time format
+    startHours = int(Time[:2])+4 #correct the 4 hour offset in times
     startHours = str(startHours)
-    if len(startHours) == 1:
+    if len(startHours) == 1: #if its a single digit hour then add the 0 before it
         startHours = "0"+startHours
     Time = startHours + Time[2:]
     return Time
-    pickle.dump( root, open( "rootSave.p", "wb" ) )
+    pickle.dump( root, open( "rootSave.p", "wb" ) ) #save the xml file
+
+#initialize data stores
 bigDict = {} #yeah I got a big dict
 callNumbers = {} #call numbers for the courses will go in this dictionary
+
 def parseXML():#working
     root = pickle.load( open( "rootSave.p", "rb" ) )
-    for course in root:
+    for course in root: #for all courses in the xml tree, fix the spacing between letters and numbers and fix time time formats
         attribs = course.attrib
-
         section = attribs['Section']
         #fix the spaces on the course names
-        indexCount=0#initialize counter
-        newSection = ""
-        for letter in section:#fore each letter...
-            if letter == " ":#if its the space set the space equal to the right amount of spaces
+        indexCount=0 #initialize counter
+        newSection = "" #initialize blank string
+        for letter in section: #for each letter...
+            if letter == " ": #if its the space set the space equal to the right amount of spaces
                 letter = (4-indexCount)*" "
-            else:
+            else: #if its a letter or number do nothing
                 letter = letter
-            newSection = newSection+letter#create the new name
-            indexCount = indexCount+1
+            newSection = newSection+letter #create the new name
+            indexCount = indexCount+1 #add to counter
         attribs['Section']=newSection
-
         #fix time formatting
         for meeting in course:
             meetingAttribs = meeting.attrib
@@ -89,16 +89,14 @@ def parseXML():#working
         sectionName = course.attrib['Section'] #get the section name
         callNumber = int(course.attrib['CallNumber']) #get the call number as an integer
         callNumbers[sectionName] = callNumber #save section names and call numbers to the dictionary
-
     '''
     At this point in the function:
     Course names are properly formatted, with the proper number of spaces, one for every section, stored under the 'Section' attribute
     Start and end times are properly formatted, store as the StatTime and EndTime attributes
     The dictionary for call numbers is done
     '''
-
     prevCourse = ""
-    for course in root:
+    for course in root: #add classes and section lists
         attribs = course.attrib
         thisCourse = attribs['Section']
         if len(thisCourse) == 9: #recitation course
@@ -159,6 +157,7 @@ def findAllCombinations(courseDict):
             badCombos.append(combo)
 
     possibilities = "<style>body{background-color:#B0B0B0}#combo{float: left;margin: 5px;padding: 15px;width:505px;height:305px;border: solid 1px black;background-color: #D63030;}#my-div{width    : 500px;height   : 300px;overflow : hidden;position : relative;}#my-iframe{position : absolute;top      : -5px;left     : -5px;width    : 1323px;height   : 550px;-webkit-transform: scale(0.5);transform: scale(0.5);-ms-transform-origin: 0 0;-moz-transform-origin: 0 0;-o-transform-origin: 0 0;-webkit-transform-origin: 0 0;transform-origin: 0 0;}</style>There are " + str(combos) + " possible combinations</br>" + str(len(goodCombos)) + " of them work fine</br><h3>Good combinations:</h3>"
+
     for x in goodCombos:
         urlPart = []
         for course in x:
@@ -220,22 +219,12 @@ def schedule(courseList): #main function to do everything
 
 @app.route('/')
 def index():
-    return "<h1>Welcome to joshgrib.pythonanywhere.com</h1></br>This is a python web app built with flask, using python 2.7, hosted on pythonanywhere.<h3>How to use the scheduler</h3>Go <a href='/sched'>here</a> then follow the instructions!<hr>This is <b>not at all perfect yet</b>.Here are some known problems/things I should add:<li>Many of the schedules the app makes still have conflicts</li><li>The website looks awful</li><li>There's no way to sort, like to see classes starting later first or something like that</li><li>I need to document and probably refactor the code better</li><li>I really need to get the html/css organized for flask</li>"
-
-@app.route('/sched/')
-def schedIndex():
-	return "<h1>Scheduler Index Page</h1><h3>How to use the scheduler</h3>Right now the url is '/sched'. To find a new schedule make it /sched/<list> where the <list> is a list of the classes you want to take with a space between the letters and numbers, and a comma between each class.</br><b>Note: </b>This is for the 2015F semester</br><b><a href='/sched/BT 353,CS 135,HHS 468,BT 181,CS 146,CS 284' target='_blank'>Example</a>: </b> joshgrib.pythonanywhere.com/sched/BT 353,CS 135,HHS 468,BT 181,CS 146,CS 284</br>You may need to load the page twice.</br><a href='/'>Return home</a>"
+    return "<h1>Welcome to joshgrib.pythonanywhere.com</h1></br>This is a python web app built with flask, using python 2.7, hosted on pythonanywhere.<h3>How to use the scheduler</h3>Right now the url is '/sched'. To find a new schedule make it /sched/<list> where the <list> is a list of the classes you want to take with a space between the letters and numbers, and a comma between each class.</br><b>Note: </b>This is for the 2015F semester</br><b><a href='/sched/BT 353,CS 135,HHS 468,BT 181,CS 146,CS 284' target='_blank'>Example</a>: </b> joshgrib.pythonanywhere.com/sched/BT 353,CS 135,HHS 468,BT 181,CS 146,CS 284</br>You will need to load the page twice.<hr>This is <b>not at all perfect yet</b>.Here are some known problems/things I should add:<li>Many of the schedules the app makes still have conflicts</li><li>The website looks awful</li><li>There's no way to sort, like to see classes starting later first or something like that</li><li>I need to document and probably refactor the code better</li><li>I really need to get the html/css organized for flask</li><li>The scheduler page needs to be loaded twice</li>"
 
 @app.route('/sched/<list>')
 def scheduleMe(list):
-	courseList = list.split(',')
-	return schedule(courseList)
+    courseList = list.split(',')
+    return schedule(courseList)
 
 if __name__ == '__main__':
     app.run()
-
-'''
-TODO
-main should probably take in the xml file and the courselist, and output the possible schedules to a file
-Add a step to remove the extra D110's
-'''
