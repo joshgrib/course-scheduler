@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Welcome to this local python app on a branch</h1>
+</br>
+This is a python web app built with flask, using python 2.7, hosted on pythonanywhere.
+<h3>How to use the scheduler</h3>
+Right now the url is '/sched'. To find a new schedule make it /sched/[list] where the [list] is a list of the classes you want to take with a space between the letters and numbers, and a comma between each class.
+</br>
+<b>Note: </b>This is for the 2015F semester
+</br>
+<b><a href='/sched/BT 353,CS 135,HHS 468,BT 181,CS 146,CS 284' target='_blank'>Example</a>: </b> joshgrib.pythonanywhere.com/sched/BT 353,CS 135,HHS 468,BT 181,CS 146,CS 284
+</br>
+You will need to load the page twice.
+<hr>
+This is <b>not at all perfect yet</b>.Here are some known problems/things I should add:
+    <li>Many of the schedules the app makes still have conflicts</li>
+    <li>The website looks awful</li>
+    <li>There's no way to sort, like to see classes starting later first or something like that</li>
+    <li>I need to document and probably refactor the code better</li>
+    <li>I really need to get the html/css organized for flask</li>
+    <li>The scheduler page needs to be loaded twice</li>
+{% endblock %}
