@@ -7,6 +7,18 @@ So at Stevens the only way to reasonably figure out your schedule for future sem
 Tha annoying part is when one class is offered at 4 different times, one is only offered at one time, 2 others ones have 2 sessions, and they all meet a few times a week at different times. Oh yeah and a few need recitations too. And on top of all that there's no way I want 8am classes.
 
 ##Approach
-So using [the scheduler API](https://www.thegreatco.com/projects/scheduler-api/), which I'm surprised is documented as well as it is for anyone to use, you can request the xml for any semester. The problem is I know pretty much nothing about using xml, much less getting nested data from it and how to figure out all the schedules.
+So using [the scheduler API](https://www.thegreatco.com/projects/scheduler-api/), which I'm surprised is documented as well as it is for anyone to use, you can request the xml for any semester. I take the xml and a list of courses and pull out the info I need, and turn it into a big nested dictionary. Then I go through all the courses and sections, find all possible combinations, and check for conflicts. Any schedules with no conflicts are put into a new dictionary, and sent through flask to make the HTML to display them for the user.
 
-None-the-less I'm going to try it out. I just dumped the ~6000 lines of xml for fall 2015 into Sublime Text 2, then narrowed it down to the ~60 lines I need that have the all possible sessions for the classes I'm taking in the fall. Theres 23 course sections available to fill 6 classes. A few are only offered at one time, a few have recitations, and a few meet at different times on different days, so it's definitely quite a bit of a challenge. This is in my2015f.xml
+###Python libraries
+####flask
+The web app framework I'm using to make the program run online and keep everything organized. It was annoying to learn but it was worth refactoring everything. Its much easier when everything is working the way it's supposed to
+####xml.etree.ElementTree
+For XML parsing. This library turn XML data into nested dictionaries. Then I can go through, edit them, and pull out what I need
+####re
+Regex
+####itertools
+For finding all possible combinations, then they are narrowed down if by conflicts
+####urllib
+Gets the XML data from the API using the url
+####pickle
+Read/write local files
