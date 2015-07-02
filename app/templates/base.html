@@ -1,0 +1,46 @@
+<html>
+  <head>
+    {% if title %}
+    <title>{{ title }} - scheduler</title>
+    {% else %}
+    <title>Scheduler</title>
+    {% endif %}
+<style>
+  body{
+    background-color:#B0B0B0
+  }
+  #combo{
+    float: left;
+    margin: 5px;
+    padding: 15px;
+    width:505px;
+    height:305px;
+    border: solid 1px black;
+    background-color: #D63030;
+  }
+  #my-div{width    : 500px;
+    height   : 300px;
+    overflow : hidden;
+    position : relative;
+  }
+  #my-iframe{position : absolute;
+    top      : -5px;
+    left     : -5px;
+    width    : 1323px;
+    height   : 550px;
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+    -ms-transform-origin: 0 0;
+    -moz-transform-origin: 0 0;
+    -o-transform-origin: 0 0;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+  }
+</style>
+  </head>
+  <body>
+    <div>Scheduler: <a href="/index">Home</a></div>
+    <hr>
+    {% block content %}{% endblock %}
+  </body>
+</html>
