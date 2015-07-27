@@ -1,23 +1,26 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Welcome to Josh's scheduler app!</h1>
-<br>
-This is a python web app built with flask, using python 2.7, hosted on pythonanywhere.
-<h3>How to use the scheduler</h3>
-Right now the url is '/sched'. To find a new schedule make it /sched/[list] where the [list] is a list of the classes you want to take with a space between the letters and numbers, and a comma between each class.
-<br>
-<b>Note: </b>This is for the 2015F semester
-<br>
-<b><a href='/sched/BT 353,CS 135,HHS 468,BT 181,CS 146,CS 284' target='_blank'>Example</a>: </b> joshgrib.pythonanywhere.com/sched/BT 353,CS 135,HHS 468,BT 181,CS 146,CS 284
-
-<hr>
-This is <b>not at all perfect yet</b>.Here are some known problems/things I should add:
-    <li>This only schedules for fall 2015</li>
-    <li>Many of the schedules the app makes still have conflicts</li>
-    <li>The website looks awful</li>
-    <li>There's no way to sort, like to see classes starting later first or something like that</li>
-    <li><strike>I need to document and probably refactor the code better</strike></li>
-    <li><strike>I really need to get the html/css organized for flask</strike></li>
-    <li><strike>The scheduler page needs to be loaded twice</strike></li>
+    <h1>Welcome to Josh's scheduler app!</h1>
+    <br>
+    This is a python web app built with flask, using python 2.7, hosted on pythonanywhere.
+    <br><br>
+    <h3>How to use the scheduler</h3>
+    To find a new schedule make it /sched/[list] where the [list] is a list of the classes you want to take with a space between the letters and numbers, and a comma between each class.
+    <br>
+    <b>Note: </b>This is currently <u>only for the 2015F semester</u>
+    <br>
+    <a href='/sched/BT 353,CS 135,HHS 468,BT 181,CS 146,CS 284'>Example</a>: joshgrib.pythonanywhere.com/sched/BT 353,CS 135,HHS 468,BT 181,CS 146,CS 284
+    <hr>
+    <h3>To do</h3>
+        <li>This only schedules for fall 2015</li>
+        <li>Many of the schedules the app makes still have conflicts</li>
+        <li><strike>Make the website look better</strike></li>
+        <li>There's no way to sort, like to see classes starting later first or something like that</li>
+        <li><strike>I need to document and probably refactor the code better</strike></li>
+        <li><strike>I really need to get the html/css organized for flask</strike></li>
+        <li><strike>The scheduler page needs to be loaded twice</strike></li>
+    <hr>
+    <h3>Want to contribute?</h3>
+    Go to the <a href="https://github.com/joshgrib/course-scheduler" target="_blank">github</a>, do something, and submit a pull request. I'm just going to apologize in advance for how hapazard everything probably is. I made this over a long time and switched most of what I was doing several times. I'm using python 2.7, flask as a web framework, and the <a href="https://www.thegreatco.com/projects/scheduler-api/" target="_blank">Stevens Scheduler API</a>. Feel free to ask me about anything too, just use my Stevens email.
 {% endblock %}
