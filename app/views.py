@@ -255,4 +255,5 @@ def scheduleMe(someList):
     user = {'nickname': 'Josh'}
     courseList = someList.split(',')#format the list into a python list based on the commas
     schedResult = schedule(courseList)#schedule and save the dictionary
-    return render_template("sched.html",user=user,combos=schedResult['combos'])#render it all with the template
+    deezCombos = schedule(courseList)['combos']
+    return render_template("sched.html",user=user,combos=deezCombos)#render it all with the template
