@@ -2,10 +2,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Hi, {{ user.nickname }}! Here is some schedules</h1>
+    <h1>Here is some schedules</h1>
     {% for combo in combos %}
-
-    <div id="combo">
+    <div id="combo" class='container'>
         Schedule {{ combo }}: <a href="{{ combos[combo]['url'] }}" target="_blank">{{ combos[combo]['list'] }}</a>
         </br>
         <div id="my-div">
