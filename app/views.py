@@ -132,10 +132,13 @@ def parseXML():#working
                     bigDict[courseBig][courseSection].append([letter,startTime,endTime])
 
 def isAllowed(classList1, classList2):
+    '''Given two meeting lists, check to see if there is a conflict, and return True if there is not'''
+    #if class 2 ends before class 1 starts, or class 1 ends before class 2 starts, then it's fine
     if (classList2[2] < classList1[1]) or (classList1[2] < classList2[1]):
         return True
     else:
         return False
+
 def findAllCombinations(courseDict):
     '''This function goes through the nested courses, stores lists of all possible combinations of courses, and prints them'''
     bigList=[] #list of lists of courses and sections
@@ -181,6 +184,7 @@ def findAllCombinations(courseDict):
 def checkCombination(courseDict,inputList):
     '''This will go through a combination list and see if it all works. If it does it will return a true value'''
     conflicts = 0 #initialize counters
+    #find all combinations of size 2 from the inputList
     for thisCombo in itertools.combinations(inputList, 2):
         comp1 = thisCombo[0] #comparison one in the item in the list we are on now
         if len(comp1) == 9: #seperate the section and the course, different if its a lecture
