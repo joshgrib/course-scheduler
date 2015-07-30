@@ -56,7 +56,7 @@ def fixTime(Time):#working
     pickle.dump( root, open( "rootSave.p", "wb" ) ) #save the xml file
 
 #initialize data stores
-bigDict = {} #yeah I got a big dict
+bigDict = {} #yeah its a big dict
 callNumbers = {} #call numbers for the courses will go in this dictionary
 
 def parseXML():#working
@@ -177,11 +177,12 @@ def findAllCombinations(courseDict):
         possibilities['combos'][comboCounter]['list']=str(x)
         comboCounter = comboCounter + 1
     return possibilities
+
 def checkCombination(courseDict,inputList):
     '''This will go through a combination list and see if it all works. If it does it will return a true value'''
     conflicts = 0 #initialize counters
-    for i in range(len(inputList)-1): #compare each item in the list to each other, I dont remember what I did here rn, should have commented earlier
-        comp1 = inputList[i] #comparison one in the item in the list we are on now
+    for thisCombo in itertools.combinations(inputList, 2):
+        comp1 = thisCombo[0] #comparison one in the item in the list we are on now
         if len(comp1) == 9: #seperate the section and the course, different if its a lecture
             course1 = comp1[0:8]
             section1 = comp1[8:]
@@ -189,7 +190,7 @@ def checkCombination(courseDict,inputList):
             course1 = comp1[0:7]
             section1 = comp1[7:]
 
-        comp2 = inputList[i+1] #comparison two is the next item in the list
+        comp2 = thisCombo[1] #comparison two is the next item in the list
         if len(comp2) == 9: #seperate the section and the course, different if its a letter
             course2 = comp2[0:8]
             section2 = comp2[8:]
@@ -223,37 +224,18 @@ def schedule(courseList): #main function to do everything
         #try again - this needs to run twice for whatever reason
         schedule(courseList)
 
-myList = ['BT 353','CS 135','HHS 468','BT 181','CS 146','CS 284']
-
-
 @app.route('/')
 @app.route('/index')
 def index():
     user = {'nickname': 'Josh'}
-    posts = [
-        {
-            'author': {'nickname': 'John'},
-            'body': 'Beautiful day in Portland!'
-        },
-        {
-            'author': {'nickname': 'Susan'},
-            'body': 'The Avengers movie was so cool!'
-        },
-        {
-            'author': {'nickname': 'Josh'},
-            'body': 'Look I made a post'
-        }
-    ]
     return render_template("index.html",title='Home',user=user,)
 
-@app.route('/sched')
-def sched():
-    return str(schedule(myList))
+@app.route('/donate')
+def donate():
+    return render_template("donate.html")
 
 @app.route('/sched/<someList>')
 def scheduleMe(someList):
-    user = {'nickname': 'Josh'}
     courseList = someList.split(',')#format the list into a python list based on the commas
-    schedResult = schedule(courseList)#schedule and save the dictionary
     deezCombos = schedule(courseList)['combos']
-    return render_template("sched.html",user=user,combos=deezCombos)#render it all with the template
+    return render_template("sched.html",combos=deezCombos)#render it all with the template
