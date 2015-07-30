@@ -17,7 +17,7 @@ For XML parsing. This library turn XML data into nested dictionaries. Then I can
 ####re
 Regex
 ####itertools
-For finding all possible combinations, then they are narrowed down if by conflicts
+For finding all possible combinations, and for finding all possible comparisons to make within a combination
 ####urllib
 Gets the XML data from the API using the url
 ####pickle
