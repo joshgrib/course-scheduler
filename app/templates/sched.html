@@ -4,7 +4,8 @@
 {% block content %}
     <h1>Here is some schedules</h1>
     {% for combo in combos %}
-    <div id="combo" class='container'>
+
+    <div id="combo">
         Schedule {{ combo }}: <a href="{{ combos[combo]['url'] }}" target="_blank">{{ combos[combo]['list'] }}</a>
         </br>
         <div id="my-div">
