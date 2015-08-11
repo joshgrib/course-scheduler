@@ -6,17 +6,9 @@ import re #regex stuff
 import itertools #for finding combinations
 import urllib #for getting xml from online
 import pickle #to read/write from files hopefully better
+import os
 
-
-#This would work iif there wasn't the error compiling the first time
-url = 'https://web.stevens.edu/scheduler/core/2015F/2015F.xml'
-urllib.urlretrieve(url, "xmlFile.xml") #import the xml file as 'xmlFile.xml'
-xmlFile = "xmlFile.xml"
-
-tree = etree.parse(xmlFile) #parse xml
-root = tree.getroot() #get the root of the xml tree
-pickle.dump( root, open( "rootSave.p", "wb" ) ) #save xml file
-root = pickle.load( open( "rootSave.p", "rb" ) ) #load xml file
+'''Dont use files maybe, just save as an object and manipulate it like that'''
 
 def cleanupElements():#working
     '''This goes through the courses in the XML and removes any element that doesnt have info about meeting times'''
@@ -240,6 +232,22 @@ def donate():
 
 @app.route('/sched/<someList>')
 def scheduleMe(someList):
+        #This would work if there wasn't the error compiling the first time
+    url = 'https://web.stevens.edu/scheduler/core/2015F/2015F.xml'
+    urllib.urlretrieve(url, "2015S.xml") #import the xml file as 'xmlFile.xml'
+    xmlFile = "2015S.xml"
+
+    tree = etree.parse(xmlFile) #parse xml
+    root = tree.getroot() #get the root of the xml tree
+    pickle.dump( root, open( "rootSave.p", "wb" ) ) #save xml file
+    root = pickle.load( open( "rootSave.p", "rb" ) ) #load xml file
+
     courseList = someList.split(',')#format the list into a python list based on the commas
     deezCombos = schedule(courseList)['combos']
     return render_template("sched.html",combos=deezCombos)#render it all with the template
+
+    os.remove("2015S.xml")
+    os.remove("rootsave.p")
+    os.remove("/../xmlFile.xml")
+
+
