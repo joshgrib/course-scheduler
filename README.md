@@ -1,5 +1,7 @@
 # course-scheduler
 
+*As of 8-20-15:* Everything works in the sense that you can make schedules, there are no conflicts, there's no problem making a change and reloading schedules, there aren't random files being saved anywhere... It's come a long way. Check the bottom of the readme for future development plans.
+
 [Website](joshgrib.pythonanywhere.com)
 
 I'm pretty sure a few CS students at Stevens have tried something like this already, but I'm doing it anyway. This is a tool to take all the classes you need to take and look at the xml that the calendar runs off, then show you your possible schedules
