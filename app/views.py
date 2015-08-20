@@ -1,145 +1,124 @@
 from flask import render_template
 from app import app
 
-import xml.etree.ElementTree as etree  # xml parsing stuff
-import re  # regex stuff
-import itertools  # for finding combinations
-import urllib  # for getting xml from online
-import pickle  # to read/write from files hopefully better
-
-# This would work if there wasn't the error compiling the first time
-url = 'https://web.stevens.edu/scheduler/core/2015F/2015F.xml'
-urllib.urlretrieve(url, "2015S.xml")  # import the xml file as 'xmlFile.xml'
-xmlFile = "2015S.xml"
-
-tree = etree.parse(xmlFile)  # parse xml
-root = tree.getroot()  # get the root of the xml tree
-pickle.dump(root, open("rootSave.p", "wb"))  # save xml file
-root = pickle.load(open("rootSave.p", "rb"))  # load xml file
+import urllib
+import os
+import xml.etree.ElementTree as etree
+import re
+import itertools
 
 
-def cleanupElements():  # working
-    '''This goes through the courses in the XML and removes any element that doesnt have info about meeting times'''
-    root = pickle.load(open("rootSave.p", "rb"))  # open xml file
-    for course in root.findall('Course'):  # loop through all courses
-        for element in course:  # loop through the elements in each course
-            # if the element is a meeting leave it alone
-            if element.tag == 'Meeting':
-                pass
-            # if its not a meeting (its a prereq or something) then remove it
-            else:
-                # for some reason this didn't get all of them the first time
-                course.remove(element)
-    pickle.dump(root, open("rootSave.p", "wb"))  # save file
-
-
-def cleanupCourses(courseList):  # working
-    '''This goes through the XML and removes any course not specified in the courseList from the tree'''
-    root = pickle.load(open("rootSave.p", "rb"))  # open xml file
-    # loop through all courses in the xml tree
-    for course in root.findall('Course'):
-        name = course.get('Section')  # find the name of this course section
+def cleanupCourses(this_root, this_course_list):  # called from schedule()
+    """Given the root of the xml tree and the course list, this will go through the XML and remove any course not in the list from the tree, then returns the revised root"""
+    for course in this_root.findall('Course'):
+        name = course.get('Section')
         while re.match("([A-Za-z-])", name[-1]) or re.match("([A-Za-z-])", name[-2]):
             name = name[:(len(name) - 1)]
-        # if the course is in the list of courses to schedule, do nothing
-        if name in courseList:
-            pass
-        # if it's not on the list (and it doesn't know anyone here) then get
-        # rid of it
-        else:
-            root.remove(course)
-    pickle.dump(root, open("rootSave.p", "wb"))  # save xml file
+        if name not in this_course_list:
+            this_root.remove(course)
+    return this_root
 
 
-def fixTime(Time):  # working
-    '''Fixes the time formatting'''
-    root = pickle.load(open("rootSave.p", "rb"))  # open the xml file
-    Time = Time[:(len(Time) - 4)]  # remove the seconds and the Z
-    if len(Time) == 4:  # add the 0 to the front of early times
-        Time = '0' + Time
-    Time = Time[:2] + Time[3:]  # get rid of the colon in the time format
-    startHours = int(Time[:2]) + 4  # correct the 4 hour offset in times
-    startHours = str(startHours)
-    # if its a single digit hour then add the 0 before it
-    if len(startHours) == 1:
-        startHours = "0" + startHours
-    Time = startHours + Time[2:]
-    return Time
-    pickle.dump(root, open("rootSave.p", "wb"))  # save the xml file
-
-# initialize data stores
-bigDict = {}  # yeah its a big dict
-callNumbers = {}  # call numbers for the courses will go in this dictionary
+def cleanupElements(this_root):  # called from schedule()
+    """Given the root of the xml tree, this goes through the courses and removes any elements that don't have info about meeting times, then returns the revised root"""
+    for course in this_root.findall('Course'):
+        for element in course:
+            if element.tag == 'Meeting':
+                pass
+            else:
+                course.remove(element)
+            # I know I should be able to do "if not element.tag == 'Meeting':"
+            # but that doesn't work for some reason...
+    return this_root
 
 
-def parseXML():  # working
-    root = pickle.load(open("rootSave.p", "rb"))
-    # for all courses in the xml tree, fix the spacing between letters and
-    # numbers and fix time time formats
-    for course in root:
+def fixSpacing(this_root):  # called from schedule()
+    """Given the root of the xml tree, this will go through and fix the spacing between the letters and numbers so it can be compared better later on, then returns the revised root"""
+    for course in this_root:
         attribs = course.attrib
         section = attribs['Section']
-        # fix the spaces on the course names
-        indexCount = 0  # initialize counter
-        newSection = ""  # initialize blank string
-        for letter in section:  # for each letter...
-            # if its the space set the space equal to the right amount of
-            # spaces
+        index_count = 0
+        new_section = ""
+        for letter in section:
             if letter == " ":
-                letter = (4 - indexCount) * " "
-            else:  # if its a letter or number do nothing
-                letter = letter
-            newSection = newSection + letter  # create the new name
-            indexCount = indexCount + 1  # add to counter
-        attribs['Section'] = newSection
-        # fix time formatting
-        for meeting in course:
-            meetingAttribs = meeting.attrib
-            startTime = meetingAttribs['StartTime']
-            endTime = meetingAttribs['EndTime']
-            startTime = fixTime(startTime)
-            endTime = fixTime(endTime)
-            meetingAttribs['StartTime'] = startTime
-            meetingAttribs['EndTime'] = endTime
+                letter = (4 - index_count) * " "
+            new_section = new_section + letter
+            index_count += 1
+        attribs['Section'] = new_section
+    return this_root
 
-    # populate call number dictionary
-    for course in root:
-        sectionName = course.attrib['Section']  # get the section name
-        # get the call number as an integer
-        callNumber = int(course.attrib['CallNumber'])
-        # save section names and call numbers to the dictionary
-        callNumbers[sectionName] = callNumber
-    '''
-    At this point in the function:
-    Course names are properly formatted, with the proper number of spaces, one for every section, stored under the 'Section' attribute
-    Start and end times are properly formatted, store as the StatTime and EndTime attributes
-    The dictionary for call numbers is done
-    '''
-    prevCourse = ""
-    for course in root:  # add classes and section lists
+
+def fixTime(time):  # called from schedule()
+    """Given a time from the "StartTime" or "EndTime" attribute in the xml tree, this will change teh format to HHMM and return the revised time. This also corrects a 4 hour offset present in the time formats"""
+    time = time[:(len(time) - 4)]
+    if len(time) == 4:  # add a 0 to the front of early times
+        time = '0' + time
+    time = time[:2] + time[3:]  # remove the colon
+    hours = int(time[:2]) + 4  # correct 4 hour offset
+    hours = str(hours)
+    if len(hours) == 1:
+        # add the 0 in fron of early times if it needs it now
+        hours = "0" + hours
+    time = hours + time[2:]
+    return time
+
+
+def fixTimeFormat(this_root):  # called from schedule()
+    """Given the root of the xml tree, this will go through and fix the time formatting, making it standard 24hr as 4 digits in the form of HHMM, then returns the revised root"""
+    for course in this_root:
+        for meeting in course:
+            attribs = meeting.attrib
+            try:
+                start_time = attribs['StartTime']  # get values
+                end_time = attribs['EndTime']
+                start_time = fixTime(start_time)  # fix values
+                end_time = fixTime(end_time)
+                attribs['StartTime'] = start_time  # reassign
+                attribs['EndTime'] = end_time
+            except KeyError:
+                # somehow something that wasn't a meeting slipped through
+                course.remove(meeting)
+    return this_root
+
+
+def getCallNums(this_root):  # called from schedule()
+    """Given the root of the xml tree, this will parse the xml and return a dictionary of course sections and call numbers"""
+    call_numbers = {}
+    for course in this_root:
+        section_name = course.attrib['Section']
+        call_num = int(course.attrib['CallNumber'])
+        call_numbers[section_name] = call_num
+    return call_numbers
+
+
+def getBigDict(this_root):  # called from schedule()
+    """Given the root of the xml tree, this will parse the xml and return a nested dictionary of courses, sections, and meeting times"""
+    big_dict = {}
+    prev_course = ""
+    for course in this_root:  # add classes and section lists
         attribs = course.attrib
-        thisCourse = attribs['Section']
-        if len(thisCourse) == 9:  # recitation course
-            courseBig = thisCourse[:8]
-            courseSection = thisCourse[8:]
-            if courseBig == prevCourse[:8]:  # same course
+        this_course = attribs['Section']
+        if len(this_course) == 9:  # recitation course
+            course_big = this_course[:8]
+            course_section = this_course[8:]
+            if course_big == prev_course[:8]:  # same course
                 # add the new section with a list
-                bigDict[courseBig][courseSection] = []
+                big_dict[course_big][course_section] = []
             else:  # new course
-                bigDict[courseBig] = {}  # add the new class
+                big_dict[course_big] = {}  # add the new class
                 # add the new section with a list
-                bigDict[courseBig][courseSection] = []
+                big_dict[course_big][course_section] = []
         else:  # normal course(lecture)
-            courseBig = thisCourse[:7]
-            courseSection = thisCourse[7:]
-            if thisCourse[:7] == prevCourse[:7]:  # same course
+            course_big = this_course[:7]
+            course_section = this_course[7:]
+            if this_course[:7] == prev_course[:7]:  # same course
                 # add the new section with a list
-                bigDict[courseBig][courseSection] = []
+                big_dict[course_big][course_section] = []
             else:  # new course
-                bigDict[courseBig] = {}  # add the new class
+                big_dict[course_big] = {}  # add the new class
                 # add the new section with a list
-                bigDict[courseBig][courseSection] = []
-        prevCourse = thisCourse
+                big_dict[course_big][course_section] = []
+        prev_course = this_course
 
         for meeting in course:  # write the meetings to the section lists
             info = meeting.attrib
@@ -147,18 +126,19 @@ def parseXML():  # working
             startTime = info['StartTime']
             endTime = info['EndTime']
             # if the exact same meeting is already in the list
-            if [day, startTime, endTime] in bigDict[courseBig][courseSection]:
+            if [day, startTime, endTime] in big_dict[course_big][course_section]:
                 break  # then dont add another!
             if len(day) == 1:  # if this meeting describes one day
-                bigDict[courseBig][courseSection].append(
+                big_dict[course_big][course_section].append(
                     [day, startTime, endTime])  # add the meeting time
             else:  # if multiple days happen at the same time
                 for letter in day:  # add one list for each meeting
-                    bigDict[courseBig][courseSection].append(
+                    big_dict[course_big][course_section].append(
                         [letter, startTime, endTime])
+    return big_dict
 
 
-def isAllowed(classList1, classList2):
+def isAllowed(classList1, classList2):  # called from checkCombination()
     '''Given two meeting lists, check to see if there is a conflict, and return True if there is not'''
     # if class 2 ends before class 1 starts, or class 1 ends before class 2
     # starts, then it's fine
@@ -168,54 +148,7 @@ def isAllowed(classList1, classList2):
         return False
 
 
-def findAllCombinations(courseDict):
-    '''This function goes through the nested courses, stores lists of all possible combinations of courses, and prints them'''
-    bigList = []  # list of lists of courses and sections
-    goodCombos = []  # store all the good combinations
-    badCombos = []  # store the bad combinations
-    possibilities = ""
-    # make a list of lists with the small lists being lists of possible
-    # sections for one course
-    for course in courseDict:
-        courseList = []
-        for section in courseDict[course]:
-            courseList.append(str(course + section))
-        bigList.append(courseList)
-    combos = 0  # initialize the counter
-    # find all combinations of one section of each class
-    allCombos = list(itertools.product(*bigList))
-    for combo in allCombos:
-        combos = combos + 1
-        # see if the combo works and add to apppropriate list
-        checkCombination(courseDict, combo)
-        if checkCombination(courseDict, combo) == True:
-            goodCombos.append(combo)
-        else:
-            badCombos.append(combo)
-
-    possibilities = {}
-    possibilities['combos'] = {}
-    # possibilities['totalCombos']=str(combos)
-    # possibilities['goodCombos']=str(goodCombos)
-    comboCounter = 1
-    for x in goodCombos:
-        urlPart = []
-        possibilities['combos'][comboCounter] = {}
-        for course in x:
-            urlPart.append(callNumbers[str(course)])
-        # format url
-        url = 'https://web.stevens.edu/scheduler/#2015F='
-        for callNumber in urlPart:
-            url = url + str(callNumber) + ","
-        url = url[:-1]
-
-        possibilities['combos'][comboCounter]['url'] = str(url)
-        possibilities['combos'][comboCounter]['list'] = str(x)
-        comboCounter = comboCounter + 1
-    return possibilities
-
-
-def checkCombination(courseDict, inputList):
+def checkCombination(courseDict, inputList):  # called from findAllCombos()
     '''This will go through a combination list and see if it all works. If it does it will return a true value'''
     conflicts = 0  # initialize counters
     # find all combinations of size 2 from the inputList
@@ -256,20 +189,83 @@ def checkCombination(courseDict, inputList):
         return True
 
 
-def schedule(courseList):  # main function to do everything
-    '''Given the XML and a list of courses, this will output all the possible schedules as a list of course ID(dept. ### section) and call numbers'''
-    root = pickle.load(open("rootSave.p", "rb"))
-    pickle.dump(root, open("rootSave.p", "wb"))
-    cleanupCourses(courseList)
-    cleanupElements()
-    root = pickle.load(open("rootSave.p", "rb"))
-    pickle.dump(root, open("rootSave.p", "wb"))
-    try:
-        parseXML()
-        return findAllCombinations(bigDict)  # from the other file
-    except KeyError:
-        # try again - this needs to run twice for whatever reason
-        schedule(courseList)
+def findAllCombos(courseDict, callNumbers):  # called from schedule()
+    '''This function goes through the nested courses, stores lists of all possible combinations of courses, and prints them'''
+    bigList = []  # list of lists of courses and sections
+    goodCombos = []  # store all the good combinations
+    badCombos = []  # store the bad combinations
+    possibilities = ""
+    # make a list of lists with the small lists being lists of possible
+    # sections for one course
+    for course in courseDict:
+        courseList = []
+        for section in courseDict[course]:
+            courseList.append(str(course + section))
+        bigList.append(courseList)
+    combos = 0  # initialize the counter
+    # find all combinations of one section of each class
+    allCombos = list(itertools.product(*bigList))
+    for combo in allCombos:
+        combos = combos + 1
+        # see if the combo works and add to apppropriate list
+        checkCombination(courseDict, combo)
+        if checkCombination(courseDict, combo) == True:
+            goodCombos.append(combo)
+        else:
+            badCombos.append(combo)
+
+    possibilities = {}
+    # possibilities['totalCombos']=str(combos)
+    # possibilities['goodCombos']=str(goodCombos)
+    comboCounter = 1
+    for x in goodCombos:
+        urlPart = []
+        possibilities[comboCounter] = {}
+        for course in x:
+            urlPart.append(callNumbers[str(course)])
+        # format url
+        url = 'https://web.stevens.edu/scheduler/#2015F='
+        for callNumber in urlPart:
+            url = url + str(callNumber) + ","
+        url = url[:-1]
+
+        possibilities[comboCounter]['url'] = str(url)
+        possibilities[comboCounter]['list'] = str(x)
+        comboCounter = comboCounter + 1
+    return possibilities
+
+
+def schedule(course_list):
+    """
+    Given a list of courses, return a dictionary of the possible schedules
+    ['BT 353','CS 135','HHS 468','BT 181','CS 146','CS 284'] -->
+    {1:
+        {'url': 'https://web.stevens.edu/scheduler/#2015F=10063,10486,10479,11840,12011,11995,10482,10487',
+        'list': "('BT 181A', 'CS 284A', 'CS 135A', 'CS 135LB', 'BT 353C', 'HHS 468EV', 'CS 146B', 'CS 284RA')"},
+     2: {'url': 'https://web.stevens.edu/scheduler/#2015F=10063,10486,10479,11840,12011,11995,10482,12166',
+        'list': "('BT 181A', 'CS 284A', 'CS 135A', 'CS 135LB', 'BT 353C', 'HHS 468EV', 'CS 146B', 'CS 284RB')"},
+     3: {'url': 'https://web.stevens.edu/scheduler/#2015F=10063,10486,10479,11840,12012,11995,10482,10487',
+         'list': "('BT 181A', 'CS 284A', 'CS 135A', 'CS 135LB', 'BT 353D', 'HHS 468EV', 'CS 146B', 'CS 284RA')"},
+     4: {'url': 'https://web.stevens.edu/scheduler/#2015F=10063,10486,10479,11840,12012,11995,10482,12166',
+          'list': "('BT 181A', 'CS 284A', 'CS 135A', 'CS 135LB', 'BT 353D', 'HHS 468EV', 'CS 146B', 'CS 284RB')"}}
+    """
+    url = 'https://web.stevens.edu/scheduler/core/2015F/2015F.xml'
+    urllib.urlretrieve(url, 'courses.xml')
+    tree = etree.parse('courses.xml')
+    os.remove('courses.xml')
+    root = tree.getroot()
+
+    root = cleanupCourses(root, course_list)
+    root = cleanupElements(root)
+    root = fixSpacing(root)
+    root = fixTimeFormat(root)
+
+    call_numbers = getCallNums(root)
+    big_dict = getBigDict(root)
+
+    all_combos = findAllCombos(big_dict, call_numbers)
+
+    return all_combos
 
 
 @app.route('/')
@@ -288,6 +284,6 @@ def donate():
 def scheduleMe(someList):
     # format the list into a python list based on the commas
     courseList = someList.split(',')
-    deezCombos = schedule(courseList)['combos']
+    deezCombos = schedule(courseList)
     # render it all with the template
     return render_template("sched.html", combos=deezCombos)
