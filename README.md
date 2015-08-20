@@ -7,7 +7,7 @@ I'm pretty sure a few CS students at Stevens have tried something like this alre
 ##Background
 So at Stevens the only way to reasonably figure out your schedule for future semesters is to use the course scheduler available [here](https://web.stevens.edu/scheduler/). You can search for classes and see different offerings, and work out a schedule that works.
 
-To figure out your scheduler you basically just need to do trial and error until you find one that works and you're relatively happy with. I want to make it so you enter the courses you need to take, and you can see all the schedules you could have.
+To figure out your schedule you basically just need to do trial and error until you find one that works and you're relatively happy with. I want to make it so you enter the courses you need to take, and you can see all the schedules you could have.
 
 ##Approach
 So using [the scheduler API](https://www.thegreatco.com/projects/scheduler-api/), which I'm surprised is documented as well as it is for anyone to use, you can request the xml for any semester. I take the xml and a list of courses and pull out the info I need, and turn it into a big nested dictionary. Then I go through all the courses and sections, find all possible combinations, and check for conflicts. Any schedules with no conflicts are put into a new dictionary, and sent through flask to make the HTML to display them for the user.
