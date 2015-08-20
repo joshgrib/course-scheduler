@@ -1,6 +1,6 @@
 # course-scheduler
 
-[Website](joshgrib.pythonanywhere.com) - not 100% functional as of commit 75
+[Website](joshgrib.pythonanywhere.com)
 
 I'm pretty sure a few CS students at Stevens have tried something like this already, but I'm doing it anyway. This is a tool to take all the classes you need to take and look at the xml that the calendar runs off, then show you your possible schedules
 
@@ -23,11 +23,9 @@ Regex
 For finding all possible combinations, and for finding all possible comparisons to make within a combination
 ####urllib
 Gets the XML data from the API using the url
-####pickle
-Read/write local files
+####os
+Delete files
 
 ###Future development ideas (also see issues)
-Fix the app so it works
-I should be able to do this if I:
-* Convert from pickle to json
-* Remove files when after they're used
+* Use forms to make schedules instead of having to make your own url to query
+* Add sorting to show certain schedules before others (e.g. least morning classes, no night classes, fridays off)
