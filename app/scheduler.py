@@ -263,5 +263,3 @@ def schedule(course_list):
     all_combos = findAllCombos(big_dict, call_numbers)
 
     return all_combos
-
-
