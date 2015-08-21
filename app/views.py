@@ -1,7 +1,8 @@
 from flask import render_template
 from app import app
-import scheduler #file with all the functions
-import course_dict #dictionary of all courses
+import scheduler  # file with all the functions
+import course_dict  # dictionary of all courses
+
 
 @app.route('/')
 @app.route('/index')
@@ -22,6 +23,7 @@ def scheduleMe(someList):
     deezCombos = scheduler.schedule(courseList)
     # render it all with the template
     return render_template("sched.html", combos=deezCombos)
+
 
 @app.route('/courses')
 def courses():
