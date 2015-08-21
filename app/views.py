@@ -2,7 +2,6 @@ from flask import render_template
 from app import app
 import scheduler  # file with all the functions
 import course_dict  # dictionary of all courses
-import forms  # login form ish
 
 
 @app.route('/')
