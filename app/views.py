@@ -26,13 +26,13 @@ def courses():
 
 @app.route('/how_many')
 def how_many():
-    return render_template("how_many.html")
+    return render_template("how_many.html", title='Couse amount entry')
 
 @app.route('/how_many', methods=['GET','POST'])
 def how_many_post():
     course_amount = request.form['course_amount']
     amount_of_courses = int(course_amount)
-    resp = make_response(render_template("schedule_entry.html", quantity = amount_of_courses))
+    resp = make_response(render_template("schedule_entry.html", quantity = amount_of_courses, title='Schedule Entry'))
     resp.set_cookie('course_amount', str(amount_of_courses))
     return resp
 
@@ -61,4 +61,5 @@ def scheduleMe(someList):
     courseList = someList.split(',')
     deezCombos = scheduler.schedule(courseList)
     # render it all with the template
-    return render_template("sched.html", title="Scheduler", combos=deezCombos)
+    combo_count =  str(len(deezCombos))
+    return render_template("sched.html", title="Scheduler Results", combos=deezCombos, combo_amount=combo_count)
