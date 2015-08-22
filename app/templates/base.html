@@ -1,43 +1,77 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    {% if title %}
-    <title>{{ title }} - Stevens Resources</title>
-    {% else %}
-    <title>Scheduler</title>
-    {% endif %}
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="Description" lang="en" content="Scheduler app for Stevens Institute of Technology students">
-    <meta name="author" content="Josh Gribbon">
-    <meta name="robots" content="index, follow">
+<!doctype html>
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html class="no-js" lang="en" data-useragent="Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+{% if title %}
+    <title>Stevens Resources | {{ title }}</title>
+{% else %}
+    <title>Stevens Resources</title>
+{% endif %}
+<meta name="Description" lang="en" content="Scheduler app for Stevens Institute of Technology students">
+<!-- Based on a template from zurb.com-->
+<meta name="author" content="Josh Gribbon">
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
 
-    <!-- Override CSS file - add your own CSS rules -->
-    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
-  </head>
-  <!--This website is run using flask and python-->
-  <body>
-    <div class="header">
-      <a href='/'>
-      <div class="container">
-        <h1 class="header-heading">Stevens Resources</h1>
-      </div>
-      </a>
-    </div>
-    <div class="nav-bar">
-      <div class="container">
-        <ul class="nav">
-          <li><a href="/index">Home</a></li>
-          <li><a href="/courses">Courses(and books!)</a></li>
-          <li><a href="/how_many">Scheduler</a></li>
-          <li><a href="/donate">Donate</a></li>
-          <li><a href="https://github.com/joshgrib/course-scheduler" target="_blank">Github</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="content">
+<div class="row">
+<div class="large-12 columns">
+<div class="nav-bar right">
+<ul class="button-group">
+<li><a href="/index" class="button">Home</a></li>
+<li><a href="/courses" class="button">Courses/Books</a></li>
+<li><a href="/how_many" class="button">Scheduler</a></li>
+<li><a href="/donate" class="button">Donate</a></li>
+</ul>
+</div>
+<h1>Stevens Resources</h1>
+<hr/>
+</div>
+</div>
+
+<div class="row">
       {% block content %}{% endblock %}
-    </div>
-  </body>
+</div>
+
+
+<footer class="row">
+<div class="large-12 columns">
+<hr/>
+<div class="row">
+<div class="large-6 columns">
+<p>&copy; Copyright no one at all. Go to town.</p>
+</div>
+<div class="large-6 columns">
+<ul class="inline-list right">
+<li><a href="/index">Home</a></li>
+<li><a href="/courses">Courses/Books</a></li>
+<li><a href="/how_many">Scheduler</a></li>
+<li><a href="/donate">Donate</a></li>
+</ul>
+</div>
+</div>
+</div>
+</footer>
+<script>
+  document.write('<script src=js/vendor/' +
+  ('__proto__' in {} ? 'zepto' : 'jquery') +
+  '.js><\/script>')
+  </script>
+<script src="../../assets/js/jquery.js"></script>
+<script src="js/foundation.min.js"></script>
+<script>
+    $(document).foundation();
+  </script>
+<script src="../assets/js/templates/jquery.js"></script>
+<script src="../assets/js/templates/foundation.js"></script>
+<script>
+      $(document).foundation();
+
+      var doc = document.documentElement;
+      doc.setAttribute('data-useragent', navigator.userAgent);
+    </script>
+</body>
 </html>
+

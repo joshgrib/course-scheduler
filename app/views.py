@@ -29,7 +29,11 @@ def courses():
     these_courses = course_dict.getMeCourses()
     # so I can list the courses in order
     sorted_courses = sorted(these_courses)
-    return render_template('courses.html', title='Courses', courses=these_courses, sorted_c=sorted_courses)
+    course_letters = []
+    for course in sorted_courses:
+        if not course[0] in course_letters:
+            course_letters.append(course[0])
+    return render_template('courses.html', title='Courses', courses=these_courses, sorted_c=sorted_courses, letter_links=course_letters)
 
 
 @app.route('/how_many')
