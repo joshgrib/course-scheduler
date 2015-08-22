@@ -1,13 +1,12 @@
 <!-- extend base layout -->
 {% extends "base.html" %}
 {% block content %}
-</div>
     <h1>You have {{ combo_amount }} posssible schedules</h1>
     *Seeing some blank schedules or cut off boxes? Probably a problem with loading iframes from the scheduler website, just scroll a little and the courses should show up fine.
-    {% for combo in combos %}
 
-    <div id="combo">
-        Schedule {{ combo }}: <a href="{{ combos[combo]['url'] }}" target="_blank">{{ combos[combo]['list'] }}</a>
+    {% for combo in combos %}
+    <div id="large-3 columns">
+        <b>Schedule {{ combo }}:</b> <a href="{{ combos[combo]['url'] }}" target="_blank">{{ combos[combo]['list'] }}</a>
         </br>
         <div id="my-div">
             <iframe src="{{ combos[combo]['url'] }}" id="my-iframe" scrolling="yes" width="100%" height="100%">
@@ -15,6 +14,7 @@
         </div>
         </br>
     </div>
+    <hr>
     {% endfor %}
-<div class="row">
+
 {% endblock %}
