@@ -27,7 +27,10 @@
     <hr>
     <h3>Want to contribute?</h3>
     Go to the <a href="https://github.com/joshgrib/course-scheduler" target="_blank">github</a>, do something, and submit a pull request. I'm just going to apologize in advance for how hapazard everything probably is. I made this over a long time and switched most of what I was doing several times. I'm using python 2.7, flask as a web framework, and the <a href="https://www.thegreatco.com/projects/scheduler-api/" target="_blank">Stevens Scheduler API</a>. Feel free to ask me about anything too, just use my Stevens email.
+    {% if visited == 'False' %}
     <script language="Javascript">
-      alert ("Hi! I have to pay to host this site, so if you like it please consider donating")
+      alert ("Hi! I have to pay to host this site, so if you like it please consider donating. This will only pop up once a month.")
     </script>
+    {% endif %}
+
 {% endblock %}
