@@ -26,5 +26,28 @@ Gets the XML data from the API using the url
 ####os
 Delete files
 
+###Files
+```
+/app
+    /static
+        style.css             #CSS for the website
+    /templates
+        base.html             #all other templates are based off this one
+        courses.html          #page with course info and books
+        donate.html           #donation page
+        how_many.html         #beginning of scheduling-finding
+        index.html            #home page
+        sched.html            #results from schedule-finder
+        schedule_entry.html   #page to enter courses to schedule
+    __init__.py               #initializes the app folder and brings in views
+    course_dict.py            #store course info
+    scheduler.py              #functions to find schedules
+    views.py                  #connects the url to the functions and templates
+.gitignore                    #tells git what files not to track
+LICENSE                       #license on the software
+README.md                     #this file
+run.py                        #starts the app
+```
+
 ###Future development ideas (also see issues)
 * Add sorting to show certain schedules before others (e.g. least morning classes, no night classes, fridays off)
