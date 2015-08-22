@@ -51,7 +51,8 @@ def my_form_post():
     for course in final_list[:-1]:
         printout += (str(course) + ',')
     printout += str(final_list[-1])
-    return printout
+    my_url = '/sched/' + printout
+    return redirect(my_url)
 
 
 @app.route('/sched/<someList>')

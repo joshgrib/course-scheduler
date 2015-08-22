@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Enter {{ quantity }} courses to schedule</h1>
+    I don't see anyone needing more than 12, but if you do email me, it's easy enough to add more
+    <form action="/schedules" method="POST">
+        {% for i in range(1,(quantity+1)) %}
+            <b>Course {{ i }}:</b><br>
+            <input type="text" name="text{{ i }}"><br>
+        {% endfor %}
+        <input type="submit" name="my-form" value="Send">
+    </form>
+{% endblock %}
