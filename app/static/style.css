@@ -7,12 +7,14 @@
         border: solid 1px black;
         background-color: #D63030;
       }
-      #my-div{width    : 500px;
+#my-div{
+        width    : 500px;
         height   : 300px;
         overflow : hidden;
         position : relative;
       }
-      #my-iframe{position : absolute;
+#my-iframe{
+        position : absolute;
         top      : -5px;
         left     : -5px;
         width    : 1323px;
