@@ -2,11 +2,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Courses</h1>
+    <h2>Courses</h2>
+    <h4><b>Skip to letter:</b>
+    {% for letter in letter_links[:-1] %}
+        <a href="#{{ letter }}">{{ letter }}</a>-
+    {% endfor %}
+    <a href="#{{letter_links[-1]}}">{{ letter_links[-1] }}</a></h4>
     Note: All the books here are just for my use and are definitely not allowed to be used by anyone else<br>
     {% for course in sorted_c %}
 
-    <fieldset><legend> {{ course }} </legend>
+    <h3 id="{{ course[0] }}"> {{ course }} </h3>
         {% for part in courses[course]['info'] %}
         <b>{{ part }}:</b>    {{ courses[course]['info'][part] }}<br>
         {% endfor %}

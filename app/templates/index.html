@@ -1,36 +1,50 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Welcome to Josh's scheduler app!</h1>
-    <br>
-    This is a python web app built with flask, using python 2.7, hosted on pythonanywhere.
-    <br><br>
-    <h3>How to use the scheduler</h3>
-    Click on the button in the menu above, then follow the prompts.
-    <br>
-    <b>Note: </b>This is currently <u>only for the 2015F semester</u>
-    <br>
-    <!--
-    <a href='/sched/BT 353,CS 135,HHS 468,BT 181,CS 146,CS 284'>Example</a>: joshgrib.pythonanywhere.com/sched/BT 353,CS 135,HHS 468,BT 181,CS 146,CS 284
-    -->
-    <hr>
-    <h3>To do</h3>
-        <li>This only schedules for fall 2015</li>
-        <li>There's no way to sort, like to see classes starting later first or something like that</li>
-        <li><strike>You have to use the url to schedule, should be a form</strike></li>
-        <li><strike>Many of the schedules the app makes still have conflicts (In the example 4 of the 32 shown <i>actually</i> work)</strike></li>
-        <li><strike>Make the website look better</strike></li>
-        <li><strike>I need to document and probably refactor the code better</strike></li>
-        <li><strike>I really need to get the html/css organized for flask</strike></li>
-        <li><strike>The scheduler page needs to be loaded twice</strike></li>
-        <li><strike>Add a way for people to donate money</strike></li>
-    <hr>
-    <h3>Want to contribute?</h3>
-    Go to the <a href="https://github.com/joshgrib/course-scheduler" target="_blank">github</a>, do something, and submit a pull request. I'm just going to apologize in advance for how hapazard everything probably is. I made this over a long time and switched most of what I was doing several times. I'm using python 2.7, flask as a web framework, and the <a href="https://www.thegreatco.com/projects/scheduler-api/" target="_blank">Stevens Scheduler API</a>. Feel free to ask me about anything too, just use my Stevens email.
-    {% if visited == 'False' %}
+
+
+
+<div class="large-9 columns" role="content">
+<article>
+<h2><a href="#">Welcome to the site!</a></h2>
+<h6>Created by <a href="">Josh Gribbon</a> during Summer 2015.</h6>
+<p>If this is your first time here, sorry about the popup, gotta pay for the site. I made this as a combination of two things I made- a site to host course info, books, and old tests that I made at the end of my first semester; and a course scheduler tool I made during the Summer of 2015. The site is made with python and flask. Flask basically uses python to made web pages and communicate with the code for the scheduler.</p>
+<p>If you want to help out:<br> - Send me course info, books, or tests<br> - Contribute on github<br> - Donate to help pay to host the site</p>
+</article>
+
+<article>
+<h3 <!--style="color:#A30000"-->Overview of the site</h3>
+<h5>Home</h5>
+<p>Where you are right now.</p>
+<h5>Courses/Books</h5>
+<p>Info on various courses here. Usually info on the lecture, recitation, homework, exams, and final. Also resources for the course, like the textbook or if you need an online resource.</p>
+<h5>Scheduler</h5>
+<p>Enter how many courses you want to schedule, what the courses are, then see all the possible schedules you can have.</p>
+<h5>Donate</h5>
+<p>Use paypal or bitcoin to send money :D</p>
+</article>
+</div>
+
+<aside class="large-3 columns">
+<h5>Other links</h5>
+<ul class="side-nav">
+<li><a href="http://mystevens.stevens.edu" target="_blank">MyStevens</a></li>
+<li><a href="http://www.reddit.com/r/stevens" target="_blank">Stevens reddit</a></li>
+<li><a href="http://www.reddit.com/r/hoboken" target="_blank">Hoboken reddit</a></li>
+<li><a href="http://www.hoboken411.com" target="_blank">Hoboken 411</a></li>
+</ul>
+<div class="panel">
+<h5>Github</h5>
+<p>Where all the code that runs this website is. This is made with python using the flask web framework.</p>
+<a href="https://github.com/joshgrib/course-scheduler" target="_blank">Check it out &rarr;</a>
+</div>
+</aside>
+
+{% if visited == 'False' %}
     <script language="Javascript">
       alert ("Hi! I have to pay to host this site, so if you like it please consider donating. This will only pop up once a month.")
     </script>
-    {% endif %}
+{% endif %}
+
 
 {% endblock %}
