@@ -45,8 +45,9 @@ def how_many():
 def how_many_post():
     course_amount = request.form['course_amount']
     amount_of_courses = int(course_amount)
+    test_courses = ['BT 353','CS 135','HH 0468','BT 181','CS 146','CS 284'] #for messing with CSS - remove once fixed
     resp = make_response(render_template(
-        "schedule_entry.html", quantity=amount_of_courses, title='Schedule Entry'))
+        "schedule_entry.html", quantity=amount_of_courses, title='Schedule Entry', test_vals=test_courses))
     resp.set_cookie('course_amount', str(amount_of_courses), max_age=None)
     return resp
 
