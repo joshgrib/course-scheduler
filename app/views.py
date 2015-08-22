@@ -51,6 +51,7 @@ def my_form_post():
     for course in final_list[:-1]:
         printout += (str(course) + ',')
     printout += str(final_list[-1])
+    printout = printout.upper()
     my_url = '/sched/' + printout
     return redirect(my_url)
 
