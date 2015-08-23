@@ -1,0 +1,12 @@
+Updated changes:
+git add.
+git commit -am "message"
+git push
+    username
+    password
+scp -r app joshgrib@ssh.pythonanywhere.com:mysite/app2
+    password
+ssh joshgrib@ssh.pythonanywhere.com
+    password
+cd mysiterm -r app
+mv app2 app
