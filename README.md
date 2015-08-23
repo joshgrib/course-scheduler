@@ -26,7 +26,7 @@ Gets the XML data from the API using the url
 ####os
 Delete files
 
-###Files
+###Files - need to update after changes are more permanent
 ```
 /course-scheduler               #Holds the app
     /static                     #
