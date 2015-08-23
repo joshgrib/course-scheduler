@@ -5,9 +5,9 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 {% if title %}
-    <title>Stevens Resources | {{ title }}</title>
+    <title>SIT Stuff | {{ title }}</title>
 {% else %}
-    <title>Stevens Resources</title>
+    <title>SIT Stuff</title>
 {% endif %}
 <meta name="Description" lang="en" content="Scheduler app for Stevens Institute of Technology students">
 <!-- Based on the template at http://foundation.zurb.com/templates/blog.html#-->
@@ -26,7 +26,7 @@
 <li><a href="/donate" class="button">Donate</a></li>
 </ul>
 </div>
-<h1><a href="/index">Stevens Resources</a></h1>
+<h1><a href="/index">SIT Stuff</a>-{{ title }}</h1>
 <hr/>
 </div>
 </div>
@@ -73,5 +73,10 @@
       doc.setAttribute('data-useragent', navigator.userAgent);
     </script>
 </body>
+{% if visited == 'False' %}
+    <script language="Javascript">
+      alert ("Hi! I have to pay to host this site, so if you like it please consider donating. This will only pop up once a month.")
+    </script>
+{% endif %}
 </html>
 
