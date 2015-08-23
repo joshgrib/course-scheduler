@@ -111,3 +111,6 @@ def scheduleMe(someList):
     # render it all with the template
     combo_count = str(len(deezCombos))
     return render_template("sched.html", title="Scheduler", combos=deezCombos, combo_amount=combo_count)
+
+if __name__ == '__main__':
+    app.run()
