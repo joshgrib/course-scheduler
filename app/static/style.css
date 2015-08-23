@@ -1215,7 +1215,7 @@ select {
   position: relative;
   transition: opacity 300ms ease-out;
   background-color: #a9002f;
-  border-color: #0078a0;
+  border-color: #333;
   color: #FFFFFF; }
   .alert-box .close {
     right: 0.25rem;
@@ -1631,11 +1631,11 @@ button, .button {
   padding: 1rem 2rem 1.0625rem 2rem;
   font-size: 1rem;
   background-color: #a9002f;
-  border-color: #007095;
+  border-color: #333;
   color: #FFFFFF;
   transition: background-color 300ms ease-out; }
   button:hover, button:focus, .button:hover, .button:focus {
-    background-color: #007095; }
+    background-color: #333; }
   button:hover, button:focus, .button:hover, .button:focus {
     color: #FFFFFF; }
   button.secondary, .button.secondary {
@@ -1703,13 +1703,13 @@ button, .button {
     border-radius: 1000px; }
   button.disabled, button[disabled], .button.disabled, .button[disabled] {
     background-color: #a9002f;
-    border-color: #007095;
+    border-color: #333;
     color: #FFFFFF;
     box-shadow: none;
     cursor: default;
     opacity: 0.7; }
     button.disabled:hover, button.disabled:focus, button[disabled]:hover, button[disabled]:focus, .button.disabled:hover, .button.disabled:focus, .button[disabled]:hover, .button[disabled]:focus {
-      background-color: #007095; }
+      background-color: #333; }
     button.disabled:hover, button.disabled:focus, button[disabled]:hover, button[disabled]:focus, .button.disabled:hover, .button.disabled:focus, .button[disabled]:hover, .button[disabled]:focus {
       color: #FFFFFF; }
     button.disabled:hover, button.disabled:focus, button[disabled]:hover, button[disabled]:focus, .button.disabled:hover, .button.disabled:focus, .button[disabled]:hover, .button[disabled]:focus {
@@ -3803,7 +3803,7 @@ ul.pagination {
     .panel.callout a:not(.button) {
       color: #a9002f; }
       .panel.callout a:not(.button):hover, .panel.callout a:not(.button):focus {
-        color: #0078a0; }
+        color: #333; }
   .panel.radius {
     border-radius: 3px; }
 
@@ -4096,11 +4096,11 @@ ul.pagination {
       padding: 0.4375rem 0.875rem; }
       .side-nav li a:not(.button):hover, .side-nav li a:not(.button):focus {
         background: rgba(0, 0, 0, 0.025);
-        color: #1cc7ff; }
+        color: #333; }
       .side-nav li a:not(.button):active {
-        color: #1cc7ff; }
+        color: #333; }
     .side-nav li.active > a:first-child:not(.button) {
-      color: #1cc7ff;
+      color: #333;
       font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
       font-weight: normal; }
     .side-nav li.divider {
@@ -4248,7 +4248,7 @@ ul.pagination {
       .sub-nav dt.active a:hover,
       .sub-nav dd.active a:hover,
       .sub-nav li.active a:hover {
-        background: #0078a0; }
+        background: #333; }
 
 .switch {
   border: none;
@@ -4737,10 +4737,10 @@ meta.foundation-mq-topbar {
         padding-left: 0.9375rem;
         padding-right: 0.9375rem;
         background-color: #a9002f;
-        border-color: #007095;
+        border-color: #333;
         color: #FFFFFF; }
         .top-bar-section ul li > a.button:hover, .top-bar-section ul li > a.button:focus {
-          background-color: #007095; }
+          background-color: #333; }
         .top-bar-section ul li > a.button:hover, .top-bar-section ul li > a.button:focus {
           color: #FFFFFF; }
       .top-bar-section ul li > a.button.secondary {
@@ -4788,10 +4788,10 @@ meta.foundation-mq-topbar {
       padding-left: 0.9375rem;
       padding-right: 0.9375rem;
       background-color: #a9002f;
-      border-color: #007095;
+      border-color: #333;
       color: #FFFFFF; }
       .top-bar-section ul li > button:hover, .top-bar-section ul li > button:focus {
-        background-color: #007095; }
+        background-color: #333; }
       .top-bar-section ul li > button:hover, .top-bar-section ul li > button:focus {
         color: #FFFFFF; }
       .top-bar-section ul li > button.secondary {
@@ -4842,7 +4842,7 @@ meta.foundation-mq-topbar {
       background: #a9002f;
       color: #FFFFFF; }
       .top-bar-section ul li.active > a:hover {
-        background: #0078a0;
+        background: #333;
         color: #FFFFFF; }
   .top-bar-section .has-form {
     padding: 0.9375rem; }
@@ -4983,7 +4983,7 @@ meta.foundation-mq-topbar {
       line-height: 2.8125rem;
       padding: 0 0.9375rem; }
       .top-bar-section li.active:not(.has-form) a:not(.button):hover {
-        background: #0078a0;
+        background: #333;
         color: #FFFFFF; }
     .top-bar-section .has-dropdown > a {
       padding-right: 2.1875rem !important; }
@@ -5258,7 +5258,7 @@ a {
   line-height: inherit;
   text-decoration: none; }
   a:hover, a:focus {
-    color: #0078a0; }
+    color: #333; }
   a img {
     border: none; }
 
