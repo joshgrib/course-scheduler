@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+    <h3>Enter course info below</h3>
+    <form action="/add_course" method="POST">
+        Course name     <input type="text" name="course_name"     value="AA### - Example Course Name">
+        Lecture info:   <input type="text" name="lecture_info"    value="None">
+        Recitation info:<input type="text" name="recitation_info" value="None">
+        Homework info:  <input type="text" name="homework_info"   value="None">
+        Exam info:      <input type="text" name="exams_info"      value="None">
+        Finals info:    <input type="text" name="final_info"      value="None">
+        <input type="submit" name="course-form" value="Add course">
+    </form>
+{% endblock %}
