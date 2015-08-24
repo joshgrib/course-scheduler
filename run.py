@@ -7,6 +7,7 @@ app = Flask(__name__)
 
 from flask import render_template, request, make_response, redirect
 
+
 @app.route('/')
 @app.route('/index')
 def index():
@@ -26,11 +27,14 @@ def donate():
     return render_template("donate.html", title='Donate')
 
 
-import course_dict
+#import course_dict
+
 
 @app.route('/courses')
 def courses():
-    these_courses = course_dict.getMeCourses()
+    with open('courses.json', 'r') as f:
+        these_courses = json.load(f)
+    #these_courses = course_dict.getMeCourses()
     # so I can list the courses in order
     sorted_courses = sorted(these_courses)
     course_letters = []
@@ -56,6 +60,7 @@ def courses():
 
 
 import scheduler
+
 
 @app.route('/how_many')
 def how_many():
@@ -112,5 +117,49 @@ def scheduleMe(someList):
     combo_count = str(len(deezCombos))
     return render_template("sched.html", title="Scheduler", combos=deezCombos, combo_amount=combo_count)
 
+import secrets
+
+
+@app.route('/add_course/<secret_code>')
+def enterCourse(secret_code):
+    if str(secret_code) == secrets.add_course_users():
+        return render_template('add_course_form.html')
+    else:
+        return 'Sorry you cant use this page.<br><b>' + str(secret_code) + '</b> is not the secret code'
+
+import json
+
+
+@app.route('/add_course', methods=['GET', 'POST'])
+def addCourse():
+    c_name = str(request.form['course_name'])
+    l_info_maybe = str(request.form['lecture_info'])
+    r_info_maybe = str(request.form['recitation_info'])
+    h_info_maybe = str(request.form['homework_info'])
+    e_info_maybe = str(request.form['exams_info'])
+    f_info_maybe = str(request.form['final_info'])
+
+    addition_info = {}
+    if not l_info_maybe == "None":
+        addition_info['Lecture'] = l_info_maybe
+    if not r_info_maybe == "None":
+        addition_info['Recitation'] = r_info_maybe
+    if not h_info_maybe == "None":
+        addition_info['Homework'] = h_info_maybe
+    if not e_info_maybe == "None":
+        addition_info['Exams'] = e_info_maybe
+    if not f_info_maybe == "None":
+        addition_info['Final'] = f_info_maybe
+
+    with open('courses.json', 'r') as f:
+        courses = json.load(f)
+    courses[c_name] = {'info': addition_info}
+    # return str(courses)
+    with open('courses.json', 'w') as f:
+        json.dump(courses, f)
+
+    return render_template("index.html", title='Home', visted='True')
+
+
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
