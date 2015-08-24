@@ -18,7 +18,7 @@ def index():
     else:
         resp = make_response(
             render_template("index.html", title='Home', visited='False'))
-        resp.set_cookie('visited', 'True', max_age=2592000)
+        resp.set_cookie('visited', 'True', max_age=2592000, path='/')
     return resp
 
 
@@ -27,14 +27,10 @@ def donate():
     return render_template("donate.html", title='Donate')
 
 
-#import course_dict
-
-
 @app.route('/courses')
 def courses():
     with open('courses.json', 'r') as f:
         these_courses = json.load(f)
-    #these_courses = course_dict.getMeCourses()
     # so I can list the courses in order
     sorted_courses = sorted(these_courses)
     course_letters = []
@@ -56,6 +52,7 @@ def courses():
                                              sorted_c=sorted_courses,
                                              letter_links=course_letters,
                                              visited='False'))
+        resp.set_cookie('visited', 'True', max_age=2592000, path='/')
     return resp
 
 
@@ -71,6 +68,7 @@ def how_many():
     else:
         resp = make_response(
             render_template("how_many.html", title='Scheduler', visited='False'))
+        resp.set_cookie('visited', 'True', max_age=2592000, path='/')
     return resp
 
 
@@ -154,7 +152,6 @@ def addCourse():
     with open('courses.json', 'r') as f:
         courses = json.load(f)
     courses[c_name] = {'info': addition_info}
-    # return str(courses)
     with open('courses.json', 'w') as f:
         json.dump(courses, f)
 
