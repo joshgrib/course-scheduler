@@ -2,7 +2,8 @@
 {% extends "base.html" %}
 {% block content %}
     <h1>You have {{ combo_amount }} posssible schedules</h1>
-    *Seeing some blank schedules or cut off boxes? Probably a problem with loading iframes from the scheduler website, just scroll a little and the courses should show up fine.
+    <h4>Want to look at this later? Just save the url! The only difference will be next time you'll have the most updated possibilities according to the Stevens Scheduler API</h4>
+    *Seeing some blank schedules or cut off boxes? The schedule images are basically windows into the stevens scheduler website, and sometimes it loads weird. Just scroll a little in the box are it should fix itself!
 
     {% for combo in combos %}
     <div id="large-3 columns">
