@@ -28,6 +28,7 @@ def donate():
 import json
 import os
 
+
 @app.route('/courses')
 def courses():
     my_dir = os.path.dirname(__file__)
@@ -161,7 +162,7 @@ def addCourse():
     return render_template("index.html", title='Home', visted='True')
 
 if DEBUG:
-    app.run(debug = True)
+    app.run(debug=True)
 
 
 def courses():
