@@ -1,1 +1,1 @@
-DEBUG = True #Changed between local and production
+DEBUG = True  # Changed between local and production
