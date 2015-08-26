@@ -1,11 +1,10 @@
-
-# A very simple Flask Hello World app for you to get started with...
-
 from flask import Flask
 
 app = Flask(__name__)
 
 from flask import render_template, request, make_response, redirect
+
+from settings import DEBUG
 
 
 @app.route('/')
@@ -26,10 +25,14 @@ def index():
 def donate():
     return render_template("donate.html", title='Donate')
 
+import json
+import os
 
 @app.route('/courses')
 def courses():
-    with open('courses.json', 'r') as f:
+    my_dir = os.path.dirname(__file__)
+    json_file_path = os.path.join(my_dir, 'courses.json')
+    with open(json_file_path, 'r') as f:
         these_courses = json.load(f)
     # so I can list the courses in order
     sorted_courses = sorted(these_courses)
@@ -125,8 +128,6 @@ def enterCourse(secret_code):
     else:
         return 'Sorry you cant use this page.<br><b>' + str(secret_code) + '</b> is not the secret code'
 
-import json
-
 
 @app.route('/add_course', methods=['GET', 'POST'])
 def addCourse():
@@ -149,14 +150,23 @@ def addCourse():
     if not f_info_maybe == "None":
         addition_info['Final'] = f_info_maybe
 
-    with open('courses.json', 'r') as f:
+    my_dir = os.path.dirname(__file__)
+    json_file_path = os.path.join(my_dir, 'courses.json')
+    with open(json_file_path, 'r') as f:
         courses = json.load(f)
     courses[c_name] = {'info': addition_info}
-    with open('courses.json', 'w') as f:
+    with open(json_file_path, 'w') as f:
         json.dump(courses, f)
 
     return render_template("index.html", title='Home', visted='True')
 
+if DEBUG:
+    app.run(debug = True)
 
-if __name__ == '__main__':
-    app.run(debug=True)
+
+def courses():
+    my_dir = os.path.dirname(__file__)
+    json_file_path = os.path.join(my_dir, 'courses.json')
+    with open(json_file_path, 'r') as f:
+        these_courses = json.load(f)
+    return str(these_courses)
