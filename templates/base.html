@@ -9,8 +9,9 @@
 {% else %}
     <title>SIT Stuff</title>
 {% endif %}
-<meta name="Description" lang="en" content="Scheduler app for Stevens Institute of Technology students">
+<meta name="Description" lang="en" content="Resource website for Stevens Institute of Technology students">
 <!-- Based on the template at http://foundation.zurb.com/templates/blog.html#-->
+<link rel="shortcut icon" href="http://www.stevens.edu/sit/sites/sit/files/favicon.ico" type="image/vnd.microsoft.icon">
 <meta name="author" content="Josh Gribbon">
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
 </head>
@@ -26,7 +27,7 @@
 <li><a href="/donate" class="button">Donate</a></li>
 </ul>
 </div>
-<h1><a href="/index">SIT Stuff</a>-{{ title }}</h1>
+<h1><a href="/index">SIT Stuff</a><a href="http://sitstuff.com/books/ally.html">-</a>{{ title }}</h1>
 <hr/>
 </div>
 </div>

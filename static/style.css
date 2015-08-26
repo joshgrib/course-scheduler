@@ -5430,7 +5430,7 @@ blockquote {
       content: "\2014 \0020"; }
     blockquote cite a,
     blockquote cite a:visited {
-      color: #a9002f; }
+      color: #555555; }
 
 blockquote,
 blockquote p {
