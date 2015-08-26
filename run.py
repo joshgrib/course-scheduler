@@ -1,10 +1,12 @@
-from flask import Flask
+import json
+import os
+from flask import Flask, render_template, request, make_response, redirect
+from settings import DEBUG
+import scheduler
+import secrets
+
 
 app = Flask(__name__)
-
-from flask import render_template, request, make_response, redirect
-
-from settings import DEBUG
 
 
 @app.route('/')
@@ -24,9 +26,6 @@ def index():
 @app.route('/donate')
 def donate():
     return render_template("donate.html", title='Donate')
-
-import json
-import os
 
 
 @app.route('/courses')
@@ -58,9 +57,6 @@ def courses():
                                              visited='False'))
         resp.set_cookie('visited', 'True', max_age=2592000, path='/')
     return resp
-
-
-import scheduler
 
 
 @app.route('/how_many')
@@ -119,7 +115,19 @@ def scheduleMe(someList):
     combo_count = str(len(deezCombos))
     return render_template("sched.html", title="Scheduler", combos=deezCombos, combo_amount=combo_count)
 
-import secrets
+
+@app.route('/admin')
+def admin_view():
+    return render_template("admin_form.html", title='Admin')
+
+
+@app.route('/admin', methods=['GET', 'POST'])
+def admin_view_post():
+    if str(request.form['add_course_secret']) != None:
+        my_url = '/add_course/' + str(request.form["add_course_secret"])
+        return redirect(my_url)
+    else:
+        return 'Choice not recognized'
 
 
 @app.route('/add_course/<secret_code>')
@@ -163,11 +171,3 @@ def addCourse():
 
 if DEBUG:
     app.run(debug=True)
-
-
-def courses():
-    my_dir = os.path.dirname(__file__)
-    json_file_path = os.path.join(my_dir, 'courses.json')
-    with open(json_file_path, 'r') as f:
-        these_courses = json.load(f)
-    return str(these_courses)
