@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>What do you want to do?</h2>
+    <form action="/admin" method="POST">
+        <b>Add Course</b><br>
+        Secret:   <input type="text" name="add_course_secret"    value="None">
+        <!--
+        <b>Edit Course</b><br>
+        Secret:   <input type="text" name="edit_course_secret"    value="Not set up yet">
+        <b>Remove Course</b><br>
+        Secret:   <input type="text" name="remove_course_secret"    value="Not set up yet">
+        -->
+        <input type="submit" name="course-form" value="Submit">
+    </form>
+{% endblock %}
