@@ -146,7 +146,6 @@ def admin_view_post():
                 'course_choice', str(request.form['course_choice']), max_age=None)
             return resp
         elif str(request.form['action_choice']) == 'remove_co':
-            my_url = '/remove_course/'
             my_dir = os.path.dirname(__file__)
             json_file_path = os.path.join(my_dir, 'courses.json')
             with open(json_file_path, 'r') as f:
@@ -157,7 +156,7 @@ def admin_view_post():
                 json.dump(courses, f)
             return render_template("index.html", title='Home', visted='True')
     else:
-        return 'Sorry you cant use this page.<br><b>' + str(secret_code) + '</b> is not the secret code'
+        return 'Sorry you cant use this page.<br><b>' + str(request.form["admin_secret"]) + '</b> is not the secret code'
 
 
 @app.route('/add_course', methods=['GET', 'POST'])
