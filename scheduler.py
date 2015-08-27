@@ -174,7 +174,7 @@ def checkCombination(courseDict, inputList):  # called from findAllCombos()
         check2 = courseDict[course2][section2]
         for meeting1 in check1:
             for meeting2 in check2:
-                # if the meetins are on the same day...
+                # if the meetings are on the same day...
                 if meeting1[0] == meeting2[0]:
                     # if there is no conflicts do nothing
                     if (isAllowed(meeting1, meeting2) == True):
