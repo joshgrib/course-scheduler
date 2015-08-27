@@ -2,14 +2,17 @@
 {% block content %}
     <h2>What do you want to do?</h2>
     <form action="/admin" method="POST">
-        <b>Add Course</b><br>
-        Secret:   <input type="text" name="add_course_secret"    value="None">
-        <!--
-        <b>Edit Course</b><br>
-        Secret:   <input type="text" name="edit_course_secret"    value="Not set up yet">
-        <b>Remove Course</b><br>
-        Secret:   <input type="text" name="remove_course_secret"    value="Not set up yet">
-        -->
+        <select name="action_choice">
+            <option value="add_co">Add course</option>
+            <option value="edit_co">Edit course</option>
+            <option value="remove_co">Remove course</option>
+        </select><br>
+        <select name="course_choice">
+            {% for course in courses %}
+            <option value="{{ course }}">{{ course }}</option>
+            {% endfor %}
+        </select>
+        Secret:   <input type="text" name="admin_secret" value="None">
         <input type="submit" name="course-form" value="Submit">
     </form>
 {% endblock %}

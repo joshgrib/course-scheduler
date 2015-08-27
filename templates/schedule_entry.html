@@ -6,7 +6,7 @@
     <form action="/schedules" method="POST">
         {% for i in range(1,(quantity+1)) %}
             <b>Course {{ i }}:</b><br>
-            <input type="text" name="text{{ i }}" value="{{ test_vals[i-1] }}"><br>
+            <input type="text" name="text{{ i }}" value="{{ default_vals[i-1] }}"><br>
         {% endfor %}
         <input type="submit" name="my-form" value="Send">
     </form>
