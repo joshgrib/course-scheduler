@@ -51,6 +51,7 @@ Delete files
     scheduler.py                #Computes schedules given a list of courses
     secrets.py                  #Passwords for stuff
     settings.py                 #Things to change the behavior of the site
+```
 
 ###Future development ideas (also see issues)
 * Add sorting to show certain schedules before others (e.g. least morning classes, no night classes, fridays off)
