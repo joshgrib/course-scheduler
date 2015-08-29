@@ -26,28 +26,31 @@ Gets the XML data from the API using the url
 ####os
 Delete files
 
-###Files - need to update after changes are more permanent
+###Files
 ```
-/app
-    /static
-        style.css             #CSS for the website
-    /templates
-        base.html             #all other templates are based off this one
-        courses.html          #page with course info and books
-        donate.html           #donation page
-        how_many.html         #beginning of scheduling-finding
-        index.html            #home page
-        sched.html            #results from schedule-finder
-        schedule_entry.html   #page to enter courses to schedule
-    __init__.py               #initializes the app folder and brings in views
-    course_dict.py            #store course info
-    scheduler.py              #functions to find schedules
-    views.py                  #connects the url to the functions and templates
-.gitignore                    #tells git what files not to track
-LICENSE                       #license on the software
-README.md                     #this file
-run.py                        #starts the app
-```
+/course-scheduler               #Holds the app
+    /static                     #
+        style.css               #The CSS for the site
+    /templates                  #
+        add_course_form.html    #Allows admin to add a course
+        admin_form.html         #The entry point for the admin
+        base.html               #The base for all other pages
+        courses.html            #List of all course info and resources
+        donate.html             #Donation page
+        edit_course_form.html   #Allows admin to edit courses
+        how_many.html           #Asks how many courses someone wants to
+                                 schedule
+        index.html              #The home page
+        sched.html              #Displays computed schedules
+        schedule_entry.html     #Asks what courses someone wants to schedule
+    .gitignore                  #Tells git what not to track
+    LICENSE                     #The license on the software
+    README.md                   #This page
+    courses.json                #Stores all course info
+    run.py                      #Starts the app
+    scheduler.py                #Computes schedules given a list of courses
+    secrets.py                  #Passwords for stuff
+    settings.py                 #Things to change the behavior of the site
 
 ###Future development ideas (also see issues)
 * Add sorting to show certain schedules before others (e.g. least morning classes, no night classes, fridays off)
