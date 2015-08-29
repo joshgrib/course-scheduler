@@ -1,12 +1,92 @@
 import json
 import os
 from flask import Flask, render_template, request, make_response, redirect
-from settings import DEBUG
+from math import ceil
+from settings import DEBUG, PER_PAGE
 import scheduler
 import secrets
 
 
 app = Flask(__name__)
+
+
+# Start of test area
+
+
+class Pagination(object):
+
+    def __init__(self, page, per_page, total_count):
+        self.page = page
+        self.per_page = per_page
+        self.total_count = total_count
+
+    @property
+    def pages(self):
+        return int(ceil(self.total_count / float(self.per_page)))
+
+    @property
+    def has_prev(self):
+        return self.page > 1
+
+    @property
+    def has_next(self):
+        return self.page < self.pages
+
+    def iter_pages(self, left_edge=2, left_current=2,
+                   right_current=5, right_edge=2):
+        last = 0
+        for num in xrange(1, self.pages + 1):
+            if num <= left_edge or \
+               (num > self.page - left_current - 1 and
+                num < self.page + right_current) or \
+               num > self.pages - right_edge:
+                if last + 1 != num:
+                    yield None
+                yield num
+                last = num
+
+
+def get_users_for_page(page_number, per_page, total_users):
+    users = []
+    for i in range(total_users):
+        users += ['Josh' + str(i + 1)]
+    # 20 users, 5 per page, page 3, start = 10
+    users_start = per_page * (page_number - 1)
+    users_end = users_start + per_page
+    if users_start > total_users:
+        return False
+    return users[users_start:users_end]
+
+
+def count_all_users():
+    return 51
+
+def is_last_page(page, count, per_page):
+    if count <= (page * per_page):
+        return True
+    return False
+
+# Memoize the scheduler page
+
+
+@app.route('/users/', defaults={'page': 1})
+@app.route('/users/page/<int:page>')
+def show_users(page):
+    count = count_all_users()
+    users = get_users_for_page(page, PER_PAGE, count)
+    last_page = is_last_page(page, count, PER_PAGE)
+    if not users and page != 1:
+        return "404 - Not that many users"
+    return render_template('users_test.html',
+                           users=users,
+                           page=page,
+                           count=count,
+                           last_page=last_page
+                           )
+
+
+# End of test area
+# Start of actual stuff
 
 
 @app.route('/')
@@ -133,7 +213,7 @@ def admin_view():
 def admin_view_post():
     if str(request.form["admin_secret"]) == secrets.add_course_users():
         if (str(request.form['action_choice']) == 'add_co'):
-            return render_template('add_course_form.html')
+            return render_template('add_course_form.html', title='Add')
         elif str(request.form['action_choice']) == 'edit_co':
             my_dir = os.path.dirname(__file__)
             json_file_path = os.path.join(my_dir, 'courses.json')
@@ -141,7 +221,7 @@ def admin_view_post():
                 courses = json.load(f)
             course_info = courses[request.form['course_choice']]['info']
             resp = make_response(render_template(
-                'edit_course_form.html', course_info=course_info, course_name=request.form['course_choice']))
+                'edit_course_form.html', course_info=course_info, course_name=request.form['course_choice'], title='Edit'))
             resp.set_cookie(
                 'course_choice', str(request.form['course_choice']), max_age=None)
             return resp
@@ -193,13 +273,34 @@ def add_course_view_post():
 
 @app.route('/edit_course', methods=['GET', 'POST'])
 def edit_course_view_post():
-    old_course_name = request.cookies.get('course_choice')
-    c_name = str(request.form['course_name'])
-    l_info_maybe = str(request.form['lecture_info'])
-    r_info_maybe = str(request.form['recitation_info'])
-    h_info_maybe = str(request.form['homework_info'])
-    e_info_maybe = str(request.form['exams_info'])
-    f_info_maybe = str(request.form['final_info'])
+    try:
+        old_course_name = request.cookies.get('course_choice')
+    except:
+        pass
+    try:
+        c_name = str(request.form['course_name'])
+    except:
+        pass
+    try:
+        l_info_maybe = str(request.form['lecture_info'])
+    except:
+        pass
+    try:
+        r_info_maybe = str(request.form['recitation_info'])
+    except:
+        pass
+    try:
+        h_info_maybe = str(request.form['homework_info'])
+    except:
+        pass
+    try:
+        e_info_maybe = str(request.form['exams_info'])
+    except:
+        pass
+    try:
+        f_info_maybe = str(request.form['final_info'])
+    except:
+        pass
 
     addition_info = {}
     if not l_info_maybe == "":
