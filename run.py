@@ -5,45 +5,16 @@ from math import ceil
 from settings import DEBUG, PER_PAGE
 import scheduler
 import secrets
+import random
+import smtplib
+import random
+import hashlib
 
 
 app = Flask(__name__)
 
 
 # Start of test area
-
-
-class Pagination(object):
-
-    def __init__(self, page, per_page, total_count):
-        self.page = page
-        self.per_page = per_page
-        self.total_count = total_count
-
-    @property
-    def pages(self):
-        return int(ceil(self.total_count / float(self.per_page)))
-
-    @property
-    def has_prev(self):
-        return self.page > 1
-
-    @property
-    def has_next(self):
-        return self.page < self.pages
-
-    def iter_pages(self, left_edge=2, left_current=2,
-                   right_current=5, right_edge=2):
-        last = 0
-        for num in xrange(1, self.pages + 1):
-            if num <= left_edge or \
-               (num > self.page - left_current - 1 and
-                num < self.page + right_current) or \
-               num > self.pages - right_edge:
-                if last + 1 != num:
-                    yield None
-                yield num
-                last = num
 
 
 def get_users_for_page(page_number, per_page, total_users):
@@ -61,12 +32,14 @@ def get_users_for_page(page_number, per_page, total_users):
 def count_all_users():
     return 51
 
+
 def is_last_page(page, count, per_page):
     if count <= (page * per_page):
         return True
     return False
 
-# Memoize the scheduler page
+
+# Memoize the scheduler page? - Faster but might not update
 
 
 @app.route('/users/', defaults={'page': 1})
@@ -196,6 +169,24 @@ def scheduleMe(someList):
     return render_template("sched.html", title="Scheduler", combos=deezCombos, combo_amount=combo_count)
 
 
+def sendMsg():
+    '''Takes in the name to identify the phone number address, and a message, and sends the message to the number'''
+    login = secrets.send_message()
+    server = smtplib.SMTP("smtp.gmail.com", 587)
+    server.starttls()
+    server.login(login['emailUsername'], login['emailPassword'])
+    rand_code = random.randint(0, 999999)
+    msg = str(rand_code)
+    server.sendmail(
+        'Messages',
+        login['phone_number'],
+        msg)
+    h = hashlib.md5()
+    h.update(str(rand_code))
+    hash_code = h.hexdigest()
+    return hash_code
+
+
 @app.route('/admin')
 def admin_view():
     my_dir = os.path.dirname(__file__)
@@ -206,12 +197,21 @@ def admin_view():
     for x in courses:
         course_list.append(x)
     course_list = sorted(course_list)
-    return render_template("admin_form.html", title='Admin', courses=course_list)
+    hash_code = sendMsg()
+    resp = make_response(
+        render_template("admin_form.html", title='Admin', courses=course_list))
+    resp.set_cookie('pass_hash', hash_code, max_age=None)
+    return resp
 
 
 @app.route('/admin', methods=['GET', 'POST'])
 def admin_view_post():
-    if str(request.form["admin_secret"]) == secrets.add_course_users():
+    hash_code = request.cookies.get('pass_hash')
+    text = request.form["admin_secret"]
+    j = hashlib.md5()
+    j.update(str(text))
+    hash_text = j.hexdigest()
+    if hash_code == hash_text:
         if (str(request.form['action_choice']) == 'add_co'):
             return render_template('add_course_form.html', title='Add')
         elif str(request.form['action_choice']) == 'edit_co':
@@ -236,7 +236,7 @@ def admin_view_post():
                 json.dump(courses, f)
             return render_template("index.html", title='Home', visted='True')
     else:
-        return 'Sorry you cant use this page.<br><b>' + str(request.form["admin_secret"]) + '</b> is not the secret code'
+        return 'Sorry you cant use this page.<br><b>' + str(request.form["admin_secret"]) + '</b> is not the secret code. '
 
 
 @app.route('/add_course', methods=['GET', 'POST'])

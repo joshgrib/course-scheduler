@@ -8,5 +8,6 @@ scp -r app joshgrib@ssh.pythonanywhere.com:mysite/app2
     password
 ssh joshgrib@ssh.pythonanywhere.com
     password
-cd mysiterm -r app
+cd mysite
+rm -r app
 mv app2 app
