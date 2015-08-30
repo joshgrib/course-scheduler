@@ -1,3 +1,4 @@
 *.pyc
 secrets.py
 templates/updating_pythonAnywhere
+heroku-deploy-env
