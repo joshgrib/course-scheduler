@@ -1,27 +1,23 @@
 #!/usr/bin/env python
 
 # Standard libraries
-'''
 import json
 import os
 import random
 import smtplib
 import random
 import hashlib
-'''
 # downloaded
 from flask import Flask, render_template, request, make_response, redirect
 # files
-'''
 from settings import DEBUG, PER_PAGE
 import scheduler
 import secrets
-'''
 
 
 app = Flask(__name__)
 
-"""
+
 # Start of test area
 
 # Watch - Heroku deployment instructions
@@ -69,15 +65,13 @@ def show_users(page):
 
 
 # End of test area
-"""
+
 # Start of actual stuff
 
 
 @app.route('/')
 @app.route('/index')
 def index():
-    return "Hi josh"
-    '''
     visited = request.cookies.get('visited')
     if visited == 'True':
         resp = make_response(
@@ -87,9 +81,8 @@ def index():
             render_template("index.html", title='Home', visited='False'))
         resp.set_cookie('visited', 'True', max_age=2592000, path='/')
     return resp
-    '''
 
-"""
+
 @app.route('/donate')
 def donate():
     return render_template("donate.html", title='Donate')
@@ -249,97 +242,110 @@ def admin_view_post():
             with open(json_file_path, 'w') as f:
                 json.dump(courses, f)
             return render_template("index.html", title='Home', visted='True')
-    else:
-        return 'Sorry you cant use this page.<br><b>' + str(request.form["admin_secret"]) + '</b> is not the secret code. '
+    return 'Sorry you cant use this page.<br><b>' + str(request.form["admin_secret"]) + '</b> is not the secret code. '
 
 
 @app.route('/add_course', methods=['GET', 'POST'])
 def add_course_view_post():
-    c_name = str(request.form['course_name'])
-    l_info_maybe = str(request.form['lecture_info'])
-    r_info_maybe = str(request.form['recitation_info'])
-    h_info_maybe = str(request.form['homework_info'])
-    e_info_maybe = str(request.form['exams_info'])
-    f_info_maybe = str(request.form['final_info'])
+    hash_code = request.cookies.get('pass_hash')
+    text = request.form["admin_secret"]
+    j = hashlib.md5()
+    j.update(str(text))
+    hash_text = j.hexdigest()
+    if hash_code == hash_text:
+        c_name = str(request.form['course_name'])
+        l_info_maybe = str(request.form['lecture_info'])
+        r_info_maybe = str(request.form['recitation_info'])
+        h_info_maybe = str(request.form['homework_info'])
+        e_info_maybe = str(request.form['exams_info'])
+        f_info_maybe = str(request.form['final_info'])
 
-    addition_info = {}
-    if not l_info_maybe == "None":
-        addition_info['Lecture'] = l_info_maybe
-    if not r_info_maybe == "None":
-        addition_info['Recitation'] = r_info_maybe
-    if not h_info_maybe == "None":
-        addition_info['Homework'] = h_info_maybe
-    if not e_info_maybe == "None":
-        addition_info['Exams'] = e_info_maybe
-    if not f_info_maybe == "None":
-        addition_info['Final'] = f_info_maybe
+        addition_info = {}
+        if not l_info_maybe == "None":
+            addition_info['Lecture'] = l_info_maybe
+        if not r_info_maybe == "None":
+            addition_info['Recitation'] = r_info_maybe
+        if not h_info_maybe == "None":
+            addition_info['Homework'] = h_info_maybe
+        if not e_info_maybe == "None":
+            addition_info['Exams'] = e_info_maybe
+        if not f_info_maybe == "None":
+            addition_info['Final'] = f_info_maybe
 
-    my_dir = os.path.dirname(__file__)
-    json_file_path = os.path.join(my_dir, 'courses.json')
-    with open(json_file_path, 'r') as f:
-        courses = json.load(f)
-    courses[c_name] = {'info': addition_info}
-    with open(json_file_path, 'w') as f:
-        json.dump(courses, f)
+        my_dir = os.path.dirname(__file__)
+        json_file_path = os.path.join(my_dir, 'courses.json')
+        with open(json_file_path, 'r') as f:
+            courses = json.load(f)
+        courses[c_name] = {'info': addition_info}
+        with open(json_file_path, 'w') as f:
+            json.dump(courses, f)
 
-    return render_template("index.html", title='Home', visted='True')
+        return render_template("index.html", title='Home', visted='True')
+    return 'Sorry you cant use this page.<br><b>' + str(request.form["admin_secret"]) + '</b> is not the secret code. '
 
 
 @app.route('/edit_course', methods=['GET', 'POST'])
 def edit_course_view_post():
-    try:
-        old_course_name = request.cookies.get('course_choice')
-    except:
-        pass
-    try:
-        c_name = str(request.form['course_name'])
-    except:
-        pass
-    try:
-        l_info_maybe = str(request.form['lecture_info'])
-    except:
-        pass
-    try:
-        r_info_maybe = str(request.form['recitation_info'])
-    except:
-        pass
-    try:
-        h_info_maybe = str(request.form['homework_info'])
-    except:
-        pass
-    try:
-        e_info_maybe = str(request.form['exams_info'])
-    except:
-        pass
-    try:
-        f_info_maybe = str(request.form['final_info'])
-    except:
-        pass
+    hash_code = request.cookies.get('pass_hash')
+    text = request.form["admin_secret"]
+    j = hashlib.md5()
+    j.update(str(text))
+    hash_text = j.hexdigest()
+    if hash_code == hash_text:
+        try:
+            old_course_name = request.cookies.get('course_choice')
+        except:
+            pass
+        try:
+            c_name = str(request.form['course_name'])
+        except:
+            pass
+        try:
+            l_info_maybe = str(request.form['lecture_info'])
+        except:
+            pass
+        try:
+            r_info_maybe = str(request.form['recitation_info'])
+        except:
+            pass
+        try:
+            h_info_maybe = str(request.form['homework_info'])
+        except:
+            pass
+        try:
+            e_info_maybe = str(request.form['exams_info'])
+        except:
+            pass
+        try:
+            f_info_maybe = str(request.form['final_info'])
+        except:
+            pass
 
-    addition_info = {}
-    if not l_info_maybe == "":
-        addition_info['Lecture'] = l_info_maybe
-    if not r_info_maybe == "":
-        addition_info['Recitation'] = r_info_maybe
-    if not h_info_maybe == "":
-        addition_info['Homework'] = h_info_maybe
-    if not e_info_maybe == "":
-        addition_info['Exams'] = e_info_maybe
-    if not f_info_maybe == "":
-        addition_info['Final'] = f_info_maybe
+        addition_info = {}
+        if not l_info_maybe == "":
+            addition_info['Lecture'] = l_info_maybe
+        if not r_info_maybe == "":
+            addition_info['Recitation'] = r_info_maybe
+        if not h_info_maybe == "":
+            addition_info['Homework'] = h_info_maybe
+        if not e_info_maybe == "":
+            addition_info['Exams'] = e_info_maybe
+        if not f_info_maybe == "":
+            addition_info['Final'] = f_info_maybe
 
-    my_dir = os.path.dirname(__file__)
-    json_file_path = os.path.join(my_dir, 'courses.json')
-    with open(json_file_path, 'r') as f:
-        courses = json.load(f)
-    courses[c_name] = courses[old_course_name]
-    del courses[old_course_name]
-    courses[c_name] = {'info': addition_info}
-    with open(json_file_path, 'w') as f:
-        json.dump(courses, f)
+        my_dir = os.path.dirname(__file__)
+        json_file_path = os.path.join(my_dir, 'courses.json')
+        with open(json_file_path, 'r') as f:
+            courses = json.load(f)
+        courses[c_name] = courses[old_course_name]
+        del courses[old_course_name]
+        courses[c_name] = {'info': addition_info}
+        with open(json_file_path, 'w') as f:
+            json.dump(courses, f)
 
-    return render_template("index.html", title='Home', visted='True')
-"""
+        return render_template("index.html", title='Home', visted='True')
+    return 'Sorry you cant use this page.<br><b>' + str(request.form["admin_secret"]) + '</b> is not the secret code. '
+
 
 if __name__ == '__main__':
     app.run()
