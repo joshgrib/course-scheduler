@@ -22,8 +22,8 @@ app = Flask(__name__)
 
 # Start of test area
 
-#Watch - Heroku deployment instructions
-#https://www.youtube.com/watch?v=pmRT8QQLIqk
+# Watch - Heroku deployment instructions
+# https://www.youtube.com/watch?v=pmRT8QQLIqk
 
 def get_users_for_page(page_number, per_page, total_users):
     users = []
@@ -334,5 +334,6 @@ def edit_course_view_post():
 
     return render_template("index.html", title='Home', visted='True')
 
-if DEBUG:
-    app.run(debug=True)
+
+if __name__ == '__main__':
+    app.run()
