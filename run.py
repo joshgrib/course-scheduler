@@ -176,7 +176,7 @@ def scheduleMe(someList):
     combo_count = str(len(deezCombos))
     return render_template("sched.html", title="Scheduler", combos=deezCombos, combo_amount=combo_count)
 
-
+"""
 def sendMsg():
     '''Takes in the name to identify the phone number address, and a message, and sends the message to the number'''
     login = secrets.send_message()
@@ -333,7 +333,7 @@ def edit_course_view_post():
         json.dump(courses, f)
 
     return render_template("index.html", title='Home', visted='True')
-
+"""
 
 if __name__ == '__main__':
     app.run(debug=True, port=33507)
