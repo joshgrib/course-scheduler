@@ -1,14 +1,20 @@
+#!/usr/bin/env python
+"""The core file for running the flask site - SIT Stuff"""
+__author__ = 'Josh Gribbon'
+
+# Standard libraries
 import json
 import os
-from flask import Flask, render_template, request, make_response, redirect
-from math import ceil
-from settings import DEBUG, PER_PAGE
-import scheduler
-import secrets
 import random
 import smtplib
 import random
 import hashlib
+# downloaded
+from flask import Flask, render_template, request, make_response, redirect
+# files
+from settings import DEBUG, PER_PAGE
+import scheduler
+import secrets
 
 
 app = Flask(__name__)
@@ -16,6 +22,8 @@ app = Flask(__name__)
 
 # Start of test area
 
+#Watch - Heroku deployment instructions
+#https://www.youtube.com/watch?v=pmRT8QQLIqk
 
 def get_users_for_page(page_number, per_page, total_users):
     users = []
