@@ -1,18 +1,22 @@
 #!/usr/bin/env python
 
 # Standard libraries
+'''
 import json
 import os
 import random
 import smtplib
 import random
 import hashlib
+'''
 # downloaded
 from flask import Flask, render_template, request, make_response, redirect
 # files
+'''
 from settings import DEBUG, PER_PAGE
 import scheduler
 import secrets
+'''
 
 
 app = Flask(__name__)
@@ -72,6 +76,8 @@ def show_users(page):
 @app.route('/')
 @app.route('/index')
 def index():
+    return "Hi josh"
+    '''
     visited = request.cookies.get('visited')
     if visited == 'True':
         resp = make_response(
@@ -81,6 +87,7 @@ def index():
             render_template("index.html", title='Home', visited='False'))
         resp.set_cookie('visited', 'True', max_age=2592000, path='/')
     return resp
+    '''
 
 """
 @app.route('/donate')
