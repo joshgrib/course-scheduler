@@ -1,6 +1,4 @@
 #!/usr/bin/env python
-"""The core file for running the flask site - SIT Stuff"""
-__author__ = 'Josh Gribbon'
 
 # Standard libraries
 import json
@@ -19,7 +17,7 @@ import secrets
 
 app = Flask(__name__)
 
-
+"""
 # Start of test area
 
 # Watch - Heroku deployment instructions
@@ -67,6 +65,7 @@ def show_users(page):
 
 
 # End of test area
+"""
 # Start of actual stuff
 
 
@@ -83,7 +82,7 @@ def index():
         resp.set_cookie('visited', 'True', max_age=2592000, path='/')
     return resp
 
-
+"""
 @app.route('/donate')
 def donate():
     return render_template("donate.html", title='Donate')
@@ -176,7 +175,7 @@ def scheduleMe(someList):
     combo_count = str(len(deezCombos))
     return render_template("sched.html", title="Scheduler", combos=deezCombos, combo_amount=combo_count)
 
-"""
+
 def sendMsg():
     '''Takes in the name to identify the phone number address, and a message, and sends the message to the number'''
     login = secrets.send_message()
