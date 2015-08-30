@@ -342,4 +342,4 @@ def edit_course_view_post():
 """
 
 if __name__ == '__main__':
-    app.run(debug=True, port=33507)
+    app.run()
