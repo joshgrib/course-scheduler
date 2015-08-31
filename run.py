@@ -176,6 +176,9 @@ def scheduleMe(someList):
     return render_template("sched.html", title="Scheduler", combos=deezCombos, combo_amount=combo_count)
 
 
+hash_code = ""
+
+
 def sendMsg():
     '''Takes in the name to identify the phone number address, and a message, and sends the message to the number'''
     login = secrets.send_message()
@@ -190,8 +193,8 @@ def sendMsg():
         msg)
     h = hashlib.md5()
     h.update(str(rand_code))
+    global hash_code
     hash_code = h.hexdigest()
-    return hash_code
 
 
 @app.route('/admin')
@@ -204,20 +207,17 @@ def admin_view():
     for x in courses:
         course_list.append(x)
     course_list = sorted(course_list)
-    hash_code = sendMsg()
-    resp = make_response(
-        render_template("admin_form.html", title='Admin', courses=course_list))
-    resp.set_cookie('pass_hash', hash_code, max_age=None)
-    return resp
+    sendMsg() #sets global hash_code variable
+    return render_template("admin_form.html", title='Admin', courses=course_list)
 
 
 @app.route('/admin', methods=['GET', 'POST'])
 def admin_view_post():
-    hash_code = request.cookies.get('pass_hash')
     text = request.form["admin_secret"]
     j = hashlib.md5()
     j.update(str(text))
     hash_text = j.hexdigest()
+    global hash_code
     if hash_code == hash_text:
         if (str(request.form['action_choice']) == 'add_co'):
             return render_template('add_course_form.html', title='Add')
@@ -247,11 +247,11 @@ def admin_view_post():
 
 @app.route('/add_course', methods=['GET', 'POST'])
 def add_course_view_post():
-    hash_code = request.cookies.get('pass_hash')
     text = request.form["admin_secret"]
     j = hashlib.md5()
     j.update(str(text))
     hash_text = j.hexdigest()
+    global hash_code
     if hash_code == hash_text:
         c_name = str(request.form['course_name'])
         l_info_maybe = str(request.form['lecture_info'])
@@ -286,11 +286,11 @@ def add_course_view_post():
 
 @app.route('/edit_course', methods=['GET', 'POST'])
 def edit_course_view_post():
-    hash_code = request.cookies.get('pass_hash')
     text = request.form["admin_secret"]
     j = hashlib.md5()
     j.update(str(text))
     hash_text = j.hexdigest()
+    global hash_code
     if hash_code == hash_text:
         try:
             old_course_name = request.cookies.get('course_choice')
