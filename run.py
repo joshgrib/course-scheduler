@@ -5,66 +5,17 @@ import json
 import os
 import random
 import smtplib
-import random
 import hashlib
 # downloaded
 from flask import Flask, render_template, request, make_response, redirect
 # files
-from settings import DEBUG, PER_PAGE
+from settings import PER_PAGE
 import scheduler
 import secrets
 
 
 app = Flask(__name__)
 
-
-# Start of test area
-
-# Watch - Heroku deployment instructions
-# https://www.youtube.com/watch?v=pmRT8QQLIqk
-
-def get_users_for_page(page_number, per_page, total_users):
-    users = []
-    for i in range(total_users):
-        users += ['Josh' + str(i + 1)]
-    # 20 users, 5 per page, page 3, start = 10
-    users_start = per_page * (page_number - 1)
-    users_end = users_start + per_page
-    if users_start > total_users:
-        return False
-    return users[users_start:users_end]
-
-
-def count_all_users():
-    return 51
-
-
-def is_last_page(page, count, per_page):
-    if count <= (page * per_page):
-        return True
-    return False
-
-
-# Memoize the scheduler page? - Faster but might not update
-
-
-@app.route('/users/', defaults={'page': 1})
-@app.route('/users/page/<int:page>')
-def show_users(page):
-    count = count_all_users()
-    users = get_users_for_page(page, PER_PAGE, count)
-    last_page = is_last_page(page, count, PER_PAGE)
-    if not users and page != 1:
-        return "404 - Not that many users"
-    return render_template('users_test.html',
-                           users=users,
-                           page=page,
-                           count=count,
-                           last_page=last_page
-                           )
-
-
-# End of test area
 
 # Start of actual stuff
 
@@ -208,7 +159,8 @@ def scheduleMe(page):
                            combos=this_page_combos,
                            combo_amount=str(count),
                            page=page,
-                           last_page=last_page)
+                           last_page=last_page,
+                           per_page=PER_PAGE)
 
 
 hash_code_ = ""
