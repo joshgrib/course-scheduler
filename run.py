@@ -156,27 +156,62 @@ def my_form_post():
     for text in text_list:
         if not text == "":
             final_list.append(text)
-    printout = ""
+    course_list = ""
     for course in final_list[:-1]:
-        printout += (str(course) + ',')
-    printout += str(final_list[-1])
-    printout = printout.upper()
-    my_url = '/sched/' + printout
+        course_list += (str(course) + ',')
+    course_list += str(final_list[-1])
+    course_list = course_list.upper()
+    #my_url = '/sched'
 
-    return redirect(my_url)
-
-
-@app.route('/sched/<someList>')
-def scheduleMe(someList):
-    # format the list into a python list based on the commas
-    courseList = someList.split(',')
-    deezCombos = scheduler.schedule(courseList)
-    # render it all with the template
-    combo_count = str(len(deezCombos))
-    return render_template("sched.html", title="Scheduler", combos=deezCombos, combo_amount=combo_count)
+    real_course_list = course_list.split(',')
+    my_combos = scheduler.schedule(real_course_list)
+    resp = make_response(redirect('/sched'))
+    resp.set_cookie('course_combos', json.dumps(my_combos))
+    return resp
 
 
-hash_code = ""
+def getCombosForPage(page_num, per_page, count_of_combos, combos):
+    """Returns the set of combos for the current page"""
+    combos_start = (per_page * (page_num - 1)) + 1
+    combos_end = combos_start + per_page
+    these_combos = {}
+    for key in range(combos_start, combos_end):
+        try:
+            # if new dict is not an int schedules are not sorted on the page
+            these_combos[key] = combos[str(key)]
+        except KeyError:
+            pass
+    return these_combos
+
+
+def isLastPage(page_num, count_of_combos, per_page):
+    """Return True if this is the last page in the pagination"""
+    if count_of_combos <= (page_num * per_page):
+        return True
+    return False
+
+
+@app.route('/sched/', defaults={'page': 1})
+@app.route('/sched/page/<int:page>')
+def scheduleMe(page):
+    deezCombos = json.loads(request.cookies.get('course_combos'))
+    count = len(deezCombos)
+    if count > PER_PAGE:
+        this_page_combos = getCombosForPage(page, PER_PAGE, count, deezCombos)
+    else:
+        this_page_combos = deezCombos
+    last_page = isLastPage(page, count, PER_PAGE)
+    if not this_page_combos and page != 1:
+        return '404 - Not that many schedules'
+    return render_template("sched.html",
+                           title="Scheduler",
+                           combos=this_page_combos,
+                           combo_amount=str(count),
+                           page=page,
+                           last_page=last_page)
+
+
+hash_code_ = ""
 
 
 def sendMsg():
@@ -193,8 +228,8 @@ def sendMsg():
         msg)
     h = hashlib.md5()
     h.update(str(rand_code))
-    global hash_code
-    hash_code = h.hexdigest()
+    global hash_code_
+    hash_code_ = h.hexdigest()
 
 
 @app.route('/admin')
@@ -207,7 +242,7 @@ def admin_view():
     for x in courses:
         course_list.append(x)
     course_list = sorted(course_list)
-    sendMsg() #sets global hash_code variable
+    sendMsg()  # sets global hash_code_ variable
     return render_template("admin_form.html", title='Admin', courses=course_list)
 
 
@@ -217,8 +252,8 @@ def admin_view_post():
     j = hashlib.md5()
     j.update(str(text))
     hash_text = j.hexdigest()
-    global hash_code
-    if hash_code == hash_text:
+    global hash_code_
+    if hash_code_ == hash_text:
         if (str(request.form['action_choice']) == 'add_co'):
             return render_template('add_course_form.html', title='Add')
         elif str(request.form['action_choice']) == 'edit_co':
@@ -251,8 +286,8 @@ def add_course_view_post():
     j = hashlib.md5()
     j.update(str(text))
     hash_text = j.hexdigest()
-    global hash_code
-    if hash_code == hash_text:
+    global hash_code_
+    if hash_code_ == hash_text:
         c_name = str(request.form['course_name'])
         l_info_maybe = str(request.form['lecture_info'])
         r_info_maybe = str(request.form['recitation_info'])
@@ -290,8 +325,8 @@ def edit_course_view_post():
     j = hashlib.md5()
     j.update(str(text))
     hash_text = j.hexdigest()
-    global hash_code
-    if hash_code == hash_text:
+    global hash_code_
+    if hash_code_ == hash_text:
         try:
             old_course_name = request.cookies.get('course_choice')
         except:
@@ -348,4 +383,4 @@ def edit_course_view_post():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

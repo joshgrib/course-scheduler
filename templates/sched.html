@@ -1,9 +1,24 @@
 <!-- extend base layout -->
 {% extends "base.html" %}
 {% block content %}
+    <div class=pagination>
+    <h3>
+      {% if page != 1 %}
+        <a href="/sched/page/{{page - 1}} ">&laquo; Prev Page</a>
+      {% else %}
+        &laquo; Prev Page
+      {% endif %}
+      |||
+      {% if last_page %}
+        Next Page &raquo;
+      {% else %}
+        <a href="/sched/page/{{page + 1}}">Next Page &raquo;</a>
+      {% endif %}
+    </h3>
+    </div>
+
     <h2>You have {{ combo_amount }} posssible schedules</h2>
-    <h4>Want to look at this later? Just save the url! The only difference will be next time you'll have the most updated possibilities according to the Stevens Scheduler API (the thing that runs the scheduler website)</h4>
-    <h4>Want to look at this later? Just save the url! The only difference will be next time you'll have the most updated possibilities according to the Stevens Scheduler API</h4>
+    <h4>This stores a cookie with your course combos, so if you go to this page again you shouldn't have to do the form all over again</h4>
     *Seeing some blank schedules or cut off boxes? The schedule images are basically windows into the stevens scheduler website, and sometimes it loads weird. Just scroll a little in the box are it should fix itself!
 
     {% for combo in combos %}
@@ -18,5 +33,21 @@
     </div>
     <hr>
     {% endfor %}
+
+    <div class=pagination>
+    <h3>
+      {% if page != 1 %}
+        <a href="/sched/page/{{page - 1}} ">&laquo; Prev Page</a>
+      {% else %}
+        &laquo; Prev Page
+      {% endif %}
+      |||
+      {% if last_page %}
+        Next Page &raquo;
+      {% else %}
+        <a href="/sched/page/{{page + 1}}">Next Page &raquo;</a>
+      {% endif %}
+    </h3>
+    </div>
 
 {% endblock %}
