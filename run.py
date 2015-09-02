@@ -8,7 +8,7 @@ import smtplib
 import random
 import hashlib
 # downloaded
-from flask import Flask, render_template, request, make_response, redirect
+from flask import Flask, render_template, request, make_response, redirect, session
 # files
 from settings import DEBUG, PER_PAGE
 import scheduler
@@ -17,6 +17,7 @@ import secrets
 
 app = Flask(__name__)
 
+app.secret_key = secrets.app_secret()
 
 # Start of test area
 
@@ -211,9 +212,6 @@ def scheduleMe(page):
                            last_page=last_page)
 
 
-hash_code_ = ""
-
-
 def sendMsg():
     '''Takes in the name to identify the phone number address, and a message, and sends the message to the number'''
     login = secrets.send_message()
@@ -228,8 +226,8 @@ def sendMsg():
         msg)
     h = hashlib.md5()
     h.update(str(rand_code))
-    global hash_code_
-    hash_code_ = h.hexdigest()
+    hash_code = h.hexdigest()
+    session['hash_code'] = hash_code
 
 
 @app.route('/admin')
@@ -242,7 +240,7 @@ def admin_view():
     for x in courses:
         course_list.append(x)
     course_list = sorted(course_list)
-    sendMsg()  # sets global hash_code_ variable
+    sendMsg()  # sets global hash_code variable
     return render_template("admin_form.html", title='Admin', courses=course_list)
 
 
@@ -252,8 +250,8 @@ def admin_view_post():
     j = hashlib.md5()
     j.update(str(text))
     hash_text = j.hexdigest()
-    global hash_code_
-    if hash_code_ == hash_text:
+    hash_code = session['hash_code']
+    if hash_code == hash_text:
         if (str(request.form['action_choice']) == 'add_co'):
             return render_template('add_course_form.html', title='Add')
         elif str(request.form['action_choice']) == 'edit_co':
@@ -286,8 +284,8 @@ def add_course_view_post():
     j = hashlib.md5()
     j.update(str(text))
     hash_text = j.hexdigest()
-    global hash_code_
-    if hash_code_ == hash_text:
+    hash_code = session['hash_code']
+    if hash_code == hash_text:
         c_name = str(request.form['course_name'])
         l_info_maybe = str(request.form['lecture_info'])
         r_info_maybe = str(request.form['recitation_info'])
@@ -325,8 +323,8 @@ def edit_course_view_post():
     j = hashlib.md5()
     j.update(str(text))
     hash_text = j.hexdigest()
-    global hash_code_
-    if hash_code_ == hash_text:
+    hash_code = session['hash_code']
+    if hash_code == hash_text:
         try:
             old_course_name = request.cookies.get('course_choice')
         except:
@@ -384,3 +382,4 @@ def edit_course_view_post():
 
 if __name__ == '__main__':
     app.run(debug=True)
+    session['hash_code'] = ""
