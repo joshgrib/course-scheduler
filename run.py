@@ -11,12 +11,10 @@ from flask import Flask, render_template, request, make_response, redirect, sess
 # files
 from settings import PER_PAGE
 import scheduler
-import secrets
 
 
 app = Flask(__name__)
 
-app.secret_key = secrets.app_secret()
 
 # Start of actual stuff
 
@@ -33,11 +31,6 @@ def index():
             render_template("index.html", title='Home', visited='False'))
         resp.set_cookie('visited', 'True', max_age=2592000, path='/')
     return resp
-
-
-@app.route('/donate')
-def donate():
-    return render_template("donate.html", title='Donate')
 
 
 @app.route('/courses')
@@ -162,174 +155,6 @@ def scheduleMe(page):
                            page=page,
                            last_page=last_page,
                            per_page=PER_PAGE)
-
-
-def sendMsg():
-    '''Takes in the name to identify the phone number address, and a message, and sends the message to the number'''
-    login = secrets.send_message()
-    server = smtplib.SMTP("smtp.gmail.com", 587)
-    server.starttls()
-    server.login(login['emailUsername'], login['emailPassword'])
-    rand_code = random.randint(0, 999999)
-    msg = str(rand_code)
-    server.sendmail(
-        'Messages',
-        login['phone_number'],
-        msg)
-    h = hashlib.md5()
-    h.update(str(rand_code))
-    hash_code = h.hexdigest()
-    session['hash_code'] = hash_code
-
-
-@app.route('/admin')
-def admin_view():
-    my_dir = os.path.dirname(__file__)
-    json_file_path = os.path.join(my_dir, 'courses.json')
-    with open(json_file_path, 'r') as f:
-        courses = json.load(f)
-    course_list = []
-    for x in courses:
-        course_list.append(x)
-    course_list = sorted(course_list)
-    sendMsg()  # sets global hash_code variable
-    return render_template("admin_form.html", title='Admin', courses=course_list)
-
-
-@app.route('/admin', methods=['GET', 'POST'])
-def admin_view_post():
-    text = request.form["admin_secret"]
-    j = hashlib.md5()
-    j.update(str(text))
-    hash_text = j.hexdigest()
-    hash_code = session['hash_code']
-    if hash_code == hash_text:
-        if (str(request.form['action_choice']) == 'add_co'):
-            return render_template('add_course_form.html', title='Add')
-        elif str(request.form['action_choice']) == 'edit_co':
-            my_dir = os.path.dirname(__file__)
-            json_file_path = os.path.join(my_dir, 'courses.json')
-            with open(json_file_path, 'r') as f:
-                courses = json.load(f)
-            course_info = courses[request.form['course_choice']]['info']
-            resp = make_response(render_template(
-                'edit_course_form.html', course_info=course_info, course_name=request.form['course_choice'], title='Edit'))
-            resp.set_cookie(
-                'course_choice', str(request.form['course_choice']), max_age=None)
-            return resp
-        elif str(request.form['action_choice']) == 'remove_co':
-            my_dir = os.path.dirname(__file__)
-            json_file_path = os.path.join(my_dir, 'courses.json')
-            with open(json_file_path, 'r') as f:
-                courses = json.load(f)
-            if request.form['course_choice'] in courses:
-                del courses[request.form['course_choice']]
-            with open(json_file_path, 'w') as f:
-                json.dump(courses, f)
-            return render_template("index.html", title='Home', visted='True')
-    return 'Sorry you cant use this page.<br><b>' + str(request.form["admin_secret"]) + '</b> is not the secret code. '
-
-
-@app.route('/add_course', methods=['GET', 'POST'])
-def add_course_view_post():
-    text = request.form["admin_secret"]
-    j = hashlib.md5()
-    j.update(str(text))
-    hash_text = j.hexdigest()
-    hash_code = session['hash_code']
-    if hash_code == hash_text:
-        c_name = str(request.form['course_name'])
-        l_info_maybe = str(request.form['lecture_info'])
-        r_info_maybe = str(request.form['recitation_info'])
-        h_info_maybe = str(request.form['homework_info'])
-        e_info_maybe = str(request.form['exams_info'])
-        f_info_maybe = str(request.form['final_info'])
-
-        addition_info = {}
-        if not l_info_maybe == "None":
-            addition_info['Lecture'] = l_info_maybe
-        if not r_info_maybe == "None":
-            addition_info['Recitation'] = r_info_maybe
-        if not h_info_maybe == "None":
-            addition_info['Homework'] = h_info_maybe
-        if not e_info_maybe == "None":
-            addition_info['Exams'] = e_info_maybe
-        if not f_info_maybe == "None":
-            addition_info['Final'] = f_info_maybe
-
-        my_dir = os.path.dirname(__file__)
-        json_file_path = os.path.join(my_dir, 'courses.json')
-        with open(json_file_path, 'r') as f:
-            courses = json.load(f)
-        courses[c_name] = {'info': addition_info}
-        with open(json_file_path, 'w') as f:
-            json.dump(courses, f)
-
-        return render_template("index.html", title='Home', visted='True')
-    return 'Sorry you cant use this page.<br><b>' + str(request.form["admin_secret"]) + '</b> is not the secret code. '
-
-
-@app.route('/edit_course', methods=['GET', 'POST'])
-def edit_course_view_post():
-    text = request.form["admin_secret"]
-    j = hashlib.md5()
-    j.update(str(text))
-    hash_text = j.hexdigest()
-    hash_code = session['hash_code']
-    if hash_code == hash_text:
-        try:
-            old_course_name = request.cookies.get('course_choice')
-        except:
-            pass
-        try:
-            c_name = str(request.form['course_name'])
-        except:
-            pass
-        try:
-            l_info_maybe = str(request.form['lecture_info'])
-        except:
-            pass
-        try:
-            r_info_maybe = str(request.form['recitation_info'])
-        except:
-            pass
-        try:
-            h_info_maybe = str(request.form['homework_info'])
-        except:
-            pass
-        try:
-            e_info_maybe = str(request.form['exams_info'])
-        except:
-            pass
-        try:
-            f_info_maybe = str(request.form['final_info'])
-        except:
-            pass
-
-        addition_info = {}
-        if not l_info_maybe == "":
-            addition_info['Lecture'] = l_info_maybe
-        if not r_info_maybe == "":
-            addition_info['Recitation'] = r_info_maybe
-        if not h_info_maybe == "":
-            addition_info['Homework'] = h_info_maybe
-        if not e_info_maybe == "":
-            addition_info['Exams'] = e_info_maybe
-        if not f_info_maybe == "":
-            addition_info['Final'] = f_info_maybe
-
-        my_dir = os.path.dirname(__file__)
-        json_file_path = os.path.join(my_dir, 'courses.json')
-        with open(json_file_path, 'r') as f:
-            courses = json.load(f)
-        courses[c_name] = courses[old_course_name]
-        del courses[old_course_name]
-        courses[c_name] = {'info': addition_info}
-        with open(json_file_path, 'w') as f:
-            json.dump(courses, f)
-
-        return render_template("index.html", title='Home', visted='True')
-    return 'Sorry you cant use this page.<br><b>' + str(request.form["admin_secret"]) + '</b> is not the secret code. '
 
 
 if __name__ == '__main__':
