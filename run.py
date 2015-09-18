@@ -8,10 +8,12 @@ import smtplib
 import hashlib
 # downloaded
 from flask import Flask, render_template, request, make_response, redirect, session
+# from flask.ext.sqlalchemy import SQLAlchemy #http://flask-sqlalchemy.pocoo.org/2.0/quickstart/
 # files
 from settings import PER_PAGE
 import scheduler
 import secrets
+import course_class
 
 
 app = Flask(__name__)
