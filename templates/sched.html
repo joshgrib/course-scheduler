@@ -18,8 +18,16 @@
     </div>
 
     <h2>You have {{ combo_amount }} posssible schedules</h2>
+<<<<<<< HEAD
 
     *Seeing some blank schedules or cut off boxes? The schedule images are basically windows into the stevens scheduler website, and sometimes it loads weird. Just scroll a little in the box are it should fix itself!
+=======
+    <p>Showing {{per_page}} schedules per page</p>
+    {% if page == 1 %}
+      <p>This stores a cookie with your course combos, so if you go to this page again you shouldn't have to do the form all over again</p>
+      <p>*Seeing some blank schedules or cut off boxes? The schedule images are basically windows into the stevens scheduler website, and sometimes it loads weird. Just scroll a little in the box are it should fix itself!</p>
+    {% endif %}
+>>>>>>> a9a09995031a9de23a70a0c020b629c87a04eddf
 
     {% for combo in combos %}
     <div id="large-3 columns">
