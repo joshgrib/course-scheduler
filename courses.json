@@ -3,15 +3,13 @@
     "info": {
         "Lecture": "1 3-hour lecture per week",
         "Final": "Final project - about 10 weeks of class time. Design, build, and code a robot to autonomously navigating and complete simple tasks using the Arduino programming language. Large written report. Short in-class presentation",
-        "Homework": "Short readings the first few weeks, then the written report at the end"}}, "Unknown": {
-        "materials": ["I dont know what class these books are for, but they arere here. If you know feel free to send an email so I know where to put them"],
+        "Homework": "Short readings the first few weeks, then the written report at the end"}},
+"Unknown": {
+    "materials": ["I dont know what class these books are for, but they arere here. If you know feel free to send an email so I know where to put them"],
     "books": {
         "1": {
-            "url": "http://sitstuff.com/books/StewartCalculusConceptsandContexts4th.pdf",
-            "name": "Stewart Calculus Concepts and Contexts - 4th Edition"},
-        "2": {
-            "url": "http://sitstuff.com/books/ElectricalEngineeringPrinciplesandApplicationsSixthEdition.pdf",
-            "name": "Electrical Engineering Principles and Applications - Sixth Edition"}}},
+            "url": "StewartCalculusConceptsandContexts4th.pdf",
+            "name": "Stewart Calculus Concepts and Contexts - 4th Edition"}}},
 "CH 115 - Chemistry 1": {
     "info": {
         "Lecture": "2 1-hour lectures per week. Most people stop going after 3 weeks or so, obviously people that go more generally do better",
@@ -21,7 +19,7 @@
         "Final": "4 hour allotted time, generally takes 1-2.5 hour"},
     "books": {
         "1": {
-            "url": "http://sitstuff.com/books/First_Semester/ZumdahlChem9.pdf",
+            "url": "ch115_9e.pdf",
             "name": "Zumdahl Chemistry 9th Edition"}},
     "materials": ["OWLv2 Online Course - Not actually used for most recitations"]},
 "E  115 - Introduction to Programming": {
@@ -34,7 +32,11 @@
     "info": {"Labs": "Every week labs let out early. Turn in the lab report the following week. There is a midterm and final for the lab portion. The lab is 1/3 of final grade",
     "Lecture": "Kevin Ryan + his power point slides a few times a week.",
     "Exams": "Several exams throughout the year.",
-    "Homework": "A few problems from the book due every two weeks or so. There is also sometimes \"problem of the week\" that is a harder problem that you have a week or two to do. Every homework has a cover page and they are on canvas along with all slides."}},
+    "Homework": "A few problems from the book due every two weeks or so. There is also sometimes \"problem of the week\" that is a harder problem that you have a week or two to do. Every homework has a cover page and they are on canvas along with all slides."},
+    "books":{
+        "1": {
+            "url": "e245_6e.pdf",
+            "name" : "Electrical Engineering Principles and Applications - Sixth Edition"}}},
 "QF 101": {
     "info": {
         "Lecture": "One 2-hour and one 1-hour lecture per week. Starts with a quiz on the WSJ, then powerpoints and videos",
@@ -53,15 +55,15 @@
         "Final": "Final project - 3D Model with several parts, detail drawings for each, short in-class presentation"},
     "books": {
         "1": {
-            "url": "http://sitstuff.com/books/First_Semester/Graphics.pdf",
+            "url": "e120_4e.pdf",
             "name": "Graphics Communications for Engineers"}}},
 "CS 135 - Discrete Structures": {
     "books": {
         "1": {
-            "url": "http://sitstuff.com/books/First_Semester/McGraw.Hill.Discrete.Mathematics.and.Its.Applications.7th.Edition.Jun.2011.pdf",
-            "name": "Discrete Mathematics and Its Applications - McGraw Hill 7th Edition"},
+            "url": "cs135_7e.pdf",
+            "name": "Discrete Mathematics and Its Applications - McGraw Hill 7th FEdition"},
         "2": {
-            "url": "http://sitstuff.com/books/First_Semester/TheLittleSchemer4thEd.pdf",
+            "url": "cs135_Schemer_4e.pdf",
             "name": "The Little Schemer - 4th Edition"}}},
 "H  184 - Research Seminar II": {
     "info": {
@@ -70,7 +72,7 @@
 "E  126 - Mechanics of Solids - \"Mech Solids\"": {
         "books": {
             "1": {
-                "url": "http://sitstuff.com/books/engineering/E126.pdf",
+                "url": "e126_4e.pdf",
                 "name": "Statics and Mechanics of Materials - Hibbeler 4th Edition"}}},
 "MA 221 - Differential Equations - \"DifEq\"": {
     "info": {
@@ -81,7 +83,7 @@
         "Final": "I havent had the final yet"},
     "books": {
         "1": {
-            "url": "http://sitstuff.com/books/general/NagleFundamentalsDifferentialEquationsBoundaryValueProblems6th.pdf",
+            "url": "ma221_8e.pdf",
             "name": "Fundamental Differential Equations & Boundary Value Problems - Nagle 6th Edition"}}},
 "MA 121-4 - Calc 1 & Calc 2": {
     "info": {
@@ -92,7 +94,7 @@
         "Final": "4-hours allotted time, generally takes 1.5-2.5 hours"},
     "books": {
         "1": {
-            "url": "http://sitstuff.com/books/general/HughesHalletCalculus6thEdition.pdf",
+            "url": "ma121-124_6e.pdf",
             "name": "Hughes-Hallett Calculus 6th Edition"}},
     "materials": ["WileyPLUS Online Course", "Gradarius Online - only for Calc 1"]},
 "CAL105 - Knowledge, Nature, and Culture": {
@@ -120,7 +122,7 @@
     "materials": ["Lab Goggles"],
     "books": {
         "1": {
-            "url": "http://sitstuff.com/books/general/ChemistryLabManual.pdf",
+            "url": "ch117_10e.pdf",
             "name": "Chemistry Lab Manual - This book has all the lab forms and info in it. You need to print them out before every lab, they should also all be available on Canvas"}}},
 "MA 188 - Seminar in Math Sciences": {
     "info": {
@@ -131,7 +133,7 @@
 "MGT103 - Introduction to Entrepreneurial Thinking - \"Intro to Entro\"": {
     "books": {
         "1": {
-            "url": "http://sitstuff.com/books/engineering/RunningLean2ndEdition.pdf",
+            "url": "mgt103_2e.pdf",
             "name": "Running Lean 2nd Edition"}}},
 "PEP111 - Mechanics": {
     "info": {
@@ -142,7 +144,7 @@
         "Final": "I havent had the final yet"},
     "books": {
         "1": {
-            "url": "http://sitstuff.com/books/First_Semester/PhysicSciEng3rdKnight.pdf",
+            "url": "pep111_3e.pdf",
             "name": "Physics - Knight 3rd Edition"}},
     "materials": ["Mastering Physics Online Subscription"]},
 "H  183 - Research Seminar I": {
@@ -157,10 +159,10 @@
         "Final": "Time and format varies greatly by professor. Anything from several short questions to several essays"},
     "books": {
         "1": {
-            "url": "/files/books/cal/cal103_hacker.pdf",
+            "url": "cal103_hacker_6e.pdf",
             "name": "A Pocket Style Manual - Diana Hacker"},
         "2": {
-            "url": "http://sitstuff.com/books/First_Semester/CAL103-AWorldofIdeas.pdf",
+            "url": "cal103.pdf",
             "name": "A World of Ideas"}}},
 "E  122 - Engineering Design 2 - \"D2\"": {
     "info": {
@@ -170,7 +172,7 @@
     "materials": ["LabView, which is on the laptop the school gives you"]}, "MA 222 - Probability and Statistics for Engineers - \"ProbStats\"": {
         "books": {
             "1": {
-                "url": "http://sitstuff.com/books/general/Prob&Stats_Devore_8e.pdf",
+                "url": "ma222_8e.pdf",
                 "name": "Probability and Statistics for Engineering and the Sciences - Devore 8th Edition"}}},
 "CS 188 - Seminar in Computer Science": {
     "info": {
