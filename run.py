@@ -49,23 +49,30 @@ def courses():
     with open(json_file_path, 'r') as f:
         these_courses = json.load(f)
     # so I can list the courses in order
-    sorted_courses = sorted(these_courses)
+
+    courses = course_class.load_data()
+
+    #get sorted course list
+    sorted_courses = sorted(courses, key=lambda x: x.dept+x.num)
+
+    #get unique depts for links
     course_letters = []
     for course in sorted_courses:
-        if not course[0] in course_letters:
-            course_letters.append(course[0])
+        if not course.dept in course_letters:
+            course_letters.append(course.dept)
+
     visited = request.cookies.get('visited')
     if visited == 'True':
         resp = make_response(render_template('courses.html',
                                              title='Courses',
-                                             courses=these_courses,
+                                             courses=courses,
                                              sorted_c=sorted_courses,
                                              letter_links=course_letters,
                                              visited='True'))
     else:
         resp = make_response(render_template('courses.html',
                                              title='Courses',
-                                             courses=these_courses,
+                                             courses=courses,
                                              sorted_c=sorted_courses,
                                              letter_links=course_letters,
                                              visited='False'))

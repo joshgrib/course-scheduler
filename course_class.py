@@ -1,15 +1,25 @@
 '''
 Class to represent courses for the course info page on sitstuff
 '''
+import os
+import pickle
 
+def remove_spaces(my_str):
+    """Remove the spaces from the end of a string"""
+    if(my_str == ""):
+        return ""
+    if(my_str[-1] == " "):
+        return remove_spaces(my_str[:-1])
+    else:
+        return my_str
 
 class Course:
-    # constructor
 
+    # constructor
     def __init__(self, dept, num, name):
-        self.__dept = dept.upper()
-        self.__num = num
-        self.__name = name
+        self.__dept = remove_spaces(dept.upper())
+        self.__num = remove_spaces(num)
+        self.__name = remove_spaces(name)
         self.__lecture = None
         self.__recitation = None
         self.__lab = None
@@ -29,7 +39,7 @@ class Course:
         if len(local_dept) not in range(1, 5):  # department should be between 1 and 4 characters
             raise ValueError(
                 'Department should be between 1 and 4 characters. Ex: CS, HHS, E')
-        self.__dept = local_dept.upper()
+        self.__dept = remove_spaces(local_dept.upper())
     # course number setter/getter
 
     @property
@@ -39,7 +49,7 @@ class Course:
     @num.setter
     def num(seld, local_num):
         if len(local_num) == 2:
-            self.__num = local_num
+            self.__num = remove_spaces(local_num)
         else:
             raise ValueError(
                 'Number should be three digits. Ex: 115, 221, 468')
@@ -51,7 +61,7 @@ class Course:
 
     @name.setter
     def name(self, local_name):
-        self.__name = local_name
+        self.__name = remove_spaces(local_name)
 
     # course lecture setter/getter
     @property
@@ -124,7 +134,7 @@ class Course:
         return "<Course {'dept':'" + str(self.__dept) + "', 'num':" + str(self.__num) + ", 'name':" + str(self.__name) + "}>"
 
     def getHTML(self):
-        title = '<h3 id="' + self.__dept + '">' + self.__name + '</h3>'
+        title = '<h3 id="' + self.__dept + '">' + self.__dept + self.__num + " - " + self.__name + '</h3>'
         info = ''
         if (self.__lecture != None):
             print "Adding info"
@@ -145,7 +155,29 @@ class Course:
                 other_stuff = other_stuff + '<a href="http://sitstuff.com/books/new/' + \
                     book + '" target="_blank">' + self.books[book] + '</a><br>'
             other_stuff = other_stuff + '</fieldset>'
+        else:
+            other_stuff = ""
         return title + info + other_stuff
+
+
+def load_data():
+    """Loads the data from the .dat file"""
+    my_dir = os.path.dirname(__file__)
+    file_path = os.path.join(my_dir, 'courses.dat')
+    try:
+        with open(file_path) as f:
+            data = pickle.load(f)
+    except:
+        data = []
+    return data
+
+
+def save_data(data):
+    """Saves the data to the .dat file"""
+    my_dir = os.path.dirname(__file__)
+    file_path = os.path.join(my_dir, 'courses.dat')
+    with open(file_path, "wb") as f:
+        pickle.dump(data, f)
 
 '''
     myC = Course('cs', '115', 'Intro to Computer Science')
