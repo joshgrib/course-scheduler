@@ -3,28 +3,16 @@
 
 {% block content %}
     <h2>Courses</h2>
+
     <h4><b>Skip to letter:</b>
-    {% for letter in letter_links[:-1] %}
-        <a href="#{{ letter }}">{{ letter }}</a>-
+    {% for letters in letter_links[:-1] %}
+        <a href="#{{ letters }}">{{ letters }}</a>-
     {% endfor %}
     <a href="#{{letter_links[-1]}}">{{ letter_links[-1] }}</a></h4>
     Note: All the books here are just for my use and are definitely not allowed to be used by anyone else<br>
 
     {% for course in sorted_c %}
-        <h3 id="{{ course[0] }}"> {{ course }} </h3>
-        {% for part in courses[course]['info'] %}
-        <b>{{ part }}:</b>    {{ courses[course]['info'][part] }}<br>
-        {% endfor %}
-        {% if ('materials' in courses[course]) or ('books' in courses[course]) %}
-        <fieldset><legend> Books and required stuff </legend>
-            {% for material in courses[course]['materials'] %}
-                {{ material }}<br>
-            {% endfor %}
-            {% for book in courses[course]['books'] %}
-                <a href="{{ courses[course]['books'][book]['url'] }}" target="_blank">{{ courses[course]['books'][book]['name'] }}</a><br>
-            {% endfor %}
-        {% endif %}
-        </fieldset>
+        {{ course.getHTML()|safe }}
     {% endfor %}
 
 {% endblock %}
