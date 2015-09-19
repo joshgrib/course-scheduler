@@ -5,12 +5,13 @@ import json
 import os
 import random
 import smtplib
+import random
 import hashlib
 # downloaded
 from flask import Flask, render_template, request, make_response, redirect, session
 # from flask.ext.sqlalchemy import SQLAlchemy #http://flask-sqlalchemy.pocoo.org/2.0/quickstart/
 # files
-from settings import PER_PAGE
+from settings import DEBUG, PER_PAGE
 import scheduler
 import secrets
 import course_class
@@ -19,6 +20,54 @@ import course_class
 app = Flask(__name__)
 
 app.secret_key = secrets.app_secret()
+
+# Start of test area
+
+# Watch - Heroku deployment instructions
+# https://www.youtube.com/watch?v=pmRT8QQLIqk
+
+def get_users_for_page(page_number, per_page, total_users):
+    users = []
+    for i in range(total_users):
+        users += ['Josh' + str(i + 1)]
+    # 20 users, 5 per page, page 3, start = 10
+    users_start = per_page * (page_number - 1)
+    users_end = users_start + per_page
+    if users_start > total_users:
+        return False
+    return users[users_start:users_end]
+
+
+def count_all_users():
+    return 51
+
+
+def is_last_page(page, count, per_page):
+    if count <= (page * per_page):
+        return True
+    return False
+
+
+# Memoize the scheduler page? - Faster but might not update
+
+
+@app.route('/users/', defaults={'page': 1})
+@app.route('/users/page/<int:page>')
+def show_users(page):
+    count = count_all_users()
+    users = get_users_for_page(page, PER_PAGE, count)
+    last_page = is_last_page(page, count, PER_PAGE)
+    if not users and page != 1:
+        return "404 - Not that many users"
+    return render_template('users_test.html',
+                           users=users,
+                           page=page,
+                           count=count,
+                           last_page=last_page
+                           )
+
+
+# End of test area
 
 # Start of actual stuff
 
@@ -163,8 +212,7 @@ def scheduleMe(page):
                            combos=this_page_combos,
                            combo_amount=str(count),
                            page=page,
-                           last_page=last_page,
-                           per_page=PER_PAGE)
+                           last_page=last_page)
 
 
 def sendMsg():
@@ -203,10 +251,7 @@ def admin_view_post():
     j.update(str(text))
     hash_text = j.hexdigest()
     hash_code = session['hash_code']
-<<<<<<< HEAD
     #for debugging just make it if True:
-=======
->>>>>>> 87282d4cf12834b2d55cffd9cf28948b21740f73
     if hash_code == hash_text:
         if (str(request.form['action_choice']) == 'add_co'):
             return render_template('add_course_form.html', title='Add')
@@ -243,10 +288,7 @@ def add_course_view_post():
     j.update(str(text))
     hash_text = j.hexdigest()
     hash_code = session['hash_code']
-<<<<<<< HEAD
     #for debugging just make it if True:
-=======
->>>>>>> 87282d4cf12834b2d55cffd9cf28948b21740f73
     if hash_code == hash_text:
         c_dept = str(request.form['course_dept'])
         c_num = str(request.form['course_num'])
@@ -288,10 +330,7 @@ def edit_course_view_post():
     j.update(str(text))
     hash_text = j.hexdigest()
     hash_code = session['hash_code']
-<<<<<<< HEAD
     #for debugging just make it if True:
-=======
->>>>>>> 87282d4cf12834b2d55cffd9cf28948b21740f73
     if hash_code == hash_text:
         c_dept = str(request.form['course_dept'])
         c_num = str(request.form['course_num'])
