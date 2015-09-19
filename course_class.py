@@ -15,6 +15,26 @@ def remove_spaces(my_str):
         return my_str
 
 
+def load_data():
+    """Loads the data from .dat file... get it? dat file? No? Okay..."""
+    my_dir = os.path.dirname(__file__)
+    file_path = os.path.join(my_dir, 'courses.dat')
+    try:
+        with open(file_path) as f:
+            data = pickle.load(f)
+    except:
+        data = []
+    return data
+
+
+def save_data(data):
+    """Saves the data to the .dat file"""
+    my_dir = os.path.dirname(__file__)
+    file_path = os.path.join(my_dir, 'courses.dat')
+    with open(file_path, "wb") as f:
+        pickle.dump(data, f)
+
+
 class Course:
 
     # constructor
@@ -161,25 +181,28 @@ class Course:
             other_stuff = ""
         return title + info + other_stuff
 
+    def getFormData(self):
+        """Returns everything that has value in a dictionary"""
+        result = {}
+        result['dept'] = self.__dept
+        result['num'] = self.__num
+        result['name'] = self.__name
+        if self.lecture != None:
+            result['lecture'] = self.lecture
+        if self.recitation != None:
+            result['recitation'] = self.recitation
+        if self.lab != None:
+            result['lab'] = self.lab
+        if self.homework != None:
+            result['homework'] = self.homework
+        if self.exams != None:
+            result['exams'] = self.exams
+        if self.final != None:
+            result['final'] = self.final
+        if self.books != None:
+            result['books'] = self.books
+        return result
 
-def load_data():
-    """Loads the data from .dat file... get it? dat file? No? Okay..."""
-    my_dir = os.path.dirname(__file__)
-    file_path = os.path.join(my_dir, 'courses.dat')
-    try:
-        with open(file_path) as f:
-            data = pickle.load(f)
-    except:
-        data = []
-    return data
-
-
-def save_data(data):
-    """Saves the data to the .dat file"""
-    my_dir = os.path.dirname(__file__)
-    file_path = os.path.join(my_dir, 'courses.dat')
-    with open(file_path, "wb") as f:
-        pickle.dump(data, f)
 
 '''
     myC = Course('cs', '115', 'Intro to Computer Science')
