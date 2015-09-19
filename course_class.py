@@ -4,6 +4,7 @@ Class to represent courses for the course info page on sitstuff
 import os
 import pickle
 
+
 def remove_spaces(my_str):
     """Remove the spaces from the end of a string"""
     if(my_str == ""):
@@ -12,6 +13,7 @@ def remove_spaces(my_str):
         return remove_spaces(my_str[:-1])
     else:
         return my_str
+
 
 class Course:
 
@@ -71,8 +73,8 @@ class Course:
     @lecture.setter
     def lecture(self, local_lecture):
         self.__lecture = local_lecture
-    # course recitation setter/getter
 
+    # course recitation setter/getter
     @property
     def recitation(self):
         return self.__recitation
@@ -134,10 +136,10 @@ class Course:
         return "<Course {'dept':'" + str(self.__dept) + "', 'num':" + str(self.__num) + ", 'name':" + str(self.__name) + "}>"
 
     def getHTML(self):
-        title = '<h3 id="' + self.__dept + '">' + self.__dept + self.__num + " - " + self.__name + '</h3>'
+        title = '<h3 id="' + self.__dept + '">' + self.__dept + \
+            self.__num + " - " + self.__name + '</h3>'
         info = ''
-        if (self.__lecture != None):
-            print "Adding info"
+        if (self.lecture != None):
             info = info + '<b>Lecture:</b>' + self.lecture + '<br>'
         if (self.recitation != None):
             info = info + '<b>Recitation:</b>' + self.recitation + '<br>'
@@ -152,7 +154,7 @@ class Course:
         if (self.books != {}):
             other_stuff = '<fieldset><legend> Books and required stuff </legend>'
             for book in self.books:
-                other_stuff = other_stuff + '<a href="http://sitstuff.com/books/new/' + \
+                other_stuff = other_stuff + '<a href="http://sitstuff.com/book/' + \
                     book + '" target="_blank">' + self.books[book] + '</a><br>'
             other_stuff = other_stuff + '</fieldset>'
         else:
@@ -161,7 +163,7 @@ class Course:
 
 
 def load_data():
-    """Loads the data from the .dat file"""
+    """Loads the data from .dat file... get it? dat file? No? Okay..."""
     my_dir = os.path.dirname(__file__)
     file_path = os.path.join(my_dir, 'courses.dat')
     try:
