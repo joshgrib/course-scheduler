@@ -203,7 +203,7 @@ def admin_view_post():
     j.update(str(text))
     hash_text = j.hexdigest()
     hash_code = session['hash_code']
-    if True:#hash_code == hash_text:
+    if hash_code == hash_text:
         if (str(request.form['action_choice']) == 'add_co'):
             return render_template('add_course_form.html', title='Add')
         elif str(request.form['action_choice']) == 'edit_co':
@@ -280,7 +280,7 @@ def edit_course_view_post():
     j.update(str(text))
     hash_text = j.hexdigest()
     hash_code = session['hash_code']
-    if True:#hash_code == hash_text:
+    if hash_code == hash_text:
         c_dept = str(request.form['course_dept'])
         c_num = str(request.form['course_num'])
         c_name = str(request.form['course_name'])
